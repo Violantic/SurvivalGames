@@ -11,6 +11,8 @@ public interface Game {
 
     int maximumPlayers();
 
+    String[] getDescriptions();
+
     Map getMap();
 
     Location getLobby();

@@ -10,6 +10,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.logging.Level;
+
 /**
  * Created by Ethan on 11/3/2016.
  */
@@ -21,15 +26,33 @@ public class SurvivalGames extends JavaPlugin implements Game {
     private GameHandler handler;
 
     private Map lobby;
+    private Map gameMap;
+    private List<Location> startingLocations;
+    private List<UUID> verifiedPlayers;
 
     @Override
     public void onEnable() {
         instance = this;
 
-        lobby = initializeMap();
+        lobby = lobbyMap();
 
         setState(new GameState("waiting"));
         handler = new GameHandler();
+
+        startingLocations = new ArrayList<Location>() {
+            {
+                for(String value : getConfig().getStringList("start_locations")) {
+                    try {
+                        add(LocationUtil.getLocation(gameMap.getWorld(), value));
+                    } catch (Exception e) {
+                        getLogger().log(Level.CONFIG, value + " could not be parsed to a location!");
+                    }
+                }
+            }
+        };
+
+        verifiedPlayers = new ArrayList<>();
+
 
         getServer().getScheduler().runTaskTimer(this, getHandler(), 0l, 20l);
     }
@@ -41,6 +64,14 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
     public static SurvivalGames getInstance() {
         return instance;
+    }
+
+    public List<UUID> getVerifiedPlayers() {
+        return verifiedPlayers;
+    }
+
+    public List<Location> getStartingLocations() {
+        return startingLocations;
     }
 
     public int minimumPlayers() {
@@ -55,11 +86,15 @@ public class SurvivalGames extends JavaPlugin implements Game {
         return null;
     }
 
+    public String[] getDescriptions() {
+        return new String[]{"Survive your longest", "Attempt to eliminate everybody"};
+    }
+
     public Location getLobby() {
         return LocationUtil.getLocation(lobby.getWorld(), getConfig().getString("lobby"));
     }
 
-    public Map initializeMap() {
+    public Map lobbyMap() {
         return new Map("lobby", new String[]{"Mineswine Build Team"}, null);
     }
 
@@ -72,7 +107,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
     }
 
     public Runnable getHandler() {
-        return null;
+        return handler;
     }
 
     public String getPrefix() {
