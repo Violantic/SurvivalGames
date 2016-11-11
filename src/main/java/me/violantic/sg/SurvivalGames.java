@@ -70,6 +70,14 @@ public class SurvivalGames extends JavaPlugin implements Game {
         return verifiedPlayers;
     }
 
+    /**
+     * Return the last user in the verifiex player cache
+     * @return
+     */
+    public UUID getWinner() {
+        return null;
+    }
+
     public List<Location> getStartingLocations() {
         return startingLocations;
     }
