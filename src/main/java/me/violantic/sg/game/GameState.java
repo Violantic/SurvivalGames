@@ -22,7 +22,7 @@ public class GameState {
         this.canBreak = false;
         this.canPlace = false;
         this.canOpen = false;
-        this.canMove = false;
+        this.canMove = true;
     }
 
     public String getName() {

@@ -4,27 +4,31 @@ import me.violantic.sg.SurvivalGames;
 import me.violantic.sg.game.GameState;
 import me.violantic.sg.game.event.GameEndEvent;
 import me.violantic.sg.game.event.GameStartEvent;
+import me.violantic.sg.game.util.ChatUtil;
 import me.violantic.sg.game.util.VoteUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 
 /**
  * Created by Ethan on 11/3/2016.
  */
 public class GameHandler implements Runnable {
 
-    private int second = 60;
+    private int second;
     private boolean lobby = true;
     private boolean started = false;
     private boolean inProgress = false;
     private boolean ready = false;
     private boolean over = false;
+    private boolean voteStarted = false;
 
     public GameHandler() {
-        second = 0;
+        second = 60;
     }
 
     public int players() {
@@ -35,33 +39,52 @@ public class GameHandler implements Runnable {
         return second;
     }
 
+    public void setSecond(int second) {
+        this.second = second;
+    }
+
     /**
      * Second will increment every 20 ticks (If healthy server state, every 1 second).
+     * TODO - Instead of booleans for stages, make use of already existing game state's (I'm an idiot)
      */
     public void run() {
+        if(!SurvivalGames.getInstance().enabled()) return;
+
         // Waits for the
         if(lobby) {
             handleXP();
-            playTick();
-            return;
         }
 
         if(players() >= SurvivalGames.getInstance().minimumPlayers()) {
-            if(second <= 0 && !inProgress) {
+            if(second <= 0 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
+                Bukkit.broadcastMessage(SurvivalGames.getInstance().getPrefix() + "Releasing in 15 second!");
                 GameState progress = new GameState("started");
-                progress.setCanMove(false);
+                progress.setCanMove(true);
                 progress.setCanPVP(false);
                 progress.setCanOpen(false);
                 SurvivalGames.getInstance().setState(progress);
-                Bukkit.getServer().getPluginManager().callEvent(new GameStartEvent(SurvivalGames.getInstance()));
                 inProgress = true;
-                second = 15;
-                return;
+                lobby = false;
+            } else if (second == 15 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
+                SurvivalGames.getInstance().initiateGameMap();
+                SurvivalGames.getInstance().setupLocations();
+                Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                for(Player player : Bukkit.getOnlinePlayers()) {
+                    ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
+                    ChatUtil.sendCenteredMessage(player, "The map voted was " + ChatColor.YELLOW + "" + ChatColor.BOLD + "" + SurvivalGames.getInstance().getGameMapVoter().getWinner());
+                }
+                Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+            } else if(second == 10 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
+                Bukkit.broadcastMessage(SurvivalGames.getInstance().getPrefix() + "Game starting in " + second + " seconds");
+                playTick();
+            } else if(second <= 5 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")){
+                Bukkit.broadcastMessage(SurvivalGames.getInstance().getPrefix() + "Game starting in " + second + " seconds");
+                playTick();
             }
 
-            if(second <= 0 && inProgress && !ready) {
+            if(second <= 0 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("started")) {
                 GameState progress = new GameState("progress");
-                progress.setCanMove(true);
+                progress.setCanMove(false);
                 progress.setCanPVP(true);
                 progress.setCanOpen(true);
                 progress.setCanBreak(true);
@@ -69,39 +92,51 @@ public class GameHandler implements Runnable {
                 SurvivalGames.getInstance().setState(progress);
                 ready = true;
                 second = 10*60;
+                Bukkit.getServer().getPluginManager().callEvent(new GameStartEvent(SurvivalGames.getInstance()));
                 return;
             }
 
-            if(!ready && started && inProgress && second <= 15 && second > 1) {
-                Bukkit.broadcastMessage(SurvivalGames.getInstance().getPrefix() + "Releasing in " + ChatColor.YELLOW + "" + ChatColor.BOLD + "" + second);
-                return;
-            }
-
-            if(ready && !over) {
-                if(SurvivalGames.getInstance().getVerifiedPlayers().size() <= 1) {
+            if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("progress")) {
+                SurvivalGames.getInstance().second = second;
+                handleXP();
+                if(SurvivalGames.getInstance().getVerifiedPlayers().size() == 5) {
                     Bukkit.getServer().getPluginManager().callEvent(new GameEndEvent(SurvivalGames.getInstance(), Bukkit.getPlayer(SurvivalGames.getInstance().getWinner()).getName()));
+                    SurvivalGames.getInstance().setEnable(false);
                     over = true;
                     return;
                 } else if(second == 3*60) {
                     VoteUtil.startDMVote();
                 } else if(second == 60) {
                     VoteUtil.endDMVote();
+                } else if(second == 585) {
+                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                    for(Player player : Bukkit.getOnlinePlayers()) {
+                        ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
+                        ChatUtil.sendCenteredMessage(player, "You have been released!");
+                        ChatUtil.sendCenteredMessage(player, "Try to survive for as long as you can");
+                    }
+                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+
+                    SurvivalGames.getInstance().getState().setCanMove(true);
+                } else if(second > 586) {
+                    playTick();
+                } else if(second >= 3*60 && second <= 4*60) {
+                    if(second % 15 == 0) {
+                        //Bukkit.broadcastMessage(SurvivalGames.getInstance().getPrefix() + "Remember to vote for the death match arena with /dmvote <index>");
+                    }
                 }
             }
 
-            // The lobby is still in progress, and the time is counting down from 60. //
-
-            second--;
-            handleXP();
-
-            lobby = false;
-            if(!started) {
-                started = true;
-                if(second % 30 == 0) {
-                    Bukkit.broadcastMessage(SurvivalGames.getInstance().getPrefix() + "The game will begin in " + ChatColor.YELLOW + "" + ChatColor.BOLD + (second / 60));
-                    return;
+            if(second >= 0) {
+                second--;
+            }
+            if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
+                if(!voteStarted) {
+                    voteStarted = true;
                 }
-                Bukkit.broadcastMessage(SurvivalGames.getInstance().getPrefix() + "The game will begin in " + ChatColor.YELLOW + "" + ChatColor.BOLD + (second / 60));
+                // TODO - Give all players papers to right click (vote for each map)
+                started = true;
+                playTick();
             }
         }
 
@@ -109,12 +144,22 @@ public class GameHandler implements Runnable {
     }
 
     public void playTick() {
-        Bukkit.getOnlinePlayers().forEach((p -> p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1)));
+        Bukkit.getOnlinePlayers().forEach((new Consumer<Player>() {
+            @Override
+            public void accept(Player p) {
+                p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+            }
+        }));
     }
 
     public void handleXP() {
-        AtomicReference<Integer> second = new AtomicReference<>();
+        final AtomicReference<Integer> second = new AtomicReference<Integer>();
         second.compareAndSet(second.get(), this.second);
-        Bukkit.getOnlinePlayers().forEach((p -> p.setLevel(second.get())));
+        Bukkit.getOnlinePlayers().forEach((new Consumer<Player>() {
+            @Override
+            public void accept(Player p) {
+                p.setLevel(second.get());
+            }
+        }));
     }
 }

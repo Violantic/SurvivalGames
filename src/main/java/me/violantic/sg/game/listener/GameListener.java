@@ -4,6 +4,7 @@ import me.violantic.sg.SurvivalGames;
 import me.violantic.sg.game.event.GameEndEvent;
 import me.violantic.sg.game.event.GameStartEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,6 +40,16 @@ public class GameListener implements Listener {
         for(UUID uuid : SurvivalGames.getInstance().getVerifiedPlayers()) {
             Player player = Bukkit.getPlayer(uuid);
             player.teleport(instance.getLobby());
+            if(event.getWinner().equalsIgnoreCase(player.getName())) {
+                instance.getMysql().update(player.getName(), player.getUniqueId().toString(), 1, 1, 0, 0, 0, 25);
+                player.sendMessage(instance.getPrefix() + ChatColor.GREEN + "+25 Rating!");
+                player.sendMessage(instance.getPrefix() + ChatColor.LIGHT_PURPLE + "Good game!");
+            } else {
+                instance.getMysql().update(player.getName(), player.getUniqueId().toString(), 0, 1, 0, 0, 0, 0);
+                player.sendMessage(instance.getPrefix() + ChatColor.LIGHT_PURPLE + "Good game!");
+            }
         }
+
+        instance.setEnable(false);
     }
 }

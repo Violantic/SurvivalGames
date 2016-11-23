@@ -1,0 +1,8 @@
+name: SurvivalGames
+version: 1.0
+main: me.violantic.sg.SurvivalGames
+description: Custom survival games!!!
+
+commands:
+     forcestart:
+          description: Force start the game in lobby!

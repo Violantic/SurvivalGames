@@ -1,0 +1,118 @@
+package me.violantic.sg.handler;
+
+import me.violantic.sg.SurvivalGames;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+
+/**
+ * Created by Ethan on 11/11/2016.
+ */
+public class ScoreboardHandler implements Runnable {
+
+    private String name;
+    private Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+
+    private int iteration;
+    private int letter;
+    private String title = ChatColor.YELLOW + "" + ChatColor.BOLD + "Mine" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Swine";
+
+    final Objective objective = scoreboard.registerNewObjective("GameSB", "dummy");
+    final org.bukkit.scoreboard.Team team = scoreboard.registerNewTeam("team1");
+    final org.bukkit.scoreboard.Team team2 = scoreboard.registerNewTeam("team2");
+    final org.bukkit.scoreboard.Team team3 = scoreboard.registerNewTeam("team3");
+    final org.bukkit.scoreboard.Team team4 = scoreboard.registerNewTeam("team4");
+    final org.bukkit.scoreboard.Team team5 = scoreboard.registerNewTeam("team5");
+    final org.bukkit.scoreboard.Team team6 = scoreboard.registerNewTeam("team6");
+    final org.bukkit.scoreboard.Team team7 = scoreboard.registerNewTeam("team7");
+    final org.bukkit.scoreboard.Team team8 = scoreboard.registerNewTeam("team8");
+    final org.bukkit.scoreboard.Team team9 = scoreboard.registerNewTeam("team9");
+    final org.bukkit.scoreboard.Team team10 = scoreboard.registerNewTeam("team10");
+
+
+    public ScoreboardHandler(String name) {
+        this.name = name;
+
+        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        team.addPlayer(Bukkit.getOfflinePlayer(ChatColor.AQUA.toString()));
+        team2.addPlayer(Bukkit.getOfflinePlayer(ChatColor.STRIKETHROUGH.toString()));
+        team3.addPlayer(Bukkit.getOfflinePlayer(ChatColor.BLACK.toString()));
+        team4.addPlayer(Bukkit.getOfflinePlayer(ChatColor.BLUE.toString()));
+        team5.addPlayer(Bukkit.getOfflinePlayer(ChatColor.DARK_AQUA.toString()));
+        team6.addPlayer(Bukkit.getOfflinePlayer(ChatColor.DARK_PURPLE.toString()));
+        team7.addPlayer(Bukkit.getOfflinePlayer(ChatColor.DARK_GREEN.toString()));
+        team8.addPlayer(Bukkit.getOfflinePlayer(ChatColor.DARK_BLUE.toString()));
+        team9.addPlayer(Bukkit.getOfflinePlayer(ChatColor.DARK_GRAY.toString()));
+        team10.addPlayer(Bukkit.getOfflinePlayer(ChatColor.DARK_RED.toString()));
+        objective.getScore(ChatColor.AQUA.toString()).setScore(10);
+        objective.getScore(ChatColor.STRIKETHROUGH.toString()).setScore(9);
+        objective.getScore(ChatColor.BLACK.toString()).setScore(8);
+        objective.getScore(ChatColor.BLUE.toString()).setScore(7);
+        objective.getScore(ChatColor.DARK_AQUA.toString()).setScore(6);
+        objective.getScore(ChatColor.DARK_PURPLE.toString()).setScore(5);
+        objective.getScore(ChatColor.DARK_GREEN.toString()).setScore(4);
+        objective.getScore(ChatColor.DARK_BLUE.toString()).setScore(3);
+        objective.getScore(ChatColor.DARK_GRAY.toString()).setScore(2);
+        objective.getScore(ChatColor.DARK_RED.toString()).setScore(1);
+
+        objective.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "Mine" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Swine");
+        team.setPrefix("");
+        team2.setPrefix(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Survivors");
+        team3.setPrefix(ChatColor.GRAY + "" + SurvivalGames.getInstance().getVerifiedPlayers().size());
+        team4.setPrefix("");
+        team5.setPrefix(ChatColor.LIGHT_PURPLE + "State");
+        team6.setPrefix(ChatColor.GRAY + (SurvivalGames.getInstance().getState().getName()));
+        team7.setPrefix("");
+    }
+
+    public Scoreboard getScoreboard() {
+        return scoreboard;
+    }
+
+    @Override
+    public void run() {
+        if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) return;
+
+        /**
+        if(iteration >= title.length()*2) {
+            iteration = 0;
+        }
+        iteration++;
+
+        if(letter >= title.length()) {
+            letter = 0;
+        }
+        letter++;
+
+        String temp = ChatColor.stripColor(title);
+        char[] l = temp.toCharArray();
+        char current = l[letter];
+        StringBuilder builder = new StringBuilder();
+        int count = 0;
+        for(char c : l) {
+            count++;
+            if(c == current) {
+                builder.append(ChatColor.WHITE + "" + ChatColor.BOLD).append(c);
+            } else if(count < 4) {
+                builder.append(ChatColor.YELLOW + "" + ChatColor.BOLD + c);
+            } else if(count > 4) {
+                builder.append(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + c);
+            }
+        }
+         **/
+
+        //objective.setDisplayName(builder.toString());
+        team3.setPrefix(ChatColor.GRAY + "" + SurvivalGames.getInstance().getVerifiedPlayers().size());
+        team6.setPrefix(ChatColor.GRAY + SurvivalGames.getInstance().getState().getName());
+
+        team8.setPrefix(ChatColor.LIGHT_PURPLE + "Death Match");
+        team9.setPrefix(ChatColor.GRAY + "In " + (SurvivalGames.getInstance().second/60) + " minutes");
+
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            player.setScoreboard(scoreboard);
+        }
+    }
+}

@@ -9,12 +9,19 @@ import java.util.UUID;
  */
 public class MapVoter {
 
+    private String name;
+
     private java.util.Map<String, Integer> values;
     private java.util.Map<UUID, String> voters;
 
-    public MapVoter(Map<String, Integer> maps) {
+    public MapVoter(String name, Map<String, Integer> maps) {
         this.values = maps;
-        this.voters = new HashMap<>();
+        this.voters = new HashMap<UUID, String>();
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public java.util.Map<String, Integer> getValues() {
@@ -52,19 +59,14 @@ public class MapVoter {
     }
 
     public String getWinner() {
-        int maxValue = Integer.MIN_VALUE;
-        for (int value : values.values()) {
-            if (value > maxValue) {
-                maxValue = value;
-            }
-            for(String k : values.keySet()) {
-                if(values.get(k) == maxValue) {
-                    return k;
-                }
+        Map.Entry<String, Integer> maxEntry = null;
+        for(Map.Entry<String, Integer> entry : getValues().entrySet()) {
+            if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
+                maxEntry = entry;
             }
         }
 
-        return null;
+        return maxEntry != null ? maxEntry.getKey() : null;
     }
 
 
