@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 /**
  * Created by Ethan on 11/23/2016.
  */
-public enum ChestContents {
+public enum ChestContent {
 
     APPLE         (1, new ItemBuilder(Material.APPLE).setAmount(1).build(), 60),
     ARROW         (2, new ItemBuilder(Material.ARROW).setAmount(12).build(), 15),
@@ -51,12 +51,11 @@ public enum ChestContents {
     SWORD_G       (37, new ItemBuilder(Material.GOLD_SWORD).setAmount(1).build(), 45),
     SWORD_D       (38, new ItemBuilder(Material.DIAMOND_SWORD).setAmount(1).build(), 3);
 
-
     private int id;
     private ItemStack item;
     private double chance;
 
-    ChestContents(int id, ItemStack item, double chance) {
+    ChestContent(int id, ItemStack item, double chance) {
         this.id = id;
         this.item = item;
         this.chance = chance;
@@ -72,5 +71,17 @@ public enum ChestContents {
 
     public double getChance() {
         return chance;
+    }
+
+    public static ChestContent get(int id) {
+        for(ChestContent content : values()) {
+            if(content.getId() == id) return content;
+        }
+
+        return null;
+    }
+
+    public enum Tier {
+        I, II
     }
 }

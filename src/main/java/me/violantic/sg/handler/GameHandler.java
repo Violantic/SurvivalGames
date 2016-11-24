@@ -21,10 +21,6 @@ public class GameHandler implements Runnable {
 
     private int second;
     private boolean lobby = true;
-    private boolean started = false;
-    private boolean inProgress = false;
-    private boolean ready = false;
-    private boolean over = false;
     private boolean voteStarted = false;
 
     public GameHandler() {
@@ -63,7 +59,6 @@ public class GameHandler implements Runnable {
                 progress.setCanPVP(false);
                 progress.setCanOpen(false);
                 SurvivalGames.getInstance().setState(progress);
-                inProgress = true;
                 lobby = false;
             } else if (second == 15 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
                 SurvivalGames.getInstance().initiateGameMap();
@@ -77,6 +72,9 @@ public class GameHandler implements Runnable {
             } else if(second == 10 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
                 Bukkit.broadcastMessage(SurvivalGames.getInstance().getPrefix() + "Game starting in " + second + " seconds");
                 playTick();
+
+                // Start loading new crates so players don't get antsy. //
+                SurvivalGames.getInstance().getCrateGenerator().start();
             } else if(second <= 5 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")){
                 Bukkit.broadcastMessage(SurvivalGames.getInstance().getPrefix() + "Game starting in " + second + " seconds");
                 playTick();
@@ -90,7 +88,6 @@ public class GameHandler implements Runnable {
                 progress.setCanBreak(true);
                 progress.setCanPlace(true);
                 SurvivalGames.getInstance().setState(progress);
-                ready = true;
                 second = 10*60;
                 Bukkit.getServer().getPluginManager().callEvent(new GameStartEvent(SurvivalGames.getInstance()));
                 return;
@@ -102,7 +99,6 @@ public class GameHandler implements Runnable {
                 if(SurvivalGames.getInstance().getVerifiedPlayers().size() == 5) {
                     Bukkit.getServer().getPluginManager().callEvent(new GameEndEvent(SurvivalGames.getInstance(), Bukkit.getPlayer(SurvivalGames.getInstance().getWinner()).getName()));
                     SurvivalGames.getInstance().setEnable(false);
-                    over = true;
                     return;
                 } else if(second == 3*60) {
                     VoteUtil.startDMVote();
@@ -135,7 +131,6 @@ public class GameHandler implements Runnable {
                     voteStarted = true;
                 }
                 // TODO - Give all players papers to right click (vote for each map)
-                started = true;
                 playTick();
             }
         }

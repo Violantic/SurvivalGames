@@ -16,8 +16,6 @@ public class ScoreboardHandler implements Runnable {
     private String name;
     private Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
-    private int iteration;
-    private int letter;
     private String title = ChatColor.YELLOW + "" + ChatColor.BOLD + "Mine" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Swine";
 
     final Objective objective = scoreboard.registerNewObjective("GameSB", "dummy");
@@ -76,35 +74,6 @@ public class ScoreboardHandler implements Runnable {
     public void run() {
         if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) return;
 
-        /**
-        if(iteration >= title.length()*2) {
-            iteration = 0;
-        }
-        iteration++;
-
-        if(letter >= title.length()) {
-            letter = 0;
-        }
-        letter++;
-
-        String temp = ChatColor.stripColor(title);
-        char[] l = temp.toCharArray();
-        char current = l[letter];
-        StringBuilder builder = new StringBuilder();
-        int count = 0;
-        for(char c : l) {
-            count++;
-            if(c == current) {
-                builder.append(ChatColor.WHITE + "" + ChatColor.BOLD).append(c);
-            } else if(count < 4) {
-                builder.append(ChatColor.YELLOW + "" + ChatColor.BOLD + c);
-            } else if(count > 4) {
-                builder.append(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + c);
-            }
-        }
-         **/
-
-        //objective.setDisplayName(builder.toString());
         team3.setPrefix(ChatColor.GRAY + "" + SurvivalGames.getInstance().getVerifiedPlayers().size());
         team6.setPrefix(ChatColor.GRAY + SurvivalGames.getInstance().getState().getName());
 

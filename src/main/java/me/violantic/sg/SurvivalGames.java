@@ -6,6 +6,7 @@ import me.violantic.sg.game.Map;
 import me.violantic.sg.game.MapVoter;
 import me.violantic.sg.game.listener.GameListener;
 import me.violantic.sg.game.listener.PlayerListener;
+import me.violantic.sg.game.util.CrateGenerator;
 import me.violantic.sg.game.util.LocationUtil;
 import me.violantic.sg.game.util.MysqlUtil;
 import me.violantic.sg.handler.GameHandler;
@@ -47,6 +48,8 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
     private ScoreboardHandler scoreboardHandler;
     private java.util.Map<String, String> scoreboardValues;
+
+    private CrateGenerator crateGenerator;
 
     private MysqlUtil mysql;
 
@@ -94,6 +97,8 @@ public class SurvivalGames extends JavaPlugin implements Game {
         scoreboardValues.put("alive", getVerifiedPlayers().size() + "");
 
         scoreboardHandler = new ScoreboardHandler("SG");
+
+        crateGenerator = new CrateGenerator();
 
         getServer().getScheduler().runTaskTimer(this, getHandler(), 0l, 20l);
         getServer().getScheduler().runTaskTimer(this, scoreboardHandler, 0l, 20l);
@@ -150,6 +155,10 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
     public ScoreboardHandler getScoreboardHandler() {
         return scoreboardHandler;
+    }
+
+    public CrateGenerator getCrateGenerator() {
+        return crateGenerator;
     }
 
     public boolean enabled() {
