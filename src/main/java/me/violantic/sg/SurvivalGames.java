@@ -12,6 +12,7 @@ import me.violantic.sg.game.util.MysqlUtil;
 import me.violantic.sg.handler.GameHandler;
 import me.violantic.sg.handler.ScoreboardHandler;
 import me.violantic.sg.handler.VoteHandler;
+import me.violantic.sg.handler.WaitingGlassAnimationHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -50,6 +51,8 @@ public class SurvivalGames extends JavaPlugin implements Game {
     private java.util.Map<String, String> scoreboardValues;
 
     private CrateGenerator crateGenerator;
+
+    private WaitingGlassAnimationHandler waitingGlassAnimationHandler;
 
     private MysqlUtil mysql;
 
@@ -233,6 +236,8 @@ public class SurvivalGames extends JavaPlugin implements Game {
                 getLogger().log(Level.CONFIG, location.toString() + " could not be parsed to a location!");
             }
         }
+
+        this.waitingGlassAnimationHandler = new WaitingGlassAnimationHandler(getGameMap().getWorld(), getStartingLocations());
     }
 
     public String[] getDescriptions() {

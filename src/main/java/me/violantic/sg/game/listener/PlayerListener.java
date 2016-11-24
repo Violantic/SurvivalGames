@@ -1,7 +1,6 @@
 package me.violantic.sg.game.listener;
 
 import me.violantic.sg.SurvivalGames;
-import me.violantic.sg.game.util.CrateUtil;
 import me.violantic.sg.game.util.LocationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -132,6 +131,14 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onOpen(PlayerInteractEvent event) {
+        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || !event.getAction().equals(Action.RIGHT_CLICK_AIR))
+            return;
+
+        if (!instance.getState().isCanOpen()) {
+            event.setCancelled(true);
+        }
+
+        // Voting //
         if (event.getPlayer().getItemInHand().getType() == Material.PAPER) {
             if(!instance.getState().getName().equalsIgnoreCase("waiting")) return;
 
@@ -143,18 +150,13 @@ public class PlayerListener implements Listener {
             event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
             event.getPlayer().sendMessage(instance.getPrefix() + "You have voted for: " + ChatColor.YELLOW + name);
         }
-        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || !event.getAction().equals(Action.RIGHT_CLICK_AIR))
-            return;
 
-        if (!instance.getState().isCanOpen()) {
-            event.setCancelled(true);
-        }
-
-        if(CrateUtil.tier1.contains(event.getClickedBlock().getLocation())) {
-            CrateUtil.tier1.remove(event.getClickedBlock().getLocation());
+        // Opening loot //
+        if(instance.getCrateGenerator().tier1.contains(event.getClickedBlock().getLocation())) {
+            instance.getCrateGenerator().tier1.remove(event.getClickedBlock().getLocation());
             instance.getMysql().update(event.getPlayer().getName(), event.getPlayer().getUniqueId().toString(), 0, 0, 0, 0, 1, 1);
-        } else if(CrateUtil.tier2.contains(event.getClickedBlock().getLocation())) {
-            CrateUtil.tier2.remove(event.getClickedBlock().getLocation());
+        } else if(instance.getCrateGenerator().tier2.contains(event.getClickedBlock().getLocation())) {
+            instance.getCrateGenerator().tier2.remove(event.getClickedBlock().getLocation());
             instance.getMysql().update(event.getPlayer().getName(), event.getPlayer().getUniqueId().toString(), 0, 0, 0, 0, 1, 1);
         }
     }
