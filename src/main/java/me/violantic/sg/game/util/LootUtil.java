@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class LootUtil {
 
     public static List<ChestContent> getRandomContents(ChestContent.Tier t) {
-        List<ChestContent> contents = new ArrayList<>();
+        List<ChestContent> contents = new ArrayList<ChestContent>();
             switch(t) {
                 case I:
                     // Add ten items no matter the percentage. //
@@ -30,7 +30,7 @@ public class LootUtil {
                     break;
                 case II:
                     // Add 10 items for all items 40% or rarer. //
-                    List<ChestContent> possible = new ArrayList<>();
+                    List<ChestContent> possible = new ArrayList<ChestContent>();
                     for(ChestContent rare : ChestContent.values()) {
                         if (rare.getChance() <= 40.0D) {
                             possible.add(rare);

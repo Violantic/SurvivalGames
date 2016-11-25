@@ -19,8 +19,8 @@ public class CrateGenerator {
     public List<Location> tier2;
 
     public CrateGenerator() {
-        tier1 = new ArrayList<>();
-        tier2 = new ArrayList<>();
+        tier1 = new ArrayList<Location>();
+        tier2 = new ArrayList<Location>();
     }
 
     public void start() {

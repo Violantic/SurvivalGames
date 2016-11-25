@@ -117,17 +117,17 @@ public class SurvivalGames extends JavaPlugin implements Game {
                 if (command.getName().equalsIgnoreCase("forcestart")) {
                     if (getState().getName().equalsIgnoreCase("progress")) {
                         if (handler.getSecond() < 585) {
-                            commandSender.sendMessage("Game is already started!");
+                            commandSender.sendMessage(getPrefix() + ChatColor.RED + "Game is already started!");
                         } else {
                             handler.setSecond(590);
-                            commandSender.sendMessage("Starting game!");
+                            commandSender.sendMessage(getPrefix() + "Starting game!");
                         }
                         return false;
                     } else if (getState().getName().equalsIgnoreCase("waiting")) {
-                        commandSender.sendMessage("Game is now choosing map, and will start!");
+                        commandSender.sendMessage(getPrefix() + "Game is now choosing map, and will start!");
                         handler.setSecond(16);
                     } else if (getState().getName().equalsIgnoreCase("started")) {
-                        commandSender.sendMessage("Game is already processing!");
+                        commandSender.sendMessage(getPrefix() + ChatColor.RED + "Game is already processing!");
                         return false;
                     }
                     return true;

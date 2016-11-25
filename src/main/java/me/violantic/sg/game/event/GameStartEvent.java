@@ -3,7 +3,6 @@ package me.violantic.sg.game.event;
 import me.violantic.sg.SurvivalGames;
 import me.violantic.sg.game.Game;
 import me.violantic.sg.game.util.ChatUtil;
-import me.violantic.sg.game.util.CrateUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -26,7 +25,6 @@ public class GameStartEvent extends Event {
     private Game game;
     public GameStartEvent(Game game) {
         this.game = game;
-        CrateUtil.start();
         for (Player online : SurvivalGames.getInstance().getServer().getOnlinePlayers()) {
             online.playSound(online.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
             //TitleUtil.sendTitle(online, 10, 20 * 5, 10, ChatColor.YELLOW + SurvivalGames.getInstance().getPrefix(), ChatColor.RESET + Arrays.asList(SurvivalGames.getInstance().getMap().getCreators()).toString());

@@ -27,8 +27,8 @@ public class WaitingGlassAnimationHandler implements Runnable {
     public WaitingGlassAnimationHandler(World world, List<Location> initiated) {
         this.world = world;
         this.initiated = initiated;
-        this.animation = new ConcurrentHashMap<>();
-        this.garbage = new ArrayList<>();
+        this.animation = new ConcurrentHashMap<Location, Integer>();
+        this.garbage = new ArrayList<Location>();
     }
 
     @Override
