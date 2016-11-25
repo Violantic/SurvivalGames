@@ -52,25 +52,24 @@ public class GameHandler implements Runnable {
         }
 
         if(players() >= SurvivalGames.getInstance().minimumPlayers()) {
-            if(second <= 0 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
-                Bukkit.broadcastMessage(SurvivalGames.getInstance().getPrefix() + "Releasing in 15 second!");
+            if(second == 0 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
+                Bukkit.broadcastMessage(SurvivalGames.getInstance().getPrefix() + "Starting in 50 seconds!");
                 GameState progress = new GameState("started");
                 progress.setCanMove(true);
                 progress.setCanPVP(false);
                 progress.setCanOpen(false);
                 SurvivalGames.getInstance().setState(progress);
-                lobby = false;
             } else if (second == 15 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
-                SurvivalGames.getInstance().initiateGameMap();
-                SurvivalGames.getInstance().setupLocations();
                 Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                 for(Player player : Bukkit.getOnlinePlayers()) {
                     ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
                     ChatUtil.sendCenteredMessage(player, "The map voted was " + ChatColor.YELLOW + "" + ChatColor.BOLD + "" + SurvivalGames.getInstance().getGameMapVoter().getWinner());
                 }
                 Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                SurvivalGames.getInstance().initiateGameMap();
             } else if(second == 10 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
                 Bukkit.broadcastMessage(SurvivalGames.getInstance().getPrefix() + "Game starting in " + second + " seconds");
+                SurvivalGames.getInstance().setupLocations();
                 playTick();
 
                 // Start loading new crates so players don't get antsy. //

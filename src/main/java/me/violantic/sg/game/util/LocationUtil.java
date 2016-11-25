@@ -1,5 +1,6 @@
 package me.violantic.sg.game.util;
 
+import me.violantic.sg.SurvivalGames;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -23,7 +24,7 @@ public class LocationUtil {
 
     public static ArrayList<Location> getCircle(Location center, double radius, int amount)
     {
-        World world = center.getWorld();
+        World world = SurvivalGames.getInstance().getGameMap().getWorld();
         double increment = (2 * Math.PI) / amount;
         ArrayList<Location> locations = new ArrayList<Location>();
         for(int i = 0;i < amount; i++)

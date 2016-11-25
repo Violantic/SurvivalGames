@@ -61,7 +61,7 @@ public class MapVoter {
     public String getWinner() {
         Map.Entry<String, Integer> maxEntry = null;
         for(Map.Entry<String, Integer> entry : getValues().entrySet()) {
-            if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
+            if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) >= 0) {
                 maxEntry = entry;
             }
         }

@@ -26,7 +26,7 @@ public class Map {
         this.spawnLocations = spawnLocations;
         try {
             // TODO - get map from location outside of server folder to save storage space
-            FileUtils.copyDirectory(new File("worlds" + File.pathSeparator + name + "_template"), new File(name));
+            FileUtils.copyDirectory(new File(name + "_template"), new File(name));
             this.world = SurvivalGames.getInstance().getServer().createWorld(new WorldCreator(name));
         } catch (IOException e) {
             e.printStackTrace();

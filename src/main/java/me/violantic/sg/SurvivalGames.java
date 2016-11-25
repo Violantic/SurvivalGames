@@ -70,6 +70,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
         lobby = new Map("lobby", new String[]{"Mineswine Build Team"}, null);
 
         setState(new GameState("waiting"));
+        getState().setCanOpen(true);
         handler = new GameHandler();
 
         gameMapVoter = new MapVoter("Game Map", new HashMap<String, Integer>() {
