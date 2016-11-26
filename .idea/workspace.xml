@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1806311f-70bb-42b3-ba26-7880325c73be" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/GameHandler.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/GameHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/LocationUtil.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/LocationUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/Map.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/Map.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/MapVoter.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/MapVoter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SurvivalGames.iws" />
@@ -32,10 +26,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SurvivalGames.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SurvivalGames.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4278846">
+            <state vertical-scroll-proportion="0.0">
               <caret line="229" column="5" selection-start-line="229" selection-start-column="5" selection-end-line="229" selection-end-column="5" />
               <folding>
                 <element signature="e#5285#5286#0" expanded="true" />
@@ -65,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameHandler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/GameHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="71" column="49" selection-start-line="71" selection-start-column="49" selection-end-line="71" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.7355769">
+              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -734,7 +728,7 @@
       <workItem from="1478880252338" duration="47367000" />
       <workItem from="1479254563143" duration="612000" />
       <workItem from="1479873773359" duration="15760000" />
-      <workItem from="1480102788582" duration="3747000" />
+      <workItem from="1480102788582" duration="4375000" />
     </task>
     <task id="LOCAL-00001" summary="Added map voter">
       <created>1478844058334</created>
@@ -778,11 +772,17 @@
       <option name="project" value="LOCAL" />
       <updated>1480103708130</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fixed force start, and added worlds folder support">
+      <created>1480106560055</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1480106560055</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99492000" />
+    <option name="totallyTimeSpent" value="100120000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="62" y="18" width="1873" height="1079" extended-state="0" />
@@ -796,7 +796,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32783505" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32783505" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16047388" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1247,7 +1247,7 @@
         <state vertical-scroll-proportion="0.2670157">
           <caret line="18" column="63" selection-start-line="18" selection-start-column="63" selection-end-line="18" selection-end-column="63" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1257,8 +1257,8 @@
         <state vertical-scroll-proportion="1.0625">
           <caret line="51" column="24" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
           <folding>
-            <element signature="e#1014#1015#0" expanded="true" />
-            <element signature="e#1044#1045#0" expanded="true" />
+            <element signature="e#1014#1015#0" expanded="false" />
+            <element signature="e#1044#1045#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1303,17 +1303,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/GameHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="49" selection-start-line="71" selection-start-column="49" selection-end-line="71" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4278846">
+        <state vertical-scroll-proportion="0.0">
           <caret line="229" column="5" selection-start-line="229" selection-start-column="5" selection-end-line="229" selection-end-column="5" />
           <folding>
             <element signature="e#5285#5286#0" expanded="true" />
@@ -1339,6 +1331,14 @@
             <element signature="e#6938#6939#0" expanded="true" />
             <element signature="e#6968#6969#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/GameHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7355769">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
