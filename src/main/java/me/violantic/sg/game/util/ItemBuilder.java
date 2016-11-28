@@ -33,7 +33,7 @@ public class ItemBuilder {
     }
     @SuppressWarnings("deprecation")
     public ItemBuilder setData(DyeColor color){
-        item.getData().setData(color.getData());
+        item.getData().setData(color.getDyeData());
         return this;
     }
     public ItemBuilder addEnchant(Enchantment e, int level){
