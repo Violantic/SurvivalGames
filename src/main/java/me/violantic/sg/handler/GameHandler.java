@@ -121,10 +121,13 @@ public class GameHandler implements Runnable {
                     VoteUtil.endDMVote();
                 } else if (second == 585) {
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                    Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
+                        Bukkit.broadcastMessage("");
                         ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "You have been released!");
                         ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Try to survive for as long as you can");
+                        Bukkit.broadcastMessage("");
                     }
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
 

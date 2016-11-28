@@ -30,7 +30,7 @@ public class CrateGenerator {
 
     public void start(final String map) {
         // Only has to loop through map once. //
-        all = getCrates(Bukkit.getWorld(map), new Location(Bukkit.getWorld(map), 0,0,0), new Location(Bukkit.getWorld(map), 100, 100, 100));
+        all = getCrates(Bukkit.getWorld(map), new Location(Bukkit.getWorld(map), -1704,84,815), new Location(Bukkit.getWorld(map), -1671,106,847));
 
         new BukkitRunnable() {
             public void run() {

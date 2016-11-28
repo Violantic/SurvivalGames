@@ -1,11 +1,13 @@
 package me.violantic.sg.game.util;
 
 import me.violantic.sg.SurvivalGames;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.UUID;
 import java.util.logging.Level;
 
 /**
@@ -59,6 +61,52 @@ public class MysqlUtil {
 
         return connection;
     }
+
+    public String[] getStats(String name, String uuid){
+        final String query = "SELECT * FROM s_games WHERE uuid='" + uuid + "';";
+        try {
+            final PreparedStatement statement = getConnection().prepareStatement(query);
+            final ResultSet set = statement.executeQuery();
+            while(set.next()) {
+                if(set.getString("name") == null) {
+                    String add = "INSERT INTO s_games VALUES(NULL, " + name + ", " + uuid + ", 0, 0, 0, 0, 0, 0";
+                    final PreparedStatement addStatement = getConnection().prepareStatement(add);
+                    new BukkitRunnable() {
+                        public void run() {
+                            try {
+                                addStatement.executeUpdate();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }.runTaskAsynchronously(SurvivalGames.getInstance());
+                }
+
+                UUID id = UUID.fromString(uuid);
+                Player player = Bukkit.getPlayer(id);
+
+                if(player != null) {
+                    player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------------");
+                    player.sendMessage("");
+                    ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
+                    player.sendMessage("");
+                    ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Rating: " + ChatColor.LIGHT_PURPLE + set.getInt("points"));
+                    ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Kills: " + ChatColor.LIGHT_PURPLE + set.getInt("kills"));
+                    ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Deaths: " + ChatColor.LIGHT_PURPLE + set.getInt("deaths"));
+                    ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Chests Opened: " + ChatColor.LIGHT_PURPLE + set.getInt("chests_opened"));
+                    ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Games Played: " + ChatColor.LIGHT_PURPLE + set.getInt("games"));
+                    player.sendMessage("");
+                    player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------------");
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     public void update(String name, String uuid, int newWins, int newGames,int newKills, int newDeaths, int newChests, int newPoints) {
         try {

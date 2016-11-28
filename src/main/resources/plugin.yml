@@ -8,3 +8,5 @@ commands:
           description: Force start the game in lobby!
      forceend:
           description: Force end the game!
+     stats:
+          description: Check your stats on SG!

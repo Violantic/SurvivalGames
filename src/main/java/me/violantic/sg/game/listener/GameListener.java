@@ -37,8 +37,7 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onEnd(GameEndEvent event) {
-        for(UUID uuid : SurvivalGames.getInstance().getVerifiedPlayers()) {
-            Player player = Bukkit.getPlayer(uuid);
+        for(Player player : Bukkit.getOnlinePlayers()) {
             player.teleport(instance.getLobby());
             if(event.getWinner().equalsIgnoreCase(player.getName())) {
                 instance.getMysql().update(player.getName(), player.getUniqueId().toString(), 1, 1, 0, 0, 0, 25);

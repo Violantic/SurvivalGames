@@ -83,7 +83,7 @@ public class ScoreboardHandler implements Runnable {
         if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("progress")) {
             String seconds = ((numberOfSeconds < 10) ? ("0"+numberOfSeconds) : numberOfSeconds + "");
             String minutes = ((numberOfMinutes < 10) ? ("0"+numberOfMinutes) + ":" : numberOfMinutes + ":") + seconds;
-            team10.setPrefix(ChatColor.GRAY + minutes);
+            team9.setPrefix(ChatColor.GRAY + minutes);
         }
 
         for(Player player : Bukkit.getOnlinePlayers()) {

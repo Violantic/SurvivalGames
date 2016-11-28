@@ -20,6 +20,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -137,7 +138,15 @@ public class SurvivalGames extends JavaPlugin implements Game {
                         return false;
                     }
                     return true;
-                } else if (command.getName().equalsIgnoreCase("forceend")) {
+                }
+                return false;
+            }
+        });
+
+        getCommand("forceend").setExecutor(new CommandExecutor() {
+            @Override
+            public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+                if (command.getName().equalsIgnoreCase("forceend")) {
                     if (getState().getName().equalsIgnoreCase("progress")) {
                         handler.setSecond(3);
                         commandSender.sendMessage(getPrefix() + "Ending game!");
@@ -152,7 +161,20 @@ public class SurvivalGames extends JavaPlugin implements Game {
             }
         });
 
-        mysql = new MysqlUtil("158.69.52.8", 3306, "SurvivalGames", "minecraft", "W87HyA44pp2sEFgC");
+        getCommand("stats").setExecutor(new CommandExecutor() {
+            @Override
+            public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+                if(command.getName().equalsIgnoreCase("stats")) {
+                    if(commandSender instanceof Player) {
+                        Player player = (Player) commandSender;
+
+                    }
+                }
+                return false;
+            }
+        });
+
+        mysql = new MysqlUtil("149.56.96.176", 3306, "survivalgames", "root", "ts8VdmKN2uTNYaAw");
     }
 
     @Override
@@ -198,6 +220,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
     /**
      * Return the last user in the verifiex player cache
+     *
      * @return
      */
     public UUID getWinner() {
@@ -249,7 +272,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
     }
 
     public void setupLocations() {
-        for(Location location : LocationUtil.getCircle(LocationUtil.getLocation(getGameMap().getWorld().getName(), getConfig().getString("center")), 21, 24)) {
+        for (Location location : LocationUtil.getCircle(LocationUtil.getLocation(getGameMap().getWorld().getName(), getConfig().getString("center")), 21, 24)) {
             try {
                 getStartingLocations().add(location);
             } catch (Exception e) {
