@@ -69,10 +69,10 @@ public class MysqlUtil {
                             + uuid + ", ((SELECT wins WHERE uuid='" + uuid + "')+"
                             + newWins + "), ((SELECT games WHERE uuid='" + uuid + "')+"
                             + newGames + "), ((SELECT kills WHERE uuid='" + uuid + "')+"
-                            + newKills + ", ((SELECT deaths WHERE uuid='" + uuid + "')+"
-                            + newDeaths + ", ((SELECT chests_opened WHERE uuid='" + uuid + "')+"
-                            + newChests + ", ((SELECT points WHERE uuid='" + uuid + "')+"
-                            + newPoints + ")");
+                            + newKills + "), ((SELECT deaths WHERE uuid='" + uuid + "')+"
+                            + newDeaths + "), ((SELECT chests_opened WHERE uuid='" + uuid + "')+"
+                            + newChests + "), ((SELECT points WHERE uuid='" + uuid + "')+"
+                            + newPoints + "))");
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

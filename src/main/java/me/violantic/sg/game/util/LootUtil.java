@@ -13,45 +13,45 @@ public class LootUtil {
 
     public static List<ChestContent> getRandomContents(ChestContent.Tier t) {
         List<ChestContent> contents = new ArrayList<ChestContent>();
-            switch(t) {
-                case I:
-                    // Add ten items no matter the percentage. //
-                    for(int i = 0; i < 15; i++) {
-                        int p = ThreadLocalRandom.current().nextInt(ChestContent.values().length) + 1;
-                        ChestContent item = ChestContent.get(p);
+        switch (t) {
+            case I:
+                // Add ten items no matter the percentage. //
+                for (int i = 0; i < 5; i++) {
+                    int p = ThreadLocalRandom.current().nextInt(ChestContent.values().length) + 1;
+                    ChestContent item = ChestContent.get(p);
 
-                        int chance = ThreadLocalRandom.current().nextInt(100) + 1;
-                        if (item != null) {
-                            if(chance >= item.getChance()) {
-                                contents.add(item);
-                            }
+                    int chance = ThreadLocalRandom.current().nextInt(100) + 1;
+                    if (item != null) {
+                        if (chance <= item.getChance()) {
+                            contents.add(item);
                         }
                     }
-                    break;
-                case II:
-                    // Add 10 items for all items 40% or rarer. //
-                    List<ChestContent> possible = new ArrayList<ChestContent>();
-                    for(ChestContent rare : ChestContent.values()) {
-                        if (rare.getChance() <= 40.0D) {
-                            possible.add(rare);
-                        }
+                }
+                break;
+            case II:
+                // Add 10 items for all items 40% or rarer. //
+                List<ChestContent> possible = new ArrayList<ChestContent>();
+                for (ChestContent rare : ChestContent.values()) {
+                    if (rare.getChance() <= 40.0D) {
+                        possible.add(rare);
                     }
+                }
 
-                    // Harder to get rarer items (amt/100 < amt/40). //
-                    for(ChestContent rare : possible) {
-                        int chance = ThreadLocalRandom.current().nextInt(40) + 1;
-                        if (chance >= rare.getChance()) {
+                // Harder to get rarer items (amt/100 < amt/40). //
+                for (ChestContent rare : possible) {
+                        int p = ThreadLocalRandom.current().nextInt(100) + 1;
+                        if(rare.getChance() >= p) {
                             contents.add(rare);
                         }
-                    }
-                    break;
-            }
+                }
+                break;
+        }
 
         return contents;
     }
 
     public static int[][] p(int f, int i) {
-        return new int[][] {
+        return new int[][]{
         };
     }
 

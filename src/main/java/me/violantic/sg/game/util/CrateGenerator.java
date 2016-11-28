@@ -9,6 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Ethan on 11/12/2016.
@@ -17,53 +18,74 @@ public class CrateGenerator {
 
     public List<Location> tier1;
     public List<Location> tier2;
+    public List<Block> all;
+    private SurvivalGames instance;
 
-    public CrateGenerator() {
+    public CrateGenerator(SurvivalGames instance) {
         tier1 = new ArrayList<Location>();
         tier2 = new ArrayList<Location>();
+
+        this.instance = instance;
     }
 
-    public void start() {
+    public void start(final String map) {
+        // Only has to loop through map once. //
+        all = getCrates(Bukkit.getWorld(map), new Location(Bukkit.getWorld(map), 0,0,0), new Location(Bukkit.getWorld(map), 100, 100, 100));
+
         new BukkitRunnable() {
             public void run() {
-                search(SurvivalGames.getInstance().getMap().getName());
+                search(map);
+                System.out.println(instance.getPrefix() + "[TPS After Generation] " + instance.getLagUtil().getTPS());
             }
-        }.runTaskTimer(SurvivalGames.getInstance(), 0l, 20*10);
+        }.runTaskTimer(SurvivalGames.getInstance(), 0l, 20 * 10l);
     }
 
     public void search(String map) {
-        World w = Bukkit.getWorld(map);
-        for (Chunk c : w.getLoadedChunks()) {
-            int cx = c.getX() << 4;
-            int cz = c.getZ() << 4;
-            for (int x = cx; x < cx + 16; x++) {
-                for (int z = cz; z < cz + 16; z++) {
-                    for (int y = 0; y < 128; y++) {
-                        if (w.getBlockAt(x, y, z).getType() == Material.SPONGE) {
-                            tier1.add(new Location(Bukkit.getWorld(map), x, y, z));
-                            Block block = w.getBlockAt(x, y, z);
-                            block.setType(Material.CHEST);
+        World world = Bukkit.getWorld(map);
+        for (Block block : all) {
+            if (block.getType().equals(Material.SPONGE)) {
+                int p = ThreadLocalRandom.current().nextInt(100) + 1;
+                if (p <= 75.0) {
+                    tier1.add(block.getLocation());
+                    block.setType(Material.CHEST);
 
-                            Chest chest = (Chest) block.getState();
-                            List<ChestContent> shtuff = LootUtil.getRandomContents(ChestContent.Tier.I);
-                            for(ChestContent content : shtuff) {
-                                chest.getBlockInventory().addItem(content.getItem());
-                            }
-                        } else if (w.getBlockAt(x, y, z).getType() == Material.ENDER_CHEST) {
-                            tier2.add(new Location(Bukkit.getWorld(map), x, y, z));
-                            Block block = w.getBlockAt(x, y, z);
-                            block.setType(Material.CHEST);
+                    Chest chest = (Chest) block.getState();
+                    List<ChestContent> shtuff = LootUtil.getRandomContents(ChestContent.Tier.I);
+                    for (ChestContent content : shtuff) {
+                        chest.getBlockInventory().addItem(content.getItem());
+                    }
+                } else {
+                    block.setType(Material.AIR);
+                }
+            } else if (block.getType() == Material.ENDER_CHEST) {
+                tier2.add(block.getLocation());
+                block.setType(Material.CHEST);
 
-                            Chest chest = (Chest) block.getState();
-                            List<ChestContent> shtuff = LootUtil.getRandomContents(ChestContent.Tier.II);
-                            for(ChestContent content : shtuff) {
-                                chest.getBlockInventory().addItem(content.getItem());
-                            }
-                        }
+                Chest chest = (Chest) block.getState();
+                List<ChestContent> shtuff = LootUtil.getRandomContents(ChestContent.Tier.II);
+                for (ChestContent content : shtuff) {
+                    chest.getBlockInventory().addItem(content.getItem());
+                }
+            }
+        }
+    }
+
+    public List<Block> getCrates(World world, Location loc1, Location loc2) {
+        List<Block> blocks = new ArrayList<Block>();
+
+        for (double x = loc1.getX(); x <= loc2.getX(); x++) {
+            for (double y = loc1.getY(); y <= loc2.getY(); y++) {
+                for (double z = loc1.getZ(); z <= loc2.getZ(); z++) {
+                    Location loc = new Location(world, x, y, z);
+                    Block block = world.getBlockAt(loc);
+                    if(block.getType() == Material.SPONGE || block.getType() == Material.ENDER_CHEST) {
+                        blocks.add(block);
                     }
                 }
             }
         }
+
+        return blocks;
     }
 
 }

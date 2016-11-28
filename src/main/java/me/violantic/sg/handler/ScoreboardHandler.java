@@ -17,7 +17,6 @@ public class ScoreboardHandler implements Runnable {
     private Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
     private String title = ChatColor.YELLOW + "" + ChatColor.BOLD + "Mine" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Swine";
-
     final Objective objective = scoreboard.registerNewObjective("GameSB", "dummy");
     final org.bukkit.scoreboard.Team team = scoreboard.registerNewTeam("team1");
     final org.bukkit.scoreboard.Team team2 = scoreboard.registerNewTeam("team2");
@@ -77,11 +76,18 @@ public class ScoreboardHandler implements Runnable {
         team3.setPrefix(ChatColor.GRAY + "" + SurvivalGames.getInstance().getVerifiedPlayers().size());
         team6.setPrefix(ChatColor.GRAY + SurvivalGames.getInstance().getState().getName());
 
-        team8.setPrefix(ChatColor.LIGHT_PURPLE + "Death Match");
-        team9.setPrefix(ChatColor.GRAY + "In " + (SurvivalGames.getInstance().second/60) + " minutes");
+        int numberOfMinutes,numberOfSeconds;
+        numberOfMinutes = ((SurvivalGames.getInstance().getHandler().getSecond() % 86400 ) % 3600 ) / 60;
+        numberOfSeconds = ((SurvivalGames.getInstance().getHandler().getSecond() % 86400 ) % 3600 ) % 60;
+        team8.setPrefix(ChatColor.LIGHT_PURPLE + "Death Match In");
+        if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("progress")) {
+            String seconds = ((numberOfSeconds < 10) ? ("0"+numberOfSeconds) : numberOfSeconds + "");
+            String minutes = ((numberOfMinutes < 10) ? ("0"+numberOfMinutes) + ":" : numberOfMinutes + ":") + seconds;
+            team10.setPrefix(ChatColor.GRAY + minutes);
+        }
 
         for(Player player : Bukkit.getOnlinePlayers()) {
-            player.setScoreboard(scoreboard);
+            player.setScoreboard(getScoreboard());
         }
     }
 }

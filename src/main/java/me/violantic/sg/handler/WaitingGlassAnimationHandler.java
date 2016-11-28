@@ -33,27 +33,27 @@ public class WaitingGlassAnimationHandler implements Runnable {
 
     @Override
     public void run() {
-        if(!progress) return;
+        if (!progress) return;
 
-        if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("progress") && SurvivalGames.getInstance().second <= 585) {
-            for(Location location : garbage) {
+        if (SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("progress") && SurvivalGames.getInstance().second <= 585) {
+            for (Location location : garbage) {
                 world.getBlockAt(location).setType(Material.AIR);
             }
             progress = false;
         }
 
-        for(Location location : initiated) {
-            if(animation.get(location) >= 10) {
+        for (Location location : initiated) {
+            if (animation.get(location) >= 10) {
                 animation.put(location, 0);
             }
 
-            animation.put(location, animation.get(location)+1);
-            if(!animation.containsKey(location)) {
-                for(Location r : LocationUtil.getCircle(location, 2, 16)) {
+            animation.put(location, animation.get(location) + 1);
+            if (!animation.containsKey(location)) {
+                for (Location r : LocationUtil.getCircle(location, 2, 16)) {
                     Block b = world.getBlockAt(r);
-                    for(int i = 0; i < 10; i++) {
+                    for (int i = 0; i < 10; i++) {
                         if (b.getType() == Material.AIR) {
-                            Location garbage = r.add(0,i,0);
+                            Location garbage = r.add(0, i, 0);
                             world.getBlockAt(r.add(garbage)).setType(Material.GLASS);
                             world.getBlockAt(r.add(garbage)).setData(DyeColor.PURPLE.getWoolData());
                             this.garbage.add(garbage);
@@ -63,10 +63,10 @@ public class WaitingGlassAnimationHandler implements Runnable {
                 }
             }
 
-            Location height = location.add(0,animation.get(location),0);
-            for(Location r : LocationUtil.getCircle(height, 2, 16)) {
+            Location height = location.add(0, animation.get(location), 0);
+            for (Location r : LocationUtil.getCircle(height, 2, 16)) {
                 Block b = world.getBlockAt(r);
-                if(b.getType() == Material.AIR) {
+                if (b.getType() == Material.AIR) {
                     world.getBlockAt(r).setType(Material.GLASS);
                     world.getBlockAt(r).setData(DyeColor.YELLOW.getWoolData());
                 }

@@ -6,3 +6,5 @@ description: Custom survival games!!!
 commands:
      forcestart:
           description: Force start the game in lobby!
+     forceend:
+          description: Force end the game!

@@ -7,6 +7,7 @@ import me.violantic.sg.game.MapVoter;
 import me.violantic.sg.game.listener.GameListener;
 import me.violantic.sg.game.listener.PlayerListener;
 import me.violantic.sg.game.util.CrateGenerator;
+import me.violantic.sg.game.util.LagUtil;
 import me.violantic.sg.game.util.LocationUtil;
 import me.violantic.sg.game.util.MysqlUtil;
 import me.violantic.sg.handler.GameHandler;
@@ -33,6 +34,8 @@ import java.util.logging.Level;
 public class SurvivalGames extends JavaPlugin implements Game {
 
     private static SurvivalGames instance;
+
+    private LagUtil lagUtil;
 
     private GameState state;
     private GameHandler handler;
@@ -64,10 +67,12 @@ public class SurvivalGames extends JavaPlugin implements Game {
     public void onEnable() {
         instance = this;
 
+        lagUtil = new LagUtil();
+
         getConfig().options().copyDefaults(getConfig().contains("lobby"));
         saveConfig();
 
-        lobby = new Map("lobby", new String[]{"Mineswine Build Team"}, null);
+        //lobby = new Map("lobby", new String[]{"Mineswine Build Team"}, null);
 
         setState(new GameState("waiting"));
         getState().setCanOpen(true);
@@ -102,12 +107,12 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
         scoreboardHandler = new ScoreboardHandler("SG");
 
-        crateGenerator = new CrateGenerator();
+        crateGenerator = new CrateGenerator(this);
 
+        getServer().getScheduler().runTaskTimer(this, lagUtil, 100l, 1l);
         getServer().getScheduler().runTaskTimer(this, getHandler(), 0l, 20l);
         getServer().getScheduler().runTaskTimer(this, scoreboardHandler, 0l, 20l);
-        getServer().getScheduler().runTaskTimer(this, voteHandler, 0l, 20*5l);
-
+        getServer().getScheduler().runTaskTimer(this, voteHandler, 0l, 20 * 5l);
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new GameListener(this), this);
@@ -132,6 +137,16 @@ public class SurvivalGames extends JavaPlugin implements Game {
                         return false;
                     }
                     return true;
+                } else if (command.getName().equalsIgnoreCase("forceend")) {
+                    if (getState().getName().equalsIgnoreCase("progress")) {
+                        handler.setSecond(3);
+                        commandSender.sendMessage(getPrefix() + "Ending game!");
+                    } else if (getState().getName().equalsIgnoreCase("waiting")) {
+                        commandSender.sendMessage(getPrefix() + ChatColor.RED + "Game hasn't started yet!");
+                    } else if (getState().getName().equalsIgnoreCase("started")) {
+                        commandSender.sendMessage(getPrefix() + ChatColor.RED + "Game is still processing!");
+                    }
+                    return true;
                 }
                 return false;
             }
@@ -147,6 +162,10 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
     public static SurvivalGames getInstance() {
         return instance;
+    }
+
+    public LagUtil getLagUtil() {
+        return lagUtil;
     }
 
     public MysqlUtil getMysql() {
@@ -218,7 +237,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
     }
 
     public void initiateGameMap() {
-        gameMap = new Map(gameMapVoter.getWinner(), new String[]{"Mineswine Build Team"}, getStartingLocations());
+        gameMap = new Map(gameMapVoter.getWinner(), new String[]{"Mineswine Build Team"}, null);
     }
 
     public Map getMap() {
@@ -257,7 +276,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
         this.state = state;
     }
 
-    public Runnable getHandler() {
+    public GameHandler getHandler() {
         return handler;
     }
 

@@ -45,9 +45,6 @@ public class MapVoter {
     }
 
     public void addVote(UUID user, String map) {
-        if(!hasVoted(user)) {
-            values.put(map, values.get(map)+1);
-        }
         voters.put(user, map);
     }
 
@@ -61,7 +58,7 @@ public class MapVoter {
     public String getWinner() {
         Map.Entry<String, Integer> maxEntry = null;
         for(Map.Entry<String, Integer> entry : getValues().entrySet()) {
-            if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) >= 0) {
+            if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) == 0) {
                 maxEntry = entry;
             }
         }
