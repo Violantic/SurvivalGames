@@ -38,13 +38,15 @@ public class GameListener implements Listener {
     @EventHandler
     public void onEnd(GameEndEvent event) {
         for(Player player : Bukkit.getOnlinePlayers()) {
-            player.teleport(instance.getLobby());
+            //player.teleport(instance.getLobby());
             if(event.getWinner().equalsIgnoreCase(player.getName())) {
-                instance.getMysql().update(player.getName(), player.getUniqueId().toString(), 1, 1, 0, 0, 0, 25);
+                instance.getMysql().setStat(player.getUniqueId().toString(), "points", 25);
+                instance.getMysql().setStat(player.getUniqueId().toString(), "games", 1);
                 player.sendMessage(instance.getPrefix() + ChatColor.GREEN + "+25 Rating!");
                 player.sendMessage(instance.getPrefix() + ChatColor.LIGHT_PURPLE + "Good game!");
             } else {
-                instance.getMysql().update(player.getName(), player.getUniqueId().toString(), 0, 1, 0, 0, 0, 0);
+                instance.getMysql().setStat(player.getUniqueId().toString(), "points", 5);
+                instance.getMysql().setStat(player.getUniqueId().toString(), "games", 1);
                 player.sendMessage(instance.getPrefix() + ChatColor.LIGHT_PURPLE + "Good game!");
             }
         }

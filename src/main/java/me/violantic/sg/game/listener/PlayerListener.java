@@ -35,12 +35,14 @@ public class PlayerListener implements Listener {
 
         if(event.getEntity().getKiller() != null) {
             Player player = event.getEntity().getKiller();
-            instance.getMysql().update(player.getName(), player.getUniqueId().toString(), 0, 0, 1, 0, 0, 10);
+            instance.getMysql().setStat(player.getUniqueId().toString(), "kills", 1);
+            instance.getMysql().setStat(player.getUniqueId().toString(), "points", 2);
             event.getEntity().sendMessage(instance.getPrefix() + ChatColor.GREEN + "+1 Kills");
+            event.getEntity().sendMessage(instance.getPrefix() + ChatColor.GREEN + "+2 Rating");
             event.getEntity().playSound(event.getEntity().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
         }
 
-        instance.getMysql().update(event.getEntity().getName(), event.getEntity().getUniqueId().toString(), 0, 0, 0, 1, 0, -10);
+        instance.getMysql().setStat(event.getEntity().getUniqueId().toString(), "deaths", 1);
         event.getEntity().sendMessage(instance.getPrefix() + ChatColor.RED + "+1 Deaths");
         event.getEntity().playSound(event.getEntity().getLocation(), Sound.BLOCK_NOTE_BASEDRUM, 1, 1);
 

@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1806311f-70bb-42b3-ba26-7880325c73be" name="Default" comment="Various fixes">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bukkit_bukkit_1_11_R0_1_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/ItemBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/ItemBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SurvivalGames.iml" afterPath="$PROJECT_DIR$/SurvivalGames.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/GameListener.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/GameListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/MysqlUtil.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/MysqlUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SurvivalGames.iws" />
@@ -35,86 +34,63 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+              <caret line="188" column="24" selection-start-line="188" selection-start-column="24" selection-end-line="188" selection-end-column="24" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#3981#5272#0" expanded="false" />
-                <element signature="e#5271#5272#0" expanded="false" />
-                <element signature="e#6285#6799#0" expanded="false" />
-                <element signature="e#6798#6799#0" expanded="false" />
-                <element signature="e#7007#7008#0" expanded="false" />
-                <element signature="e#7038#7039#0" expanded="false" />
-                <element signature="e#7073#7074#0" expanded="false" />
-                <element signature="e#7103#7104#0" expanded="false" />
-                <element signature="e#7138#7139#0" expanded="false" />
-                <element signature="e#7166#7167#0" expanded="false" />
-                <element signature="e#7211#7212#0" expanded="false" />
-                <element signature="e#7245#7246#0" expanded="false" />
-                <element signature="e#7300#7301#0" expanded="false" />
-                <element signature="e#7340#7341#0" expanded="false" />
-                <element signature="e#7389#7390#0" expanded="false" />
-                <element signature="e#7426#7427#0" expanded="false" />
-                <element signature="e#7458#7459#0" expanded="false" />
-                <element signature="e#7488#7489#0" expanded="false" />
-                <element signature="e#7534#7535#0" expanded="false" />
-                <element signature="e#7572#7573#0" expanded="false" />
-                <element signature="e#7618#7619#0" expanded="false" />
-                <element signature="e#7656#7657#0" expanded="false" />
-                <element signature="e#7782#7783#0" expanded="false" />
-                <element signature="e#7832#7833#0" expanded="false" />
-                <element signature="e#7884#7885#0" expanded="false" />
-                <element signature="e#7924#7925#0" expanded="false" />
-                <element signature="e#7959#7960#0" expanded="false" />
-                <element signature="e#7983#7984#0" expanded="false" />
-                <element signature="e#8018#8019#0" expanded="false" />
-                <element signature="e#8043#8044#0" expanded="false" />
-                <element signature="e#8086#8087#0" expanded="false" />
-                <element signature="e#8120#8121#0" expanded="false" />
-                <element signature="e#8161#8162#0" expanded="false" />
-                <element signature="e#8196#8197#0" expanded="false" />
-                <element signature="e#8243#8244#0" expanded="false" />
-                <element signature="e#8284#8285#0" expanded="false" />
-                <element signature="e#8337#8338#0" expanded="false" />
-                <element signature="e#8381#8382#0" expanded="false" />
-                <element signature="e#8447#8448#0" expanded="false" />
-                <element signature="e#8486#8487#0" expanded="false" />
-                <element signature="e#8653#8654#0" expanded="false" />
-                <element signature="e#8683#8684#0" expanded="false" />
-                <element signature="e#8714#8715#0" expanded="false" />
-                <element signature="e#8744#8745#0" expanded="false" />
-                <element signature="e#9356#9357#0" expanded="false" />
-                <element signature="e#9449#9450#0" expanded="false" />
-                <element signature="e#9483#9484#0" expanded="false" />
-                <element signature="e#9571#9572#0" expanded="false" />
-                <element signature="e#9606#9607#0" expanded="false" />
-                <element signature="e#9634#9635#0" expanded="false" />
-                <element signature="e#9679#9680#0" expanded="false" />
-                <element signature="e#9713#9714#0" expanded="false" />
-                <element signature="e#9752#9753#0" expanded="false" />
-                <element signature="e#9782#9783#0" expanded="false" />
-                <element signature="e#9823#9824#0" expanded="false" />
-                <element signature="e#9906#9907#0" expanded="false" />
+                <element signature="e#10051#10052#0" expanded="true" />
+                <element signature="e#10082#10083#0" expanded="true" />
+                <element signature="e#10117#10118#0" expanded="true" />
+                <element signature="e#10147#10148#0" expanded="true" />
+                <element signature="e#10182#10183#0" expanded="true" />
+                <element signature="e#10210#10211#0" expanded="true" />
+                <element signature="e#10255#10256#0" expanded="true" />
+                <element signature="e#10289#10290#0" expanded="true" />
+                <element signature="e#10344#10345#0" expanded="true" />
+                <element signature="e#10384#10385#0" expanded="true" />
+                <element signature="e#10433#10434#0" expanded="true" />
+                <element signature="e#10470#10471#0" expanded="true" />
+                <element signature="e#10502#10503#0" expanded="true" />
+                <element signature="e#10532#10533#0" expanded="true" />
+                <element signature="e#10578#10579#0" expanded="true" />
+                <element signature="e#10616#10617#0" expanded="true" />
+                <element signature="e#10662#10663#0" expanded="true" />
+                <element signature="e#10700#10701#0" expanded="true" />
+                <element signature="e#10826#10827#0" expanded="true" />
+                <element signature="e#10876#10877#0" expanded="true" />
+                <element signature="e#10928#10929#0" expanded="true" />
+                <element signature="e#10968#10969#0" expanded="true" />
+                <element signature="e#11003#11004#0" expanded="true" />
+                <element signature="e#11027#11028#0" expanded="true" />
+                <element signature="e#11062#11063#0" expanded="true" />
+                <element signature="e#11087#11088#0" expanded="true" />
+                <element signature="e#11130#11131#0" expanded="true" />
+                <element signature="e#11164#11165#0" expanded="true" />
+                <element signature="e#11205#11206#0" expanded="true" />
+                <element signature="e#11240#11241#0" expanded="true" />
+                <element signature="e#11287#11288#0" expanded="true" />
+                <element signature="e#11328#11329#0" expanded="true" />
+                <element signature="e#11381#11382#0" expanded="true" />
+                <element signature="e#11425#11426#0" expanded="true" />
+                <element signature="e#11491#11492#0" expanded="true" />
+                <element signature="e#11530#11531#0" expanded="true" />
+                <element signature="e#11697#11698#0" expanded="true" />
+                <element signature="e#11727#11728#0" expanded="true" />
+                <element signature="e#11758#11759#0" expanded="true" />
+                <element signature="e#11788#11789#0" expanded="true" />
+                <element signature="e#12400#12401#0" expanded="true" />
+                <element signature="e#12493#12494#0" expanded="true" />
+                <element signature="e#12527#12528#0" expanded="true" />
+                <element signature="e#12615#12616#0" expanded="true" />
+                <element signature="e#12650#12651#0" expanded="true" />
+                <element signature="e#12678#12679#0" expanded="true" />
+                <element signature="e#12723#12724#0" expanded="true" />
+                <element signature="e#12757#12758#0" expanded="true" />
+                <element signature="e#12796#12797#0" expanded="true" />
+                <element signature="e#12826#12827#0" expanded="true" />
+                <element signature="e#12867#12868#0" expanded="true" />
+                <element signature="e#12950#12951#0" expanded="true" />
+                <marker date="1480308299584" expanded="true" signature="6885:6948" placeholder="SELECT * FRO..s_games..." />
+                <marker date="1480308299584" expanded="true" signature="7431:7552" placeholder="INSERT INTO ..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="plugin.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5797101">
-              <caret line="43" column="31" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -123,21 +99,8 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/GameHandler.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="170" column="12" selection-start-line="170" selection-start-column="12" selection-end-line="170" selection-end-column="12" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#713#714#0" expanded="false" />
-                <element signature="e#740#741#0" expanded="false" />
-                <element signature="e#768#769#0" expanded="false" />
-                <element signature="e#823#824#0" expanded="false" />
-                <element signature="e#853#854#0" expanded="false" />
-                <element signature="e#882#883#0" expanded="false" />
-                <element signature="e#923#924#0" expanded="false" />
-                <element signature="e#959#960#0" expanded="false" />
-                <element signature="e#7998#8164#0" expanded="false" />
-                <element signature="e#8163#8164#0" expanded="false" />
-                <element signature="e#8271#8280#0" expanded="false" />
-              </folding>
+              <caret line="141" column="25" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -147,11 +110,54 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlayerListener.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="148" column="19" selection-start-line="148" selection-start-column="19" selection-end-line="148" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameListener.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/GameListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MysqlUtil.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/MysqlUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.49308756">
+              <caret line="109" column="5" selection-start-line="109" selection-start-column="5" selection-end-line="109" selection-end-column="5" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#3798#3799#0" expanded="false" />
-                <element signature="e#3831#3832#0" expanded="false" />
+                <marker date="1480310705344" expanded="true" signature="1729:1776" placeholder="SELECT * FRO..s_games..." />
+                <marker date="1480310705344" expanded="true" signature="2129:2211" placeholder="INSERT INTO ..." />
+                <marker date="1480310705344" expanded="true" signature="3314:3405" placeholder="UPDATE s_gam..." />
+                <marker date="1480310705344" expanded="true" signature="3644:3761" placeholder="UPDATE s_gam..." />
+                <marker date="1480310705344" expanded="true" signature="3644:3762" placeholder="UPDATE s_gam..." />
+                <marker date="1480310705344" expanded="true" signature="3644:3768" placeholder="UPDATE s_gam..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameEndEvent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/event/GameEndEvent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -161,9 +167,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -181,34 +185,6 @@
                 <element signature="e#906#907#0" expanded="false" />
                 <element signature="e#950#951#0" expanded="false" />
                 <element signature="e#981#982#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Map.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/Map.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1043#1044#0" expanded="false" />
-                <element signature="e#1070#1071#0" expanded="false" />
-                <element signature="e#1107#1108#0" expanded="false" />
-                <element signature="e#1138#1139#0" expanded="false" />
-                <element signature="e#1187#1188#0" expanded="false" />
-                <element signature="e#1224#1225#0" expanded="false" />
-                <element signature="e#1255#1256#0" expanded="false" />
-                <element signature="e#1283#1284#0" expanded="false" />
-                <element signature="e#1323#1324#0" expanded="false" />
-                <element signature="e#1355#1356#0" expanded="false" />
-                <element signature="e#1405#1406#0" expanded="false" />
-                <element signature="e#1445#1446#0" expanded="false" />
-                <element signature="e#1513#1514#0" expanded="false" />
-                <element signature="e#1565#1566#0" expanded="false" />
-                <element signature="e#1606#1607#0" expanded="false" />
-                <element signature="e#1640#1641#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -284,20 +260,20 @@
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/MapVoter.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/LagUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/LootUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/CrateGenerator.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/event/GameEndEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/GameListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/MysqlUtil.java" />
         <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/CloakUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/ScoreboardHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/GameHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/VoteHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/WaitingGlassAnimationHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/ItemBuilder.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/GameListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/MysqlUtil.java" />
       </list>
     </option>
   </component>
@@ -316,10 +292,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="277" />
-    <option name="y" value="23" />
-    <option name="width" value="1873" />
-    <option name="height" value="1090" />
+    <option name="x" value="-663" />
+    <option name="y" value="344" />
+    <option name="width" value="1856" />
+    <option name="height" value="972" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -360,6 +336,180 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="target" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sg" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sg" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sg" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="listener" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SurvivalGames" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sg" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="event" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -727,7 +877,7 @@
       <workItem from="1478880252338" duration="47367000" />
       <workItem from="1479254563143" duration="612000" />
       <workItem from="1479873773359" duration="15760000" />
-      <workItem from="1480102788582" duration="31999000" />
+      <workItem from="1480102788582" duration="39199000" />
     </task>
     <task id="LOCAL-00001" summary="Added map voter">
       <created>1478844058334</created>
@@ -793,10 +943,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127744000" />
+    <option name="totallyTimeSpent" value="134944000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="277" y="23" width="1873" height="1090" extended-state="0" />
+    <frame x="-663" y="344" width="1856" height="972" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -807,10 +957,10 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40876657" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46465817" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16047388" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16195652" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -881,20 +1031,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#713#714#0" expanded="false" />
-            <element signature="e#740#741#0" expanded="false" />
-            <element signature="e#768#769#0" expanded="false" />
-            <element signature="e#823#824#0" expanded="false" />
-            <element signature="e#853#854#0" expanded="false" />
-            <element signature="e#882#883#0" expanded="false" />
-            <element signature="e#923#924#0" expanded="false" />
-            <element signature="e#959#960#0" expanded="false" />
-            <element signature="e#7998#8164#0" expanded="false" />
-            <element signature="e#8163#8164#0" expanded="false" />
-            <element signature="e#8271#8280#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -920,63 +1057,60 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3981#5272#0" expanded="false" />
-            <element signature="e#5271#5272#0" expanded="false" />
-            <element signature="e#6285#6799#0" expanded="false" />
-            <element signature="e#6798#6799#0" expanded="false" />
-            <element signature="e#7007#7008#0" expanded="false" />
-            <element signature="e#7038#7039#0" expanded="false" />
-            <element signature="e#7073#7074#0" expanded="false" />
-            <element signature="e#7103#7104#0" expanded="false" />
-            <element signature="e#7138#7139#0" expanded="false" />
-            <element signature="e#7166#7167#0" expanded="false" />
-            <element signature="e#7211#7212#0" expanded="false" />
-            <element signature="e#7245#7246#0" expanded="false" />
-            <element signature="e#7300#7301#0" expanded="false" />
-            <element signature="e#7340#7341#0" expanded="false" />
-            <element signature="e#7389#7390#0" expanded="false" />
-            <element signature="e#7426#7427#0" expanded="false" />
-            <element signature="e#7458#7459#0" expanded="false" />
-            <element signature="e#7488#7489#0" expanded="false" />
-            <element signature="e#7534#7535#0" expanded="false" />
-            <element signature="e#7572#7573#0" expanded="false" />
-            <element signature="e#7618#7619#0" expanded="false" />
-            <element signature="e#7656#7657#0" expanded="false" />
-            <element signature="e#7782#7783#0" expanded="false" />
-            <element signature="e#7832#7833#0" expanded="false" />
-            <element signature="e#7884#7885#0" expanded="false" />
-            <element signature="e#7924#7925#0" expanded="false" />
-            <element signature="e#7959#7960#0" expanded="false" />
-            <element signature="e#7983#7984#0" expanded="false" />
-            <element signature="e#8018#8019#0" expanded="false" />
-            <element signature="e#8043#8044#0" expanded="false" />
-            <element signature="e#8086#8087#0" expanded="false" />
-            <element signature="e#8120#8121#0" expanded="false" />
-            <element signature="e#8161#8162#0" expanded="false" />
-            <element signature="e#8196#8197#0" expanded="false" />
-            <element signature="e#8243#8244#0" expanded="false" />
-            <element signature="e#8284#8285#0" expanded="false" />
-            <element signature="e#8337#8338#0" expanded="false" />
-            <element signature="e#8381#8382#0" expanded="false" />
-            <element signature="e#8447#8448#0" expanded="false" />
-            <element signature="e#8486#8487#0" expanded="false" />
-            <element signature="e#8653#8654#0" expanded="false" />
-            <element signature="e#8683#8684#0" expanded="false" />
-            <element signature="e#8714#8715#0" expanded="false" />
-            <element signature="e#8744#8745#0" expanded="false" />
-            <element signature="e#9356#9357#0" expanded="false" />
-            <element signature="e#9449#9450#0" expanded="false" />
-            <element signature="e#9483#9484#0" expanded="false" />
-            <element signature="e#9571#9572#0" expanded="false" />
-            <element signature="e#9606#9607#0" expanded="false" />
-            <element signature="e#9634#9635#0" expanded="false" />
-            <element signature="e#9679#9680#0" expanded="false" />
-            <element signature="e#9713#9714#0" expanded="false" />
-            <element signature="e#9752#9753#0" expanded="false" />
-            <element signature="e#9782#9783#0" expanded="false" />
-            <element signature="e#9823#9824#0" expanded="false" />
-            <element signature="e#9906#9907#0" expanded="false" />
+            <element signature="e#10051#10052#0" expanded="true" />
+            <element signature="e#10082#10083#0" expanded="true" />
+            <element signature="e#10117#10118#0" expanded="true" />
+            <element signature="e#10147#10148#0" expanded="true" />
+            <element signature="e#10182#10183#0" expanded="true" />
+            <element signature="e#10210#10211#0" expanded="true" />
+            <element signature="e#10255#10256#0" expanded="true" />
+            <element signature="e#10289#10290#0" expanded="true" />
+            <element signature="e#10344#10345#0" expanded="true" />
+            <element signature="e#10384#10385#0" expanded="true" />
+            <element signature="e#10433#10434#0" expanded="true" />
+            <element signature="e#10470#10471#0" expanded="true" />
+            <element signature="e#10502#10503#0" expanded="true" />
+            <element signature="e#10532#10533#0" expanded="true" />
+            <element signature="e#10578#10579#0" expanded="true" />
+            <element signature="e#10616#10617#0" expanded="true" />
+            <element signature="e#10662#10663#0" expanded="true" />
+            <element signature="e#10700#10701#0" expanded="true" />
+            <element signature="e#10826#10827#0" expanded="true" />
+            <element signature="e#10876#10877#0" expanded="true" />
+            <element signature="e#10928#10929#0" expanded="true" />
+            <element signature="e#10968#10969#0" expanded="true" />
+            <element signature="e#11003#11004#0" expanded="true" />
+            <element signature="e#11027#11028#0" expanded="true" />
+            <element signature="e#11062#11063#0" expanded="true" />
+            <element signature="e#11087#11088#0" expanded="true" />
+            <element signature="e#11130#11131#0" expanded="true" />
+            <element signature="e#11164#11165#0" expanded="true" />
+            <element signature="e#11205#11206#0" expanded="true" />
+            <element signature="e#11240#11241#0" expanded="true" />
+            <element signature="e#11287#11288#0" expanded="true" />
+            <element signature="e#11328#11329#0" expanded="true" />
+            <element signature="e#11381#11382#0" expanded="true" />
+            <element signature="e#11425#11426#0" expanded="true" />
+            <element signature="e#11491#11492#0" expanded="true" />
+            <element signature="e#11530#11531#0" expanded="true" />
+            <element signature="e#11697#11698#0" expanded="true" />
+            <element signature="e#11727#11728#0" expanded="true" />
+            <element signature="e#11758#11759#0" expanded="true" />
+            <element signature="e#11788#11789#0" expanded="true" />
+            <element signature="e#12400#12401#0" expanded="true" />
+            <element signature="e#12493#12494#0" expanded="true" />
+            <element signature="e#12527#12528#0" expanded="true" />
+            <element signature="e#12615#12616#0" expanded="true" />
+            <element signature="e#12650#12651#0" expanded="true" />
+            <element signature="e#12678#12679#0" expanded="true" />
+            <element signature="e#12723#12724#0" expanded="true" />
+            <element signature="e#12757#12758#0" expanded="true" />
+            <element signature="e#12796#12797#0" expanded="true" />
+            <element signature="e#12826#12827#0" expanded="true" />
+            <element signature="e#12867#12868#0" expanded="true" />
+            <element signature="e#12950#12951#0" expanded="true" />
+            <marker date="1480308299584" expanded="true" signature="6885:6948" placeholder="SELECT * FRO..s_games..." />
+            <marker date="1480308299584" expanded="true" signature="7431:7552" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -1015,20 +1149,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="3" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#713#714#0" expanded="false" />
-            <element signature="e#740#741#0" expanded="false" />
-            <element signature="e#768#769#0" expanded="false" />
-            <element signature="e#823#824#0" expanded="false" />
-            <element signature="e#853#854#0" expanded="false" />
-            <element signature="e#882#883#0" expanded="false" />
-            <element signature="e#923#924#0" expanded="false" />
-            <element signature="e#959#960#0" expanded="false" />
-            <element signature="e#7998#8164#0" expanded="false" />
-            <element signature="e#8163#8164#0" expanded="false" />
-            <element signature="e#8271#8280#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1037,63 +1158,60 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3981#5272#0" expanded="false" />
-            <element signature="e#5271#5272#0" expanded="false" />
-            <element signature="e#6285#6799#0" expanded="false" />
-            <element signature="e#6798#6799#0" expanded="false" />
-            <element signature="e#7007#7008#0" expanded="false" />
-            <element signature="e#7038#7039#0" expanded="false" />
-            <element signature="e#7073#7074#0" expanded="false" />
-            <element signature="e#7103#7104#0" expanded="false" />
-            <element signature="e#7138#7139#0" expanded="false" />
-            <element signature="e#7166#7167#0" expanded="false" />
-            <element signature="e#7211#7212#0" expanded="false" />
-            <element signature="e#7245#7246#0" expanded="false" />
-            <element signature="e#7300#7301#0" expanded="false" />
-            <element signature="e#7340#7341#0" expanded="false" />
-            <element signature="e#7389#7390#0" expanded="false" />
-            <element signature="e#7426#7427#0" expanded="false" />
-            <element signature="e#7458#7459#0" expanded="false" />
-            <element signature="e#7488#7489#0" expanded="false" />
-            <element signature="e#7534#7535#0" expanded="false" />
-            <element signature="e#7572#7573#0" expanded="false" />
-            <element signature="e#7618#7619#0" expanded="false" />
-            <element signature="e#7656#7657#0" expanded="false" />
-            <element signature="e#7782#7783#0" expanded="false" />
-            <element signature="e#7832#7833#0" expanded="false" />
-            <element signature="e#7884#7885#0" expanded="false" />
-            <element signature="e#7924#7925#0" expanded="false" />
-            <element signature="e#7959#7960#0" expanded="false" />
-            <element signature="e#7983#7984#0" expanded="false" />
-            <element signature="e#8018#8019#0" expanded="false" />
-            <element signature="e#8043#8044#0" expanded="false" />
-            <element signature="e#8086#8087#0" expanded="false" />
-            <element signature="e#8120#8121#0" expanded="false" />
-            <element signature="e#8161#8162#0" expanded="false" />
-            <element signature="e#8196#8197#0" expanded="false" />
-            <element signature="e#8243#8244#0" expanded="false" />
-            <element signature="e#8284#8285#0" expanded="false" />
-            <element signature="e#8337#8338#0" expanded="false" />
-            <element signature="e#8381#8382#0" expanded="false" />
-            <element signature="e#8447#8448#0" expanded="false" />
-            <element signature="e#8486#8487#0" expanded="false" />
-            <element signature="e#8653#8654#0" expanded="false" />
-            <element signature="e#8683#8684#0" expanded="false" />
-            <element signature="e#8714#8715#0" expanded="false" />
-            <element signature="e#8744#8745#0" expanded="false" />
-            <element signature="e#9356#9357#0" expanded="false" />
-            <element signature="e#9449#9450#0" expanded="false" />
-            <element signature="e#9483#9484#0" expanded="false" />
-            <element signature="e#9571#9572#0" expanded="false" />
-            <element signature="e#9606#9607#0" expanded="false" />
-            <element signature="e#9634#9635#0" expanded="false" />
-            <element signature="e#9679#9680#0" expanded="false" />
-            <element signature="e#9713#9714#0" expanded="false" />
-            <element signature="e#9752#9753#0" expanded="false" />
-            <element signature="e#9782#9783#0" expanded="false" />
-            <element signature="e#9823#9824#0" expanded="false" />
-            <element signature="e#9906#9907#0" expanded="false" />
+            <element signature="e#10051#10052#0" expanded="true" />
+            <element signature="e#10082#10083#0" expanded="true" />
+            <element signature="e#10117#10118#0" expanded="true" />
+            <element signature="e#10147#10148#0" expanded="true" />
+            <element signature="e#10182#10183#0" expanded="true" />
+            <element signature="e#10210#10211#0" expanded="true" />
+            <element signature="e#10255#10256#0" expanded="true" />
+            <element signature="e#10289#10290#0" expanded="true" />
+            <element signature="e#10344#10345#0" expanded="true" />
+            <element signature="e#10384#10385#0" expanded="true" />
+            <element signature="e#10433#10434#0" expanded="true" />
+            <element signature="e#10470#10471#0" expanded="true" />
+            <element signature="e#10502#10503#0" expanded="true" />
+            <element signature="e#10532#10533#0" expanded="true" />
+            <element signature="e#10578#10579#0" expanded="true" />
+            <element signature="e#10616#10617#0" expanded="true" />
+            <element signature="e#10662#10663#0" expanded="true" />
+            <element signature="e#10700#10701#0" expanded="true" />
+            <element signature="e#10826#10827#0" expanded="true" />
+            <element signature="e#10876#10877#0" expanded="true" />
+            <element signature="e#10928#10929#0" expanded="true" />
+            <element signature="e#10968#10969#0" expanded="true" />
+            <element signature="e#11003#11004#0" expanded="true" />
+            <element signature="e#11027#11028#0" expanded="true" />
+            <element signature="e#11062#11063#0" expanded="true" />
+            <element signature="e#11087#11088#0" expanded="true" />
+            <element signature="e#11130#11131#0" expanded="true" />
+            <element signature="e#11164#11165#0" expanded="true" />
+            <element signature="e#11205#11206#0" expanded="true" />
+            <element signature="e#11240#11241#0" expanded="true" />
+            <element signature="e#11287#11288#0" expanded="true" />
+            <element signature="e#11328#11329#0" expanded="true" />
+            <element signature="e#11381#11382#0" expanded="true" />
+            <element signature="e#11425#11426#0" expanded="true" />
+            <element signature="e#11491#11492#0" expanded="true" />
+            <element signature="e#11530#11531#0" expanded="true" />
+            <element signature="e#11697#11698#0" expanded="true" />
+            <element signature="e#11727#11728#0" expanded="true" />
+            <element signature="e#11758#11759#0" expanded="true" />
+            <element signature="e#11788#11789#0" expanded="true" />
+            <element signature="e#12400#12401#0" expanded="true" />
+            <element signature="e#12493#12494#0" expanded="true" />
+            <element signature="e#12527#12528#0" expanded="true" />
+            <element signature="e#12615#12616#0" expanded="true" />
+            <element signature="e#12650#12651#0" expanded="true" />
+            <element signature="e#12678#12679#0" expanded="true" />
+            <element signature="e#12723#12724#0" expanded="true" />
+            <element signature="e#12757#12758#0" expanded="true" />
+            <element signature="e#12796#12797#0" expanded="true" />
+            <element signature="e#12826#12827#0" expanded="true" />
+            <element signature="e#12867#12868#0" expanded="true" />
+            <element signature="e#12950#12951#0" expanded="true" />
+            <marker date="1480308299584" expanded="true" signature="6885:6948" placeholder="SELECT * FRO..s_games..." />
+            <marker date="1480308299584" expanded="true" signature="7431:7552" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -1109,20 +1227,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#713#714#0" expanded="false" />
-            <element signature="e#740#741#0" expanded="false" />
-            <element signature="e#768#769#0" expanded="false" />
-            <element signature="e#823#824#0" expanded="false" />
-            <element signature="e#853#854#0" expanded="false" />
-            <element signature="e#882#883#0" expanded="false" />
-            <element signature="e#923#924#0" expanded="false" />
-            <element signature="e#959#960#0" expanded="false" />
-            <element signature="e#7998#8164#0" expanded="false" />
-            <element signature="e#8163#8164#0" expanded="false" />
-            <element signature="e#8271#8280#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1177,34 +1282,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/event/GameEndEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/event/GameStartEvent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="26" column="25" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/GameListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
           <folding />
         </state>
       </provider>
@@ -1256,18 +1337,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/MysqlUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="69" column="31" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="31" />
-          <folding>
-            <marker date="1480300860011" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..s_games..." />
-            <marker date="1480300860011" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1480300860011" expanded="true" signature="-1:-1" placeholder="UPDATE s_gam..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1367,18 +1436,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/ScoreboardHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3798#3799#0" expanded="false" />
-            <element signature="e#3831#3832#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/VoteHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1391,16 +1448,6 @@
             <element signature="e#906#907#0" expanded="false" />
             <element signature="e#950#951#0" expanded="false" />
             <element signature="e#981#982#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/WaitingGlassAnimationHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1418,101 +1465,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/GameHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="170" column="12" selection-start-line="170" selection-start-column="12" selection-end-line="170" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#713#714#0" expanded="false" />
-            <element signature="e#740#741#0" expanded="false" />
-            <element signature="e#768#769#0" expanded="false" />
-            <element signature="e#823#824#0" expanded="false" />
-            <element signature="e#853#854#0" expanded="false" />
-            <element signature="e#882#883#0" expanded="false" />
-            <element signature="e#923#924#0" expanded="false" />
-            <element signature="e#959#960#0" expanded="false" />
-            <element signature="e#7998#8164#0" expanded="false" />
-            <element signature="e#8163#8164#0" expanded="false" />
-            <element signature="e#8271#8280#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3981#5272#0" expanded="false" />
-            <element signature="e#5271#5272#0" expanded="false" />
-            <element signature="e#6285#6799#0" expanded="false" />
-            <element signature="e#6798#6799#0" expanded="false" />
-            <element signature="e#7007#7008#0" expanded="false" />
-            <element signature="e#7038#7039#0" expanded="false" />
-            <element signature="e#7073#7074#0" expanded="false" />
-            <element signature="e#7103#7104#0" expanded="false" />
-            <element signature="e#7138#7139#0" expanded="false" />
-            <element signature="e#7166#7167#0" expanded="false" />
-            <element signature="e#7211#7212#0" expanded="false" />
-            <element signature="e#7245#7246#0" expanded="false" />
-            <element signature="e#7300#7301#0" expanded="false" />
-            <element signature="e#7340#7341#0" expanded="false" />
-            <element signature="e#7389#7390#0" expanded="false" />
-            <element signature="e#7426#7427#0" expanded="false" />
-            <element signature="e#7458#7459#0" expanded="false" />
-            <element signature="e#7488#7489#0" expanded="false" />
-            <element signature="e#7534#7535#0" expanded="false" />
-            <element signature="e#7572#7573#0" expanded="false" />
-            <element signature="e#7618#7619#0" expanded="false" />
-            <element signature="e#7656#7657#0" expanded="false" />
-            <element signature="e#7782#7783#0" expanded="false" />
-            <element signature="e#7832#7833#0" expanded="false" />
-            <element signature="e#7884#7885#0" expanded="false" />
-            <element signature="e#7924#7925#0" expanded="false" />
-            <element signature="e#7959#7960#0" expanded="false" />
-            <element signature="e#7983#7984#0" expanded="false" />
-            <element signature="e#8018#8019#0" expanded="false" />
-            <element signature="e#8043#8044#0" expanded="false" />
-            <element signature="e#8086#8087#0" expanded="false" />
-            <element signature="e#8120#8121#0" expanded="false" />
-            <element signature="e#8161#8162#0" expanded="false" />
-            <element signature="e#8196#8197#0" expanded="false" />
-            <element signature="e#8243#8244#0" expanded="false" />
-            <element signature="e#8284#8285#0" expanded="false" />
-            <element signature="e#8337#8338#0" expanded="false" />
-            <element signature="e#8381#8382#0" expanded="false" />
-            <element signature="e#8447#8448#0" expanded="false" />
-            <element signature="e#8486#8487#0" expanded="false" />
-            <element signature="e#8653#8654#0" expanded="false" />
-            <element signature="e#8683#8684#0" expanded="false" />
-            <element signature="e#8714#8715#0" expanded="false" />
-            <element signature="e#8744#8745#0" expanded="false" />
-            <element signature="e#9356#9357#0" expanded="false" />
-            <element signature="e#9449#9450#0" expanded="false" />
-            <element signature="e#9483#9484#0" expanded="false" />
-            <element signature="e#9571#9572#0" expanded="false" />
-            <element signature="e#9606#9607#0" expanded="false" />
-            <element signature="e#9634#9635#0" expanded="false" />
-            <element signature="e#9679#9680#0" expanded="false" />
-            <element signature="e#9713#9714#0" expanded="false" />
-            <element signature="e#9752#9753#0" expanded="false" />
-            <element signature="e#9782#9783#0" expanded="false" />
-            <element signature="e#9823#9824#0" expanded="false" />
-            <element signature="e#9906#9907#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/ItemBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.76853526">
@@ -1523,9 +1475,143 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5797101">
-          <caret line="43" column="31" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.33212996">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33754513">
+          <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/WaitingGlassAnimationHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/ScoreboardHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="188" column="24" selection-start-line="188" selection-start-column="24" selection-end-line="188" selection-end-column="24" />
+          <folding>
+            <element signature="e#10051#10052#0" expanded="true" />
+            <element signature="e#10082#10083#0" expanded="true" />
+            <element signature="e#10117#10118#0" expanded="true" />
+            <element signature="e#10147#10148#0" expanded="true" />
+            <element signature="e#10182#10183#0" expanded="true" />
+            <element signature="e#10210#10211#0" expanded="true" />
+            <element signature="e#10255#10256#0" expanded="true" />
+            <element signature="e#10289#10290#0" expanded="true" />
+            <element signature="e#10344#10345#0" expanded="true" />
+            <element signature="e#10384#10385#0" expanded="true" />
+            <element signature="e#10433#10434#0" expanded="true" />
+            <element signature="e#10470#10471#0" expanded="true" />
+            <element signature="e#10502#10503#0" expanded="true" />
+            <element signature="e#10532#10533#0" expanded="true" />
+            <element signature="e#10578#10579#0" expanded="true" />
+            <element signature="e#10616#10617#0" expanded="true" />
+            <element signature="e#10662#10663#0" expanded="true" />
+            <element signature="e#10700#10701#0" expanded="true" />
+            <element signature="e#10826#10827#0" expanded="true" />
+            <element signature="e#10876#10877#0" expanded="true" />
+            <element signature="e#10928#10929#0" expanded="true" />
+            <element signature="e#10968#10969#0" expanded="true" />
+            <element signature="e#11003#11004#0" expanded="true" />
+            <element signature="e#11027#11028#0" expanded="true" />
+            <element signature="e#11062#11063#0" expanded="true" />
+            <element signature="e#11087#11088#0" expanded="true" />
+            <element signature="e#11130#11131#0" expanded="true" />
+            <element signature="e#11164#11165#0" expanded="true" />
+            <element signature="e#11205#11206#0" expanded="true" />
+            <element signature="e#11240#11241#0" expanded="true" />
+            <element signature="e#11287#11288#0" expanded="true" />
+            <element signature="e#11328#11329#0" expanded="true" />
+            <element signature="e#11381#11382#0" expanded="true" />
+            <element signature="e#11425#11426#0" expanded="true" />
+            <element signature="e#11491#11492#0" expanded="true" />
+            <element signature="e#11530#11531#0" expanded="true" />
+            <element signature="e#11697#11698#0" expanded="true" />
+            <element signature="e#11727#11728#0" expanded="true" />
+            <element signature="e#11758#11759#0" expanded="true" />
+            <element signature="e#11788#11789#0" expanded="true" />
+            <element signature="e#12400#12401#0" expanded="true" />
+            <element signature="e#12493#12494#0" expanded="true" />
+            <element signature="e#12527#12528#0" expanded="true" />
+            <element signature="e#12615#12616#0" expanded="true" />
+            <element signature="e#12650#12651#0" expanded="true" />
+            <element signature="e#12678#12679#0" expanded="true" />
+            <element signature="e#12723#12724#0" expanded="true" />
+            <element signature="e#12757#12758#0" expanded="true" />
+            <element signature="e#12796#12797#0" expanded="true" />
+            <element signature="e#12826#12827#0" expanded="true" />
+            <element signature="e#12867#12868#0" expanded="true" />
+            <element signature="e#12950#12951#0" expanded="true" />
+            <marker date="1480308299584" expanded="true" signature="6885:6948" placeholder="SELECT * FRO..s_games..." />
+            <marker date="1480308299584" expanded="true" signature="7431:7552" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/GameHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="141" column="25" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/event/GameEndEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="148" column="19" selection-start-line="148" selection-start-column="19" selection-end-line="148" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/GameListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/MysqlUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49308756">
+          <caret line="109" column="5" selection-start-line="109" selection-start-column="5" selection-end-line="109" selection-end-column="5" />
+          <folding>
+            <marker date="1480310705344" expanded="true" signature="1729:1776" placeholder="SELECT * FRO..s_games..." />
+            <marker date="1480310705344" expanded="true" signature="2129:2211" placeholder="INSERT INTO ..." />
+            <marker date="1480310705344" expanded="true" signature="3314:3405" placeholder="UPDATE s_gam..." />
+            <marker date="1480310705344" expanded="true" signature="3644:3761" placeholder="UPDATE s_gam..." />
+            <marker date="1480310705344" expanded="true" signature="3644:3762" placeholder="UPDATE s_gam..." />
+            <marker date="1480310705344" expanded="true" signature="3644:3768" placeholder="UPDATE s_gam..." />
+          </folding>
         </state>
       </provider>
     </entry>

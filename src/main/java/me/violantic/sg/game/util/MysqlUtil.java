@@ -2,8 +2,6 @@ package me.violantic.sg.game.util;
 
 import me.violantic.sg.SurvivalGames;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.*;
@@ -62,14 +60,15 @@ public class MysqlUtil {
         return connection;
     }
 
-    public String[] getStats(String name, String uuid){
+    public ResultSet getStats(String name, String uuid) {
         final String query = "SELECT * FROM s_games WHERE uuid='" + uuid + "';";
         try {
             final PreparedStatement statement = getConnection().prepareStatement(query);
             final ResultSet set = statement.executeQuery();
             while(set.next()) {
-                if(set.getString("name") == null) {
-                    String add = "INSERT INTO s_games VALUES(NULL, " + name + ", " + uuid + ", 0, 0, 0, 0, 0, 0";
+                if (set.getString("username") == null) {
+                    System.out.println("user does not exist");
+                    String add = "INSERT INTO s_games VALUES(NULL, '" + name + "', '" + uuid + "', 0, 0, 0, 0, 0, 0);";
                     final PreparedStatement addStatement = getConnection().prepareStatement(add);
                     new BukkitRunnable() {
                         public void run() {
@@ -81,25 +80,8 @@ public class MysqlUtil {
                         }
                     }.runTaskAsynchronously(SurvivalGames.getInstance());
                 }
-
-                UUID id = UUID.fromString(uuid);
-                Player player = Bukkit.getPlayer(id);
-
-                if(player != null) {
-                    player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------------");
-                    player.sendMessage("");
-                    ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
-                    player.sendMessage("");
-                    ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Rating: " + ChatColor.LIGHT_PURPLE + set.getInt("points"));
-                    ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Kills: " + ChatColor.LIGHT_PURPLE + set.getInt("kills"));
-                    ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Deaths: " + ChatColor.LIGHT_PURPLE + set.getInt("deaths"));
-                    ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Chests Opened: " + ChatColor.LIGHT_PURPLE + set.getInt("chests_opened"));
-                    ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Games Played: " + ChatColor.LIGHT_PURPLE + set.getInt("games"));
-                    player.sendMessage("");
-                    player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------------");
-
-                }
             }
+            return set;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,20 +89,39 @@ public class MysqlUtil {
         return null;
     }
 
+    public int getStat(String uuid, String stat) {
+        try {
+            return getStats(uuid, Bukkit.getPlayer(UUID.fromString(uuid)).getName()).getInt(stat);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-    public void update(String name, String uuid, int newWins, int newGames,int newKills, int newDeaths, int newChests, int newPoints) {
+        return 0;
+    }
+
+    public void setStat(String uuid, String stat, int i) {
+        try {
+            PreparedStatement statement = getConnection().prepareStatement("UPDATE s_games SET " + stat + "=" + (getStat(uuid, stat)) + i + " WHERE uuid='" + uuid + "'");
+            statement.executeUpdate();
+            System.out.println(getStat(uuid, stat) + " is the new stat for " + stat);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String ay = "UPDATE s_games SET wins={wins},games={games},kills={kills},deaths={deaths},chests={chests},points={points} WHERE uuid={uuid}";
+    public void update(String name, String uuid, int newWins, int newGames, int newKills, int newDeaths, int newChests, int newPoints) {
         try {
             PreparedStatement statement = getConnection()
-                    .prepareStatement("UPDATE s_games VALUES ((SELECT ID WHERE uuid='"
-                            + uuid + "'), "
-                            + name + ", "
-                            + uuid + ", ((SELECT wins WHERE uuid='" + uuid + "')+"
-                            + newWins + "), ((SELECT games WHERE uuid='" + uuid + "')+"
-                            + newGames + "), ((SELECT kills WHERE uuid='" + uuid + "')+"
-                            + newKills + "), ((SELECT deaths WHERE uuid='" + uuid + "')+"
-                            + newDeaths + "), ((SELECT chests_opened WHERE uuid='" + uuid + "')+"
-                            + newChests + "), ((SELECT points WHERE uuid='" + uuid + "')+"
-                            + newPoints + "))");
+                    .prepareStatement(ay
+                            .replace("{name}", name)
+                            .replace("{uuid}", uuid)
+                            .replace("{wins}", getStat(uuid, "wins") + newWins + "")
+                            .replace("{games}", getStat(uuid, "games") + newGames + "")
+                            .replace("{kills}", getStat(uuid, "kills") + newKills + "")
+                            .replace("{deaths}", getStat(uuid, "deaths") + newDeaths + "")
+                            .replace("{chests}", getStat(uuid, "chests") + newChests + "")
+                            .replace("{points}", getStat(uuid, "points") + newPoints + ""));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

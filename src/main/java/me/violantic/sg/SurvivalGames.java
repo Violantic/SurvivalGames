@@ -6,10 +6,7 @@ import me.violantic.sg.game.Map;
 import me.violantic.sg.game.MapVoter;
 import me.violantic.sg.game.listener.GameListener;
 import me.violantic.sg.game.listener.PlayerListener;
-import me.violantic.sg.game.util.CrateGenerator;
-import me.violantic.sg.game.util.LagUtil;
-import me.violantic.sg.game.util.LocationUtil;
-import me.violantic.sg.game.util.MysqlUtil;
+import me.violantic.sg.game.util.*;
 import me.violantic.sg.handler.GameHandler;
 import me.violantic.sg.handler.ScoreboardHandler;
 import me.violantic.sg.handler.VoteHandler;
@@ -22,7 +19,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,6 +119,8 @@ public class SurvivalGames extends JavaPlugin implements Game {
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new GameListener(this), this);
 
+        mysql = new MysqlUtil("149.56.96.176", 3306, "survivalgames", "root", "ts8VdmKN2uTNYaAw");
+
         getCommand("forcestart").setExecutor(new CommandExecutor() {
             public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
                 if (command.getName().equalsIgnoreCase("forcestart")) {
@@ -161,17 +164,61 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
         getCommand("stats").setExecutor(new CommandExecutor() {
             public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-                if(command.getName().equalsIgnoreCase("stats")) {
-                    if(commandSender instanceof Player) {
-                        Player player = (Player) commandSender;
-                        getMysql().getStats(player.getName(), player.getUniqueId().toString());
+                if (command.getName().equalsIgnoreCase("stats")) {
+                    System.out.println("STATS!");
+                    if (!(commandSender instanceof Player)) {
+                        return false;
                     }
+
+                    Player player = (Player) commandSender;
+
+                    try {
+                        final String query = "SELECT * FROM s_games WHERE uuid='" + player.getUniqueId() + "';";
+                        final PreparedStatement statement = getMysql().getConnection().prepareStatement(query);
+                        final ResultSet set = statement.executeQuery();
+                        while (set.next()) {
+                            System.out.println("Querying");
+                            if (set.getString("username") == null) {
+                                System.out.println("user does not exist");
+                                String add = "INSERT INTO s_games VALUES(NULL, '" + player.getName() + "', '" + player.getUniqueId().toString() + "', 0, 0, 0, 0, 0, 0);";
+                                final PreparedStatement addStatement = getMysql().getConnection().prepareStatement(add);
+                                new BukkitRunnable() {
+                                    public void run() {
+                                        try {
+                                            addStatement.executeUpdate();
+                                        } catch (SQLException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }.runTaskAsynchronously(SurvivalGames.getInstance());
+
+                                player.sendMessage(getPrefix() + "You were never in our databases... adding now!");
+                                return false;
+                            }
+
+                            System.out.println("Retrieving");
+
+                            player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------------");
+                            player.sendMessage("");
+                            ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
+                            player.sendMessage("");
+                            ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Rating: " + ChatColor.LIGHT_PURPLE + set.getInt("points"));
+                            ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Kills: " + ChatColor.LIGHT_PURPLE + set.getInt("kills"));
+                            ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Deaths: " + ChatColor.LIGHT_PURPLE + set.getInt("deaths"));
+                            ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Chests Opened: " + ChatColor.LIGHT_PURPLE + set.getInt("chests_opened"));
+                            ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Games Played: " + ChatColor.LIGHT_PURPLE + set.getInt("games"));
+                            player.sendMessage("");
+                            player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------------");
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
                 }
                 return false;
             }
         });
 
-        mysql = new MysqlUtil("149.56.96.176", 3306, "survivalgames", "root", "ts8VdmKN2uTNYaAw");
     }
 
     @Override
@@ -305,7 +352,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
     }
 
     public String getPrefix() {
-        return ChatColor.GRAY + "[" + ChatColor.YELLOW + "Mine" + ChatColor.LIGHT_PURPLE + "Swine" + ChatColor.GRAY + "] [" + ChatColor.GREEN + "Survival" + ChatColor.DARK_GREEN + "Games" + ChatColor.GRAY + "] ";
+        return ChatColor.GRAY + "[" + ChatColor.LIGHT_PURPLE + "MINESWINE" + ChatColor.GRAY + "] [" + ChatColor.GREEN + "Survival" + ChatColor.DARK_GREEN + "Games" + ChatColor.GRAY + "] ";
     }
 
     public String ERROR_GAME_IN_PROGRESS() {
