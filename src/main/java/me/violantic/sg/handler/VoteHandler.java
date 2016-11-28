@@ -65,7 +65,6 @@ public class VoteHandler implements Runnable {
             for (ItemStack item : getMapItems()) player.getInventory().setItem(getMapItems().indexOf(item), new ItemStack(Material.AIR, 1));
     }
 
-    @Override
     public void run() {
         if(!SurvivalGames.getInstance().enabled()) return;
         System.out.println("Server is enabled");

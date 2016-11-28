@@ -159,7 +159,6 @@ public class GameHandler implements Runnable {
 
     public void playTick() {
         Bukkit.getOnlinePlayers().forEach((new Consumer<Player>() {
-            @Override
             public void accept(Player p) {
                 p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
             }
@@ -170,7 +169,6 @@ public class GameHandler implements Runnable {
         final AtomicReference<Integer> second = new AtomicReference<Integer>();
         second.compareAndSet(second.get(), this.second);
         Bukkit.getOnlinePlayers().forEach((new Consumer<Player>() {
-            @Override
             public void accept(Player p) {
                 p.setLevel(second.get());
             }

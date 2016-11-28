@@ -119,7 +119,6 @@ public class SurvivalGames extends JavaPlugin implements Game {
         getServer().getPluginManager().registerEvents(new GameListener(this), this);
 
         getCommand("forcestart").setExecutor(new CommandExecutor() {
-            @Override
             public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
                 if (command.getName().equalsIgnoreCase("forcestart")) {
                     if (getState().getName().equalsIgnoreCase("progress")) {
@@ -144,7 +143,6 @@ public class SurvivalGames extends JavaPlugin implements Game {
         });
 
         getCommand("forceend").setExecutor(new CommandExecutor() {
-            @Override
             public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
                 if (command.getName().equalsIgnoreCase("forceend")) {
                     if (getState().getName().equalsIgnoreCase("progress")) {
@@ -162,12 +160,11 @@ public class SurvivalGames extends JavaPlugin implements Game {
         });
 
         getCommand("stats").setExecutor(new CommandExecutor() {
-            @Override
             public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
                 if(command.getName().equalsIgnoreCase("stats")) {
                     if(commandSender instanceof Player) {
                         Player player = (Player) commandSender;
-
+                        getMysql().getStats(player.getName(), player.getUniqueId().toString());
                     }
                 }
                 return false;

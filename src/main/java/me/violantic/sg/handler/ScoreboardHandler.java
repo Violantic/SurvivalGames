@@ -69,7 +69,6 @@ public class ScoreboardHandler implements Runnable {
         return scoreboard;
     }
 
-    @Override
     public void run() {
         if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) return;
 

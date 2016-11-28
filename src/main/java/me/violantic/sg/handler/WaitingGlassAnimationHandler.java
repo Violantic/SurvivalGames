@@ -31,7 +31,6 @@ public class WaitingGlassAnimationHandler implements Runnable {
         this.garbage = new ArrayList<Location>();
     }
 
-    @Override
     public void run() {
         if (!progress) return;
 
