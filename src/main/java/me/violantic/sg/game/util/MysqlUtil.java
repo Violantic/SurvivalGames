@@ -65,22 +65,20 @@ public class MysqlUtil {
         try {
             final PreparedStatement statement = getConnection().prepareStatement(query);
             final ResultSet set = statement.executeQuery();
-            while(set.next()) {
-                if (set.getString("username") == null) {
-                    System.out.println("user does not exist");
-                    String add = "INSERT INTO s_games VALUES(NULL, '" + name + "', '" + uuid + "', 0, 0, 0, 0, 0, 0);";
-                    final PreparedStatement addStatement = getConnection().prepareStatement(add);
-                    new BukkitRunnable() {
-                        public void run() {
-                            try {
-                                addStatement.executeUpdate();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
+            if(!set.next()) {
+                String add = "INSERT INTO s_games VALUES(NULL, '" + name + "', '" + uuid + "', 0, 0, 0, 0, 0, 0);";
+                final PreparedStatement addStatement = getConnection().prepareStatement(add);
+                new BukkitRunnable() {
+                    public void run() {
+                        try {
+                            addStatement.executeUpdate();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
                         }
-                    }.runTaskAsynchronously(SurvivalGames.getInstance());
-                }
+                    }
+                }.runTaskAsynchronously(SurvivalGames.getInstance());
             }
+
             return set;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -91,7 +89,9 @@ public class MysqlUtil {
 
     public int getStat(String uuid, String stat) {
         try {
-            return getStats(uuid, Bukkit.getPlayer(UUID.fromString(uuid)).getName()).getInt(stat);
+            while(getStats(Bukkit.getPlayer(UUID.fromString(uuid)).getName(), uuid).next()) {
+                return getStats(Bukkit.getPlayer(UUID.fromString(uuid)).getName(), uuid).getInt(stat);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -198,7 +198,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
                             System.out.println("Retrieving");
 
-                            player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------------");
+                            player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                             player.sendMessage("");
                             ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
                             player.sendMessage("");
@@ -208,7 +208,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
                             ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Chests Opened: " + ChatColor.LIGHT_PURPLE + set.getInt("chests_opened"));
                             ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Games Played: " + ChatColor.LIGHT_PURPLE + set.getInt("games"));
                             player.sendMessage("");
-                            player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------------");
+                            player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();

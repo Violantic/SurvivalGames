@@ -1,6 +1,7 @@
 package me.violantic.sg.game.listener;
 
 import me.violantic.sg.SurvivalGames;
+import me.violantic.sg.game.event.GameEndEvent;
 import me.violantic.sg.game.util.LocationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -51,6 +52,12 @@ public class PlayerListener implements Listener {
         Bukkit.broadcastMessage(instance.getPrefix() + event.getEntity().getName() + " is no longer alive");
         try {
             instance.getVerifiedPlayers().remove(event.getEntity().getUniqueId());
+
+            if(instance.getVerifiedPlayers().size() == 1) {
+                Bukkit.getServer().getPluginManager().callEvent(new GameEndEvent(instance, Bukkit.getPlayer(instance.getWinner()).getName()));
+                return;
+            }
+
             Bukkit.broadcastMessage(instance.getPrefix() + "Players left: (" + instance.getVerifiedPlayers().size() + "/" + Bukkit.getOnlinePlayers().size() + ")");
         } catch (Exception e) {
             System.out.println(event.getEntity().getName() + " was never a verified player in SurvivalGames!");

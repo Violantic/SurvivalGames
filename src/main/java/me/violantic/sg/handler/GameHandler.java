@@ -2,6 +2,7 @@ package me.violantic.sg.handler;
 
 import me.violantic.sg.SurvivalGames;
 import me.violantic.sg.game.GameState;
+import me.violantic.sg.game.event.GameEndEvent;
 import me.violantic.sg.game.event.GameStartEvent;
 import me.violantic.sg.game.util.ChatUtil;
 import org.bukkit.Bukkit;
@@ -219,14 +220,14 @@ public class GameHandler implements Runnable {
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                } else if (second <= 125 && second >= 120) {
+                } else if (second <= 125 && second > 120) {
                     playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
                         ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Releasing in");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "0:0" + second + " " + ChatColor.YELLOW + "Seconds!");
+                        ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "0:0" + (second-120) + " " + ChatColor.YELLOW + "Seconds!");
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
@@ -236,11 +237,12 @@ public class GameHandler implements Runnable {
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
-                        ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The death match ends in");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "2:00 " + ChatColor.YELLOW + "Minute!");
+                        ChatUtil.sendCenteredMessage(player, ChatColor.DARK_RED + "" + ChatColor.BOLD + "FIGHT TO THE DEATH!");
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                    SurvivalGames.getInstance().getState().setCanMove(true);
+                    SurvivalGames.getInstance().getState().setCanPVP(true);
                 } else if (second == 60) {
                     playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
@@ -273,33 +275,34 @@ public class GameHandler implements Runnable {
                         ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "0:20 " + ChatColor.YELLOW + "Seconds!");
                         ChatUtil.sendCenteredMessage(player, ChatColor.GREEN + "" + ChatColor.BOLD + "Disease is spreading...");
 
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20, 1));
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20*20, 1));
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                } else if (second <= 10) {
+                } else if (second <= 10 && second > 0) {
                     playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
                         ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The death match ends in");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "0:" + ((second == 10) ? "10" : "0" + second) + ChatColor.YELLOW + "Seconds!");
+                        ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "0:" + ((second == 10) ? "10" : "0" + second) + ChatColor.YELLOW + " Seconds!");
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                } else if (second == 0 && SurvivalGames.getInstance().getVerifiedPlayers().size() >= 1) {
+                } else if (second == 0) {
+                    if(SurvivalGames.getInstance().getVerifiedPlayers().size() == 1) {
+                        Bukkit.getServer().getPluginManager().callEvent(new GameEndEvent(SurvivalGames.getInstance(), Bukkit.getPlayer(SurvivalGames.getInstance().getWinner()).getName()));
+                    } else if(SurvivalGames.getInstance().getVerifiedPlayers().size() > 1) {
+                        Bukkit.getServer().getPluginManager().callEvent(new GameEndEvent(SurvivalGames.getInstance(), "{none}"));
+                    }
 
+                    SurvivalGames.getInstance().getState().setCanMove(true);
                 }
             }
 
-            if (second >= 0) {
+            if (second > 0) {
                 second--;
-            } else if (SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
-                if (!voteStarted) {
-                    voteStarted = true;
-                }
-                // TODO - Give all players papers to right click (vote for each map)
             }
         }
 
@@ -311,7 +314,9 @@ public class GameHandler implements Runnable {
         dm.setCanMove(false);
         dm.setCanPVP(false);
         dm.setCanPlace(false);
-        dm.setCanBreak(false);
+        dm.setCanBreak(true);
+
+        SurvivalGames.getInstance().setState(dm);
 
         for (UUID uuid : SurvivalGames.getInstance().getVerifiedPlayers()) {
             Player player = Bukkit.getPlayer(uuid);
@@ -322,7 +327,7 @@ public class GameHandler implements Runnable {
         // Lightning because why not. //
 
 
-        second = 135;
+        second = 131;
     }
 
     public void playTick() {
