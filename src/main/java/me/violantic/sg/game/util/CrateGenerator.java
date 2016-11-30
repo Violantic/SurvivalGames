@@ -76,6 +76,7 @@ public class CrateGenerator {
                 } else {
                     block.setType(Material.AIR);
                 }
+                tier1.add(block.getLocation());
             } else if (block.getType() == Material.ENDER_CHEST) {
                 tier2.add(block.getLocation());
                 block.setType(Material.CHEST);
@@ -85,6 +86,7 @@ public class CrateGenerator {
                 for (ChestContent content : shtuff) {
                     chest.getBlockInventory().addItem(content.getItem());
                 }
+                tier2.add(block.getLocation());
             }
         }
     }

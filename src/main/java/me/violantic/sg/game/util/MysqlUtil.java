@@ -2,6 +2,8 @@ package me.violantic.sg.game.util;
 
 import me.violantic.sg.SurvivalGames;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.*;
@@ -119,6 +121,49 @@ public class MysqlUtil {
             PreparedStatement statement1 = getConnection().prepareStatement(query);
             statement1.executeUpdate();
             System.out.println(getStat(uuid, stat) + " is the new stat for " + stat);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendStats(Player player) {
+        try {
+            final String query = "SELECT * FROM s_games WHERE uuid='" + player.getUniqueId() + "';";
+            final PreparedStatement statement = getConnection().prepareStatement(query);
+            final ResultSet set = statement.executeQuery();
+            while (set.next()) {
+                System.out.println("Querying");
+                if (set.getString("username") == null) {
+                    System.out.println("user does not exist");
+                    String add = "INSERT INTO s_games VALUES(NULL, '" + player.getName() + "', '" + player.getUniqueId().toString() + "', 0, 0, 0, 0, 0, 0);";
+                    final PreparedStatement addStatement = getConnection().prepareStatement(add);
+                    new BukkitRunnable() {
+                        public void run() {
+                            try {
+                                addStatement.executeUpdate();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }.runTaskAsynchronously(SurvivalGames.getInstance());
+
+                    player.sendMessage(SurvivalGames.getInstance().getPrefix() + "You were never in our databases... adding now!");
+                }
+
+                System.out.println("Retrieving");
+
+                player.sendMessage(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
+                player.sendMessage("");
+                ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
+                player.sendMessage("");
+                ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Rating: " + ChatColor.LIGHT_PURPLE + set.getInt("points"));
+                ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Kills: " + ChatColor.LIGHT_PURPLE + set.getInt("kills"));
+                ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Deaths: " + ChatColor.LIGHT_PURPLE + set.getInt("deaths"));
+                ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Chests Opened: " + ChatColor.LIGHT_PURPLE + set.getInt("chests_opened"));
+                ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Games Played: " + ChatColor.LIGHT_PURPLE + set.getInt("games"));
+                player.sendMessage("");
+                player.sendMessage(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
