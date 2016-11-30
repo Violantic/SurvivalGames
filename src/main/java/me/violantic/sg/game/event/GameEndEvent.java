@@ -34,7 +34,11 @@ public class GameEndEvent extends Event{
             online.sendMessage("");
             ChatUtil.sendCenteredMessage(online, SurvivalGames.getInstance().getPrefix());
             online.sendMessage("");
-            ChatUtil.sendCenteredMessage(online, ChatColor.YELLOW + "The winner is " + winner);
+            if(winner.equalsIgnoreCase("{none}")) {
+                ChatUtil.sendCenteredMessage(online, ChatColor.YELLOW + "Nobody won SurvivalGames! D:{");
+            } else {
+                ChatUtil.sendCenteredMessage(online, ChatColor.YELLOW + "The winner is " + winner);
+            }
             online.sendMessage("");
             online.sendMessage(ChatColor.DARK_GRAY + "----------------------------------------------------");
         }

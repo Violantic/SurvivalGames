@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
@@ -52,94 +53,101 @@ public class GameHandler implements Runnable {
         }
 
         if (players() >= SurvivalGames.getInstance().minimumPlayers()) {
-            if (second == 0 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
-                GameState progress = new GameState("started");
-                progress.setCanMove(true);
-                progress.setCanPVP(false);
-                progress.setCanOpen(false);
-                SurvivalGames.getInstance().setState(progress);
-            } else if (second == 15 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
-                Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                Bukkit.broadcastMessage("");
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
-                    ChatUtil.sendCenteredMessage(player, "The map voted was " + ChatColor.YELLOW + "" + ChatColor.BOLD + "" + SurvivalGames.getInstance().getGameMapVoter().getWinner());
-                }
-                Bukkit.broadcastMessage("");
-                Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                SurvivalGames.getInstance().initiateGameMap();
-            } else if (second == 10 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
-                Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                Bukkit.broadcastMessage("");
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
-                    ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Game starting in " + second + " seconds");
-                }
-                Bukkit.broadcastMessage("");
-                Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                SurvivalGames.getInstance().setupLocations();
-                playTick();
 
-                // Start loading new crates so players don't get antsy. //
-                SurvivalGames.getInstance().getCrateGenerator().start(SurvivalGames.getInstance().getGameMap().getName());
-            } else if (second <= 5 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
-                Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                Bukkit.broadcastMessage("");
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
-                    ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Game starting in " + second + " seconds");
+            /**
+             * Waiting stage.
+             * @info this stage is the lobby portion of the minigame,
+             * players cannot PVP, PVE, or alter any blocks. Players
+             * also will vote for the map that they would like to
+             * play on in the waiting stage.
+             */
+            if (SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
+                if (second == 15) {
+                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                    Bukkit.broadcastMessage("");
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
+                        ChatUtil.sendCenteredMessage(player, "The map voted was " + ChatColor.YELLOW + "" + ChatColor.BOLD + "" + SurvivalGames.getInstance().getGameMapVoter().getWinner());
+                    }
+                    Bukkit.broadcastMessage("");
+                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                    SurvivalGames.getInstance().initiateGameMap();
+                } else if (second == 0) {
+                    GameState progress = new GameState("started");
+                    progress.setCanMove(true);
+                    progress.setCanPVP(false);
+                    progress.setCanOpen(false);
+                    SurvivalGames.getInstance().setState(progress);
+                } else if (second == 10) {
+                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                    Bukkit.broadcastMessage("");
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
+                        ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Game starting in " + second + " seconds");
+                    }
+                    Bukkit.broadcastMessage("");
+                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                    SurvivalGames.getInstance().setupLocations();
+                    playTick();
+
+                    // Start loading new crates so players don't get antsy. //
+                    SurvivalGames.getInstance().getCrateGenerator().start(SurvivalGames.getInstance().getGameMap().getName());
+                } else if (second <= 5) {
+                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                    Bukkit.broadcastMessage("");
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
+                        ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Game starting in " + second + " seconds");
+                    }
+                    Bukkit.broadcastMessage("");
+                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                    playTick();
                 }
-                Bukkit.broadcastMessage("");
-                Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                playTick();
-            } else if (second <= 0 && SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("started")) {
-                GameState progress = new GameState("progress");
-                progress.setCanMove(false);
-                progress.setCanPVP(true);
-                progress.setCanOpen(true);
-                progress.setCanBreak(true);
-                progress.setCanPlace(true);
-                SurvivalGames.getInstance().setState(progress);
-                second = 10 * 60;
-                Bukkit.getServer().getPluginManager().callEvent(new GameStartEvent(SurvivalGames.getInstance()));
-                return;
-            } else if (SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("progress")) {
+            }
+
+            /**
+             * Started stage.
+             * @info this stage is a transitional stage between the lobby and the progress.
+             * It sets up the player handlers such as PVP, PVE, and sends them to the area.
+             */
+            else if (SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("started")) {
+                if (second <= 0) {
+                    GameState progress = new GameState("progress");
+                    progress.setCanMove(false);
+                    progress.setCanPVP(true);
+                    progress.setCanOpen(true);
+                    progress.setCanBreak(true);
+                    progress.setCanPlace(true);
+                    SurvivalGames.getInstance().setState(progress);
+                    second = 10 * 60;
+                    Bukkit.getServer().getPluginManager().callEvent(new GameStartEvent(SurvivalGames.getInstance()));
+                    return;
+                }
+            }
+
+            /**
+             * Progress stage.
+             * @info this stage is the meat of the game, here is where the players actually
+             * try to stay alive for as long as they can and kill other players during this
+             * stage. If the stage has not expired, but the player count gets to 5 - the
+             * death match automatically starts; likewise if the stage expires and there are
+             * more than 5 players left in the game, it will start a death match anyways.
+             */
+            else if (SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("progress")) {
                 SurvivalGames.getInstance().second = second;
                 handleXP();
                 if (SurvivalGames.getInstance().getVerifiedPlayers().size() == 5) {
+                    playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
                         Bukkit.broadcastMessage("");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The Death Match has started early?");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.DARK_RED + "" + ChatColor.BOLD + "FIGHT TO THE DEATH!!!");
+                        ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The Death Match has come early? huh...");
                         Bukkit.broadcastMessage("");
                     }
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     return;
-                } else if (second == 180) {
-                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                    Bukkit.broadcastMessage("");
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
-                        Bukkit.broadcastMessage("");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The death match is in");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "3:00 " + ChatColor.YELLOW + "Minutes!");
-                        Bukkit.broadcastMessage("");
-                    }
-                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                } else if (second == 60) {
-                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                    Bukkit.broadcastMessage("");
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
-                        Bukkit.broadcastMessage("");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The death match is in");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "1:00 " + ChatColor.YELLOW + "Minute!");
-                        Bukkit.broadcastMessage("");
-                    }
-                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                 } else if (second == 600) {
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
@@ -154,20 +162,53 @@ public class GameHandler implements Runnable {
                     SurvivalGames.getInstance().getState().setCanMove(true);
                 } else if (second >= 600) {
                     playTick();
+                } else if (second == 180) {
+                    playTick();
+                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                    Bukkit.broadcastMessage("");
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
+                        Bukkit.broadcastMessage("");
+                        ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The death match is in");
+                        ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "3:00 " + ChatColor.YELLOW + "Minutes!");
+                        Bukkit.broadcastMessage("");
+                    }
+                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                } else if (second == 60) {
+                    playTick();
+                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                    Bukkit.broadcastMessage("");
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
+                        Bukkit.broadcastMessage("");
+                        ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The death match is in");
+                        ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "1:00 " + ChatColor.YELLOW + "Minute!");
+                        Bukkit.broadcastMessage("");
+                    }
+                    Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                 } else if (second == 0) {
+                    playTick();
                     startDeathMatch();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
-                        ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The death match has started...");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.DARK_RED + "" + ChatColor.BOLD + "FIGHT TO THE DEATH!!!");
+                        ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The death match is commencing...");
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                 }
-            } else if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("deathmatch")) {
-                if(second == 130) {
+            }
+
+            /**
+             * Death match stage.
+             * @info this stage is the finale of the game. Here is where players are in-closed
+             * and forced to fight to the death. It will last for approximately 2 minutes.
+             * If there is not a winner by the last 20 seconds, poison will be applied to all
+             * players to "motivate" them to eliminate all opponents.
+             */
+            else if (SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("deathmatch")) {
+                if (second == 130) {
                     playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
@@ -178,7 +219,7 @@ public class GameHandler implements Runnable {
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                } else if(second <= 125 && second >= 120) {
+                } else if (second <= 125 && second >= 120) {
                     playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
@@ -189,7 +230,8 @@ public class GameHandler implements Runnable {
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                } else if(second == 120) {
+                } else if (second == 120) {
+                    playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
@@ -199,7 +241,8 @@ public class GameHandler implements Runnable {
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                } else if(second == 60) {
+                } else if (second == 60) {
+                    playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
@@ -209,7 +252,8 @@ public class GameHandler implements Runnable {
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                } else if(second == 30) {
+                } else if (second == 30) {
+                    playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
@@ -219,7 +263,8 @@ public class GameHandler implements Runnable {
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                } else if(second == 20) {
+                } else if (second == 20) {
+                    playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
@@ -232,19 +277,19 @@ public class GameHandler implements Runnable {
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                } else if(second <= 10) {
+                } else if (second <= 10) {
+                    playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
                         ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The death match ends in");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "0:20 " + ChatColor.YELLOW + "Seconds!");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.GREEN + "" + ChatColor.BOLD + "Disease is spreading...");
-
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20, 1));
+                        ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "0:" + ((second == 10) ? "10" : "0" + second) + ChatColor.YELLOW + "Seconds!");
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
+                } else if (second == 0 && SurvivalGames.getInstance().getVerifiedPlayers().size() >= 1) {
+
                 }
             }
 
@@ -267,6 +312,15 @@ public class GameHandler implements Runnable {
         dm.setCanPVP(false);
         dm.setCanPlace(false);
         dm.setCanBreak(false);
+
+        for (UUID uuid : SurvivalGames.getInstance().getVerifiedPlayers()) {
+            Player player = Bukkit.getPlayer(uuid);
+            int index = SurvivalGames.getInstance().getVerifiedPlayers().indexOf(uuid);
+            player.teleport(SurvivalGames.getInstance().getStartingLocations().get(index));
+        }
+
+        // Lightning because why not. //
+
 
         second = 135;
     }
