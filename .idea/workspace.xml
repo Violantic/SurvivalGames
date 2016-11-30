@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1806311f-70bb-42b3-ba26-7880325c73be" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/GameHandler.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/GameHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/MysqlUtil.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/MysqlUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java" afterPath="$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SurvivalGames.iws" />
@@ -37,7 +35,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="142" column="17" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
+              <caret line="177" column="71" selection-start-line="175" selection-start-column="24" selection-end-line="177" selection-end-column="71" />
               <folding>
                 <element signature="e#10457#10458#0" expanded="true" />
                 <element signature="e#10494#10495#0" expanded="true" />
@@ -58,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerListener.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PlayerListener.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="45" column="32" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.6238938">
+              <caret line="169" column="0" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
               <folding>
                 <element signature="e#4134#4135#0" expanded="true" />
                 <element signature="e#4202#4203#0" expanded="true" />
@@ -104,17 +102,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MysqlUtil.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MysqlUtil.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/MysqlUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.09439528">
-              <caret line="84" column="9" selection-start-line="84" selection-start-column="9" selection-end-line="84" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="127" column="20" selection-start-line="127" selection-start-column="20" selection-end-line="127" selection-end-column="20" />
               <folding>
-                <marker date="1480487995686" expanded="true" signature="1729:1776" placeholder="SELECT * FRO..s_games..." />
-                <marker date="1480487995686" expanded="true" signature="2003:2085" placeholder="INSERT INTO ..." />
-                <marker date="1480487995686" expanded="true" signature="3268:3335" placeholder="UPDATE s_gam..." />
-                <marker date="1480487995686" expanded="true" signature="3459:3532" placeholder="UPDATE s_gam..." />
-                <marker date="1480487995686" expanded="true" signature="3867:3991" placeholder="UPDATE s_gam..." />
+                <marker date="1480488716256" expanded="true" signature="1729:1776" placeholder="SELECT * FRO..s_games..." />
+                <marker date="1480488716256" expanded="true" signature="2003:2085" placeholder="INSERT INTO ..." />
+                <marker date="1480488716256" expanded="true" signature="3197:3231" placeholder="SELECT * FRO..s_games..." />
+                <marker date="1480488716256" expanded="true" signature="3197:3244" placeholder="SELECT * FRO..s_games..." />
+                <marker date="1480488716256" expanded="true" signature="3605:3672" placeholder="UPDATE s_gam..." />
+                <marker date="1480488716256" expanded="true" signature="3796:3869" placeholder="UPDATE s_gam..." />
+                <marker date="1480488716256" expanded="true" signature="4206:4330" placeholder="UPDATE s_gam..." />
               </folding>
             </state>
           </provider>
@@ -176,10 +176,10 @@
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/CrateGenerator.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/LagUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/event/GameEndEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/handler/GameHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/MysqlUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java" />
       </list>
     </option>
   </component>
@@ -835,7 +835,7 @@
       <workItem from="1479873773359" duration="15760000" />
       <workItem from="1480102788582" duration="39428000" />
       <workItem from="1480312763868" duration="5104000" />
-      <workItem from="1480478699240" duration="7028000" />
+      <workItem from="1480478699240" duration="7588000" />
     </task>
     <task id="LOCAL-00001" summary="Added map voter">
       <created>1478844058334</created>
@@ -909,11 +909,17 @@
       <option name="project" value="LOCAL" />
       <updated>1480483467814</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Everything functional and bugless-seeming however stats aren't syncing and that's an issue I need to fix.">
+      <created>1480488442416</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1480488442416</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147305000" />
+    <option name="totallyTimeSpent" value="147865000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="58" y="-8" width="1870" height="1096" extended-state="6" />
@@ -967,7 +973,8 @@
     <MESSAGE value="Various fixes" />
     <MESSAGE value="Deathmatch hotfix - hopefully improved /stats - and working on various bugs" />
     <MESSAGE value="Fixed deathmatch bug(s) - also organized code in the game handler to be sequential to what happens in game. (was bothering me)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed deathmatch bug(s) - also organized code in the game handler to be sequential to what happens in game. (was bothering me)" />
+    <MESSAGE value="Everything functional and bugless-seeming however stats aren't syncing and that's an issue I need to fix." />
+    <option name="LAST_COMMIT_MESSAGE" value="Everything functional and bugless-seeming however stats aren't syncing and that's an issue I need to fix." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1369,18 +1376,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/CrateGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="77" column="17" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/SurvivalGames.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="142" column="17" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
+          <caret line="177" column="71" selection-start-line="175" selection-start-column="24" selection-end-line="177" selection-end-column="71" />
           <folding>
             <element signature="e#10457#10458#0" expanded="true" />
             <element signature="e#10494#10495#0" expanded="true" />
@@ -1390,27 +1389,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/CrateGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="32" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="32" />
-          <folding>
-            <element signature="e#4134#4135#0" expanded="true" />
-            <element signature="e#4202#4203#0" expanded="true" />
-          </folding>
+          <caret line="77" column="17" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/util/MysqlUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09439528">
-          <caret line="84" column="9" selection-start-line="84" selection-start-column="9" selection-end-line="84" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="127" column="20" selection-start-line="127" selection-start-column="20" selection-end-line="127" selection-end-column="20" />
           <folding>
-            <marker date="1480487995686" expanded="true" signature="1729:1776" placeholder="SELECT * FRO..s_games..." />
-            <marker date="1480487995686" expanded="true" signature="2003:2085" placeholder="INSERT INTO ..." />
-            <marker date="1480487995686" expanded="true" signature="3268:3335" placeholder="UPDATE s_gam..." />
-            <marker date="1480487995686" expanded="true" signature="3459:3532" placeholder="UPDATE s_gam..." />
-            <marker date="1480487995686" expanded="true" signature="3867:3991" placeholder="UPDATE s_gam..." />
+            <marker date="1480488716256" expanded="true" signature="1729:1776" placeholder="SELECT * FRO..s_games..." />
+            <marker date="1480488716256" expanded="true" signature="2003:2085" placeholder="INSERT INTO ..." />
+            <marker date="1480488716256" expanded="true" signature="3197:3231" placeholder="SELECT * FRO..s_games..." />
+            <marker date="1480488716256" expanded="true" signature="3197:3244" placeholder="SELECT * FRO..s_games..." />
+            <marker date="1480488716256" expanded="true" signature="3605:3672" placeholder="UPDATE s_gam..." />
+            <marker date="1480488716256" expanded="true" signature="3796:3869" placeholder="UPDATE s_gam..." />
+            <marker date="1480488716256" expanded="true" signature="4206:4330" placeholder="UPDATE s_gam..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/violantic/sg/game/listener/PlayerListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6238938">
+          <caret line="169" column="0" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
+          <folding>
+            <element signature="e#4134#4135#0" expanded="true" />
+            <element signature="e#4202#4203#0" expanded="true" />
           </folding>
         </state>
       </provider>

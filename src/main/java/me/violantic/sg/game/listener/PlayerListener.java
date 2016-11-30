@@ -162,11 +162,11 @@ public class PlayerListener implements Listener {
         // Opening loot //
         if(instance.getCrateGenerator().tier1.contains(event.getClickedBlock().getLocation())) {
             instance.getCrateGenerator().tier1.remove(event.getClickedBlock().getLocation());
-            instance.getMysql().update(event.getPlayer().getName(), event.getPlayer().getUniqueId().toString(), 0, 0, 0, 0, 1, 1);
+            instance.getMysql().setStat(event.getPlayer().getUniqueId().toString(), "chests_opened", 1);
             event.getPlayer().sendMessage(instance.getPrefix() + ChatColor.GREEN + "+1 Chests Opened");
         } else if(instance.getCrateGenerator().tier2.contains(event.getClickedBlock().getLocation())) {
             instance.getCrateGenerator().tier2.remove(event.getClickedBlock().getLocation());
-            instance.getMysql().update(event.getPlayer().getName(), event.getPlayer().getUniqueId().toString(), 0, 0, 0, 0, 1, 1);
+            instance.getMysql().setStat(event.getPlayer().getUniqueId().toString(), "chests_opened", 1);
             event.getPlayer().sendMessage(instance.getPrefix() + ChatColor.GREEN + "+1 Chests Opened");
         }
     }
