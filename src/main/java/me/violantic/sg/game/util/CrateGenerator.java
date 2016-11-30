@@ -21,11 +21,29 @@ public class CrateGenerator {
     public List<Block> all;
     private SurvivalGames instance;
 
+    private boolean enabled = true;
+
     public CrateGenerator(SurvivalGames instance) {
         tier1 = new ArrayList<Location>();
         tier2 = new ArrayList<Location>();
 
         this.instance = instance;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void enable() {
+        this.enabled = true;
+    }
+
+    public void disable() {
+        this.enabled = false;
     }
 
     public void start(final String map) {
@@ -35,12 +53,13 @@ public class CrateGenerator {
         new BukkitRunnable() {
             public void run() {
                 search(map);
-                System.out.println(instance.getPrefix() + "[TPS After Generation] " + instance.getLagUtil().getTPS());
             }
         }.runTaskTimer(SurvivalGames.getInstance(), 0l, 20 * 10l);
     }
 
     public void search(String map) {
+        if(!isEnabled()) return;
+
         World world = Bukkit.getWorld(map);
         for (Block block : all) {
             if (block.getType().equals(Material.SPONGE)) {

@@ -101,7 +101,14 @@ public class MysqlUtil {
 
     public void setStat(String uuid, String stat, int i) {
         try {
-            PreparedStatement statement = getConnection().prepareStatement("UPDATE s_games SET " + stat + "=" + (getStat(uuid, stat)) + i + " WHERE uuid='" + uuid + "'");
+            String query = null;
+            if(getStat(uuid, stat) == 0) {
+                query = "UPDATE s_games SET " + stat + "=" + i + " WHERE uuid='" + uuid + "'";
+            } else if(getStat(uuid, stat) > 0) {
+                int old = getStat(uuid, stat);
+                query = "UPDATE s_games SET " + stat + "=" + old + i + " WHERE uuid='" + uuid + "'";
+            }
+            PreparedStatement statement = getConnection().prepareStatement(query);
             statement.executeUpdate();
             System.out.println(getStat(uuid, stat) + " is the new stat for " + stat);
         } catch (SQLException e) {
