@@ -214,7 +214,7 @@ public class GameHandler implements Runnable {
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
+                        ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix() + " ");
                         ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Releasing in");
                         ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "0:10 " + ChatColor.YELLOW + "Seconds!");
                     }
@@ -279,7 +279,7 @@ public class GameHandler implements Runnable {
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
-                } else if (second <= 10 && second > 0) {
+                } else if (second <= 10 && second >= 1) {
                     playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
@@ -295,13 +295,15 @@ public class GameHandler implements Runnable {
                         Bukkit.getServer().getPluginManager().callEvent(new GameEndEvent(SurvivalGames.getInstance(), Bukkit.getPlayer(SurvivalGames.getInstance().getWinner()).getName()));
                     } else if(SurvivalGames.getInstance().getVerifiedPlayers().size() > 1) {
                         Bukkit.getServer().getPluginManager().callEvent(new GameEndEvent(SurvivalGames.getInstance(), "{none}"));
+                    } else {
+                        Bukkit.getServer().getPluginManager().callEvent(new GameEndEvent(SurvivalGames.getInstance(), "{none}"));
                     }
 
                     SurvivalGames.getInstance().getState().setCanMove(true);
                 }
             }
 
-            if (second > 0) {
+            if (second >= 0 && second != -1) {
                 second--;
             }
         }

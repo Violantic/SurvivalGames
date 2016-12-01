@@ -171,6 +171,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
                     if(strings.length > 1) {
                         commandSender.sendMessage(ChatColor.RED + "Player stats searching coming SoonTM");
+                        return false;
                     }
 
                     Player player = (Player) commandSender;
