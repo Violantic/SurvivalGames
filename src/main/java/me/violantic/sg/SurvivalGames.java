@@ -169,6 +169,10 @@ public class SurvivalGames extends JavaPlugin implements Game {
                         return false;
                     }
 
+                    if(strings.length > 1) {
+                        commandSender.sendMessage(ChatColor.RED + "Player stats searching coming SoonTM");
+                    }
+
                     Player player = (Player) commandSender;
                     getMysql().sendStats(player);
                     return true;

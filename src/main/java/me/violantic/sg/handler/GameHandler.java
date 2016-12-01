@@ -120,7 +120,7 @@ public class GameHandler implements Runnable {
                     progress.setCanBreak(true);
                     progress.setCanPlace(true);
                     SurvivalGames.getInstance().setState(progress);
-                    second = 10 * 60;
+                    second = 10 * 60 + 15;
                     Bukkit.getServer().getPluginManager().callEvent(new GameStartEvent(SurvivalGames.getInstance()));
                     return;
                 }
@@ -149,6 +149,8 @@ public class GameHandler implements Runnable {
                     }
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     return;
+                } else if (second >= 601) {
+                    playTick();
                 } else if (second == 600) {
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     Bukkit.broadcastMessage("");
@@ -161,8 +163,6 @@ public class GameHandler implements Runnable {
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
 
                     SurvivalGames.getInstance().getState().setCanMove(true);
-                } else if (second >= 600) {
-                    playTick();
                 } else if (second == 180) {
                     playTick();
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
