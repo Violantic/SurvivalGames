@@ -145,9 +145,9 @@ public class PlayerListener implements Listener {
             if(!instance.getState().getName().equalsIgnoreCase("waiting")) return;
 
             ItemMeta meta = event.getItem().getItemMeta();
-            String name = meta.getDisplayName().replace("VOTE: ", "");
-            String namePlus = ChatColor.stripColor(name);
-            instance.getGameMapVoter().addVote(event.getPlayer().getUniqueId(), namePlus);
+            String namePlus = ChatColor.stripColor(meta.getDisplayName());
+            String name = namePlus.replace("VOTE: ", "");
+            instance.getGameMapVoter().addVote(event.getPlayer().getUniqueId(), name);
 
             event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
             event.getPlayer().sendMessage(instance.getPrefix() + "You have voted for: " + ChatColor.YELLOW + name);
@@ -160,12 +160,12 @@ public class PlayerListener implements Listener {
         }
 
         // Opening loot //
-        if(instance.getCrateGenerator().tier1.contains(event.getClickedBlock().getLocation())) {
-            instance.getCrateGenerator().tier1.remove(event.getClickedBlock().getLocation());
+        if(instance.getCrateGenerator().tier1.contains(event.getClickedBlock())) {
+            instance.getCrateGenerator().tier1.remove(event.getClickedBlock());
             instance.getMysql().setStat(event.getPlayer().getUniqueId().toString(), "chests_opened", 1);
             event.getPlayer().sendMessage(instance.getPrefix() + ChatColor.GREEN + "+1 Chests Opened");
-        } else if(instance.getCrateGenerator().tier2.contains(event.getClickedBlock().getLocation())) {
-            instance.getCrateGenerator().tier2.remove(event.getClickedBlock().getLocation());
+        } else if(instance.getCrateGenerator().tier2.contains(event.getClickedBlock())) {
+            instance.getCrateGenerator().tier2.remove(event.getClickedBlock());
             instance.getMysql().setStat(event.getPlayer().getUniqueId().toString(), "chests_opened", 1);
             event.getPlayer().sendMessage(instance.getPrefix() + ChatColor.GREEN + "+1 Chests Opened");
         }

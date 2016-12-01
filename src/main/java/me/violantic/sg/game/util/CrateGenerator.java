@@ -16,16 +16,16 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class CrateGenerator {
 
-    public List<Location> tier1;
-    public List<Location> tier2;
+    public List<Block> tier1;
+    public List<Block> tier2;
     public List<Block> all;
     private SurvivalGames instance;
 
     private boolean enabled = true;
 
     public CrateGenerator(SurvivalGames instance) {
-        tier1 = new ArrayList<Location>();
-        tier2 = new ArrayList<Location>();
+        tier1 = new ArrayList<Block>();
+        tier2 = new ArrayList<Block>();
 
         this.instance = instance;
     }
@@ -60,12 +60,11 @@ public class CrateGenerator {
     public void search(String map) {
         if(!isEnabled()) return;
 
-        World world = Bukkit.getWorld(map);
         for (Block block : all) {
             if (block.getType().equals(Material.SPONGE)) {
                 int p = ThreadLocalRandom.current().nextInt(100) + 1;
                 if (p <= 75.0) {
-                    tier1.add(block.getLocation());
+                    tier1.add(block);
                     block.setType(Material.CHEST);
 
                     Chest chest = (Chest) block.getState();
@@ -76,9 +75,9 @@ public class CrateGenerator {
                 } else {
                     block.setType(Material.AIR);
                 }
-                tier1.add(block.getLocation());
+                tier1.add(block);
             } else if (block.getType() == Material.ENDER_CHEST) {
-                tier2.add(block.getLocation());
+                tier2.add(block);
                 block.setType(Material.CHEST);
 
                 Chest chest = (Chest) block.getState();
@@ -86,7 +85,7 @@ public class CrateGenerator {
                 for (ChestContent content : shtuff) {
                     chest.getBlockInventory().addItem(content.getItem());
                 }
-                tier2.add(block.getLocation());
+                tier2.add(block);
             }
         }
     }

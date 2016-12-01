@@ -46,9 +46,7 @@ public class MapVoter {
 
     public void addVote(UUID user, String map) {
         voters.put(user, map);
-        if(!hasVoted(user)) {
-            values.put(map, values.get(map) + 1);
-        }
+        values.put(map, values.get(getVoters().get(user)) + 1);
     }
 
     public void removeVote(UUID user) {

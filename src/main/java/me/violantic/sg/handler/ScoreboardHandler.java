@@ -28,6 +28,7 @@ public class ScoreboardHandler implements Runnable {
     final org.bukkit.scoreboard.Team team8 = scoreboard.registerNewTeam("team8");
     final org.bukkit.scoreboard.Team team9 = scoreboard.registerNewTeam("team9");
     final org.bukkit.scoreboard.Team team10 = scoreboard.registerNewTeam("team10");
+    final org.bukkit.scoreboard.Team team11 = scoreboard.registerNewTeam("team11");
 
 
     public ScoreboardHandler(String name) {
@@ -44,16 +45,18 @@ public class ScoreboardHandler implements Runnable {
         team8.addPlayer(Bukkit.getOfflinePlayer(ChatColor.DARK_BLUE.toString()));
         team9.addPlayer(Bukkit.getOfflinePlayer(ChatColor.DARK_GRAY.toString()));
         team10.addPlayer(Bukkit.getOfflinePlayer(ChatColor.DARK_RED.toString()));
-        objective.getScore(ChatColor.AQUA.toString()).setScore(10);
-        objective.getScore(ChatColor.STRIKETHROUGH.toString()).setScore(9);
-        objective.getScore(ChatColor.BLACK.toString()).setScore(8);
-        objective.getScore(ChatColor.BLUE.toString()).setScore(7);
-        objective.getScore(ChatColor.DARK_AQUA.toString()).setScore(6);
-        objective.getScore(ChatColor.DARK_PURPLE.toString()).setScore(5);
-        objective.getScore(ChatColor.DARK_GREEN.toString()).setScore(4);
-        objective.getScore(ChatColor.DARK_BLUE.toString()).setScore(3);
-        objective.getScore(ChatColor.DARK_GRAY.toString()).setScore(2);
-        objective.getScore(ChatColor.DARK_RED.toString()).setScore(1);
+        team11.addPlayer(Bukkit.getOfflinePlayer(ChatColor.WHITE.toString()));
+        objective.getScore(ChatColor.AQUA.toString()).setScore(11);
+        objective.getScore(ChatColor.STRIKETHROUGH.toString()).setScore(10);
+        objective.getScore(ChatColor.BLACK.toString()).setScore(9);
+        objective.getScore(ChatColor.BLUE.toString()).setScore(8);
+        objective.getScore(ChatColor.DARK_AQUA.toString()).setScore(7);
+        objective.getScore(ChatColor.DARK_PURPLE.toString()).setScore(6);
+        objective.getScore(ChatColor.DARK_GREEN.toString()).setScore(5);
+        objective.getScore(ChatColor.DARK_BLUE.toString()).setScore(4);
+        objective.getScore(ChatColor.DARK_GRAY.toString()).setScore(3);
+        objective.getScore(ChatColor.DARK_RED.toString()).setScore(2);
+        objective.getScore(ChatColor.WHITE.toString()).setScore(1);
 
         objective.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "Mine" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Swine");
         team.setPrefix("");
@@ -63,6 +66,7 @@ public class ScoreboardHandler implements Runnable {
         team5.setPrefix(ChatColor.LIGHT_PURPLE + "State");
         team6.setPrefix(ChatColor.GRAY + (SurvivalGames.getInstance().getState().getName()));
         team7.setPrefix("");
+        team11.setPrefix(ChatColor.YELLOW + "STORE.MINESWINE.COM");
     }
 
     public Scoreboard getScoreboard() {
@@ -80,10 +84,14 @@ public class ScoreboardHandler implements Runnable {
         numberOfSeconds = ((SurvivalGames.getInstance().getHandler().getSecond() % 86400 ) % 3600 ) % 60;
         team8.setPrefix(ChatColor.LIGHT_PURPLE + "Death Match In");
         if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("progress")) {
-            String seconds = ((numberOfSeconds < 10) ? ("0"+numberOfSeconds) : numberOfSeconds + "");
-            String minutes = ((numberOfMinutes < 10) ? ("0"+numberOfMinutes) + ":" : numberOfMinutes + ":") + seconds;
-            team9.setPrefix(ChatColor.GRAY + minutes);
+            team8.setPrefix(ChatColor.LIGHT_PURPLE + "Death Match In");
+        } else if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("deathmatch")) {
+            team8.setPrefix(ChatColor.LIGHT_PURPLE + "Disease In");
         }
+
+        String seconds = ((numberOfSeconds < 10) ? ("0"+numberOfSeconds) : numberOfSeconds + "");
+        String minutes = ((numberOfMinutes < 10) ? ("0"+numberOfMinutes) + ":" : numberOfMinutes + ":") + seconds;
+        team9.setPrefix(ChatColor.GRAY + minutes);
 
         for(Player player : Bukkit.getOnlinePlayers()) {
             player.setScoreboard(getScoreboard());
