@@ -161,6 +161,8 @@ public class MysqlUtil {
                 ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Deaths: " + ChatColor.LIGHT_PURPLE + set.getInt("deaths"));
                 ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Chests Opened: " + ChatColor.LIGHT_PURPLE + set.getInt("chests_opened"));
                 ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Games Played: " + ChatColor.LIGHT_PURPLE + set.getInt("games"));
+                ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Games Won: " + ChatColor.LIGHT_PURPLE + set.getInt("wins"));
+
                 player.sendMessage("");
                 player.sendMessage(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
             }
