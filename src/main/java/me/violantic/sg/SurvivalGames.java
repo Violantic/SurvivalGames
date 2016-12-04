@@ -6,14 +6,10 @@ import me.violantic.sg.game.Map;
 import me.violantic.sg.game.MapVoter;
 import me.violantic.sg.game.listener.GameListener;
 import me.violantic.sg.game.listener.PlayerListener;
-import me.violantic.sg.game.util.CrateGenerator;
-import me.violantic.sg.game.util.LagUtil;
-import me.violantic.sg.game.util.LocationUtil;
-import me.violantic.sg.game.util.MysqlUtil;
+import me.violantic.sg.game.util.*;
 import me.violantic.sg.handler.GameHandler;
 import me.violantic.sg.handler.ScoreboardHandler;
 import me.violantic.sg.handler.VoteHandler;
-import me.violantic.sg.handler.WaitingGlassAnimationHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -55,8 +51,10 @@ public class SurvivalGames extends JavaPlugin implements Game {
     private java.util.Map<String, String> scoreboardValues;
 
     private CrateGenerator crateGenerator;
+    private LocationGenerator locationGenerator;
+    private boolean locationGenerationInvoked = false;
 
-    private WaitingGlassAnimationHandler waitingGlassAnimationHandler;
+    //private WaitingGlassAnimationHandler waitingGlassAnimationHandler;
 
     private MysqlUtil mysql;
 
@@ -213,6 +211,19 @@ public class SurvivalGames extends JavaPlugin implements Game {
         return crateGenerator;
     }
 
+    public LocationGenerator getLocationGenerator() {
+        return locationGenerator;
+    }
+
+    public boolean isLocationGenerationInvoked() {
+        return locationGenerationInvoked;
+    }
+
+    public void startLocationGenerator() {
+        this.locationGenerationInvoked = true;
+        this.locationGenerator = new LocationGenerator(getGameMap().getWorld());
+    }
+
     public boolean enabled() {
         return enabled;
     }
@@ -286,8 +297,6 @@ public class SurvivalGames extends JavaPlugin implements Game {
                 getLogger().log(Level.CONFIG, location.toString() + " could not be parsed to a location!");
             }
         }
-
-        this.waitingGlassAnimationHandler = new WaitingGlassAnimationHandler(getGameMap().getWorld(), getStartingLocations());
     }
 
     public String[] getDescriptions() {
