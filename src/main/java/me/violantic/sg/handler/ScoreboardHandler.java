@@ -58,15 +58,15 @@ public class ScoreboardHandler implements Runnable {
         objective.getScore(ChatColor.DARK_RED.toString()).setScore(2);
         objective.getScore(ChatColor.WHITE.toString()).setScore(1);
 
-        objective.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "Mine" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Swine");
+        objective.setDisplayName(SurvivalGames.getInstance().getPrefix().replace("| ", ""));
         team.setPrefix("");
         team2.setPrefix(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Survivors");
         team3.setPrefix(ChatColor.GRAY + "" + SurvivalGames.getInstance().getVerifiedPlayers().size());
         team4.setPrefix("");
-        team5.setPrefix(ChatColor.LIGHT_PURPLE + "State");
+        team5.setPrefix(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "State");
         team6.setPrefix(ChatColor.GRAY + (SurvivalGames.getInstance().getState().getName()));
         team7.setPrefix("");
-        team11.setPrefix(ChatColor.YELLOW + "STORE.MINESWINE.COM");
+        team11.setPrefix(ChatColor.YELLOW + "MINESWINE.COM");
     }
 
     public Scoreboard getScoreboard() {
@@ -84,9 +84,13 @@ public class ScoreboardHandler implements Runnable {
         numberOfSeconds = ((SurvivalGames.getInstance().getHandler().getSecond() % 86400 ) % 3600 ) % 60;
         team8.setPrefix(ChatColor.LIGHT_PURPLE + "Death Match In");
         if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("progress")) {
-            team8.setPrefix(ChatColor.LIGHT_PURPLE + "Death Match In");
+            if(SurvivalGames.getInstance().second > 600) {
+                team8.setPrefix(ChatColor.YELLOW + "Releasing In");
+            } else {
+                team8.setPrefix(ChatColor.YELLOW + "Death Match In");
+            }
         } else if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("deathmatch")) {
-            team8.setPrefix(ChatColor.LIGHT_PURPLE + "Disease In");
+            team8.setPrefix(ChatColor.YELLOW + "" + ChatColor.BOLD + "Disease In");
         }
 
         String seconds = ((numberOfSeconds < 10) ? ("0"+numberOfSeconds) : numberOfSeconds + "");

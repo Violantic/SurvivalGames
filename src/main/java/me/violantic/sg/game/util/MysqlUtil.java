@@ -1,12 +1,15 @@
 package me.violantic.sg.game.util;
 
 import me.violantic.sg.SurvivalGames;
+import me.violantic.sg.game.cosmetic.Cosmetic;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -60,6 +63,50 @@ public class MysqlUtil {
         }
 
         return connection;
+    }
+
+    public void createTables() {
+        String query = "CREATE TABLE IF NOT EXISTS sg_cos VALUES (ID INT(11) NOT NULL AUTO_INCREMENT, uuid VARCHAR(60), cos_id INT(11), PRIMARY KEY (ID))";
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(query);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Cosmetic> getCosmetics(String uuid) {
+        List<Cosmetic> list = new ArrayList<Cosmetic>();
+        String query = "SELECT * FROM sg_cos WHERE uuid='" + uuid + "'";
+        PreparedStatement statment = null;
+        try {
+            statment = getConnection().prepareStatement(query);
+            ResultSet set = statment.executeQuery();
+            while(set.next()) {
+                Cosmetic c = Cosmetic.valueOf(set.getInt("cos_id"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public boolean hasCosmetic(String uuid, Cosmetic c) {
+        return (getCosmetics(uuid).contains(c));
+    }
+
+    public void giveCosmeticIfNotExists(String uuid, Cosmetic cosmetic) {
+        if(hasCosmetic(uuid, cosmetic)) return;
+        String query = "INSERT INTO sg_cos VALUES(NULL, '" + uuid + "', '" + cosmetic.getId() + "')";
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(query);
+            statement.executeUpdate();
+            // TODO: run async ^^^
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public ResultSet getStats(String name, String uuid) {
@@ -171,22 +218,4 @@ public class MysqlUtil {
         }
     }
 
-    private String ay = "UPDATE s_games SET wins={wins},games={games},kills={kills},deaths={deaths},chests={chests},points={points} WHERE uuid={uuid}";
-    public void update(String name, String uuid, int newWins, int newGames, int newKills, int newDeaths, int newChests, int newPoints) {
-        try {
-            PreparedStatement statement = getConnection()
-                    .prepareStatement(ay
-                            .replace("{name}", name)
-                            .replace("{uuid}", uuid)
-                            .replace("{wins}", getStat(uuid, "wins") + newWins + "")
-                            .replace("{games}", getStat(uuid, "games") + newGames + "")
-                            .replace("{kills}", getStat(uuid, "kills") + newKills + "")
-                            .replace("{deaths}", getStat(uuid, "deaths") + newDeaths + "")
-                            .replace("{chests}", getStat(uuid, "chests") + newChests + "")
-                            .replace("{points}", getStat(uuid, "points") + newPoints + ""));
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -38,18 +38,18 @@ public class PlayerListener implements Listener {
             Player player = event.getEntity().getKiller();
             instance.getMysql().setStat(player.getUniqueId().toString(), "kills", 1);
             instance.getMysql().setStat(player.getUniqueId().toString(), "points", 2);
-            event.getEntity().sendMessage(instance.getPrefix() + ChatColor.GREEN + "+1 Kills");
-            event.getEntity().sendMessage(instance.getPrefix() + ChatColor.GREEN + "+2 Rating");
+            event.getEntity().sendMessage(instance.getPrefix() + ChatColor.GREEN + "[Stats] +1 Kills");
+            event.getEntity().sendMessage(instance.getPrefix() + ChatColor.GREEN + "[Stats] +2 Rating");
             event.getEntity().playSound(event.getEntity().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
         }
 
         instance.getMysql().setStat(event.getEntity().getUniqueId().toString(), "deaths", 1);
-        event.getEntity().sendMessage(instance.getPrefix() + ChatColor.RED + "+1 Deaths");
+        event.getEntity().sendMessage(instance.getPrefix() + ChatColor.RED + "[Stats] +1 Deaths");
         event.getEntity().playSound(event.getEntity().getLocation(), Sound.BLOCK_NOTE_BASEDRUM, 1, 1);
 
         event.setDeathMessage(null);
         event.getEntity().getWorld().strikeLightningEffect(event.getEntity().getLocation());
-        Bukkit.broadcastMessage(instance.getPrefix() + event.getEntity().getName() + " is no longer alive");
+        Bukkit.broadcastMessage(instance.getPrefix() + event.getEntity().getName() + "[Stats] is no longer alive");
         try {
             instance.getVerifiedPlayers().remove(event.getEntity().getUniqueId());
 
@@ -58,7 +58,7 @@ public class PlayerListener implements Listener {
                 return;
             }
 
-            Bukkit.broadcastMessage(instance.getPrefix() + "Players left: (" + instance.getVerifiedPlayers().size() + "/" + Bukkit.getOnlinePlayers().size() + ")");
+            Bukkit.broadcastMessage(instance.getPrefix() + "Players left: (" + instance.getVerifiedPlayers().size() + "/" + instance.maximumPlayers() + ")");
         } catch (Exception e) {
             System.out.println(event.getEntity().getName() + " was never a verified player in SurvivalGames!");
         }
@@ -73,7 +73,7 @@ public class PlayerListener implements Listener {
                 new BukkitRunnable() {
                     public void run() {
                         event.getPlayer().getInventory().clear();
-                        event.getPlayer().teleport(LocationUtil.getLocation(event.getPlayer().getWorld().getName(), instance.getConfig().getString("lobby")));
+                        event.getPlayer().teleport(LocationUtil.getLocation(event.getPlayer().getWorld().getName(), instance.getConfig().getString("center")));
                     }
                 }.runTaskLater(instance, 20l);
             }
@@ -140,6 +140,19 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onOpen(PlayerInteractEvent event) {
+        // Opening loot //
+        if(event.getAction() == Action.RIGHT_CLICK_BLOCK && (event.getClickedBlock().getType() == Material.SPONGE || event.getClickedBlock().getType() == Material.ENDER_CHEST)) {
+            if (instance.getCrateGenerator().tier1.contains(event.getClickedBlock())) {
+                instance.getCrateGenerator().tier1.remove(event.getClickedBlock());
+                instance.getMysql().setStat(event.getPlayer().getUniqueId().toString(), "chests_opened", 1);
+                event.getPlayer().sendMessage(instance.getPrefix() + ChatColor.GREEN + "[Stats] +1 Chests Opened");
+            } else if (instance.getCrateGenerator().tier2.contains(event.getClickedBlock())) {
+                instance.getCrateGenerator().tier2.remove(event.getClickedBlock());
+                instance.getMysql().setStat(event.getPlayer().getUniqueId().toString(), "chests_opened", 1);
+                event.getPlayer().sendMessage(instance.getPrefix() + ChatColor.GREEN + "[Stats] +1 Chests Opened");
+            }
+        }
+
         // Voting //
         if (event.getPlayer().getItemInHand().getType() == Material.PAPER) {
             if(!instance.getState().getName().equalsIgnoreCase("waiting")) return;
@@ -157,17 +170,6 @@ public class PlayerListener implements Listener {
 
         if (!instance.getState().isCanOpen()) {
             event.setCancelled(true);
-        }
-
-        // Opening loot //
-        if(instance.getCrateGenerator().tier1.contains(event.getClickedBlock())) {
-            instance.getCrateGenerator().tier1.remove(event.getClickedBlock());
-            instance.getMysql().setStat(event.getPlayer().getUniqueId().toString(), "chests_opened", 1);
-            event.getPlayer().sendMessage(instance.getPrefix() + ChatColor.GREEN + "+1 Chests Opened");
-        } else if(instance.getCrateGenerator().tier2.contains(event.getClickedBlock())) {
-            instance.getCrateGenerator().tier2.remove(event.getClickedBlock());
-            instance.getMysql().setStat(event.getPlayer().getUniqueId().toString(), "chests_opened", 1);
-            event.getPlayer().sendMessage(instance.getPrefix() + ChatColor.GREEN + "+1 Chests Opened");
         }
     }
 

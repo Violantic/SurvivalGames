@@ -32,7 +32,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
     private static SurvivalGames instance;
 
-    private LagUtil lagUtil;
+    //private LagUtil lagUtil;
 
     private GameState state;
     private GameHandler handler;
@@ -54,9 +54,13 @@ public class SurvivalGames extends JavaPlugin implements Game {
     private LocationGenerator locationGenerator;
     private boolean locationGenerationInvoked = false;
 
+    private Location corner1;
+    private Location corner2;
+
     //private WaitingGlassAnimationHandler waitingGlassAnimationHandler;
 
     private MysqlUtil mysql;
+    private CosmeticUtil cosmetics;
 
     private boolean enabled = true;
 
@@ -66,7 +70,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
     public void onEnable() {
         instance = this;
 
-        lagUtil = new LagUtil();
+        //lagUtil = new LagUtil();
 
         getConfig().options().copyDefaults(getConfig().contains("lobby"));
         saveConfig();
@@ -79,6 +83,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
         gameMapVoter = new MapVoter("Game Map", new HashMap<String, Integer>() {
             {
+                put("Test", 0);
                 put("Drybone_Valley", 0);
                 put("Futuristic_City", 0);
                 put("Moon", 0);
@@ -106,17 +111,16 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
         scoreboardHandler = new ScoreboardHandler("SG");
 
-        crateGenerator = new CrateGenerator(this);
-
-        getServer().getScheduler().runTaskTimer(this, lagUtil, 100l, 1l);
+        //getServer().getScheduler().runTaskTimer(this, lagUtil, 100l, 1l);
         getServer().getScheduler().runTaskTimer(this, getHandler(), 0l, 20l);
         getServer().getScheduler().runTaskTimer(this, scoreboardHandler, 0l, 20l);
-        getServer().getScheduler().runTaskTimer(this, voteHandler, 0l, 20 * 5l);
+        getServer().getScheduler().runTaskTimer(this, voteHandler, 0l, 20 * 3l);
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new GameListener(this), this);
 
-        mysql = new MysqlUtil("149.56.96.176", 3306, "survivalgames", "root", "ts8VdmKN2uTNYaAw");
+        mysql = new MysqlUtil("149.56.96.176", 3306, "survivalgames", "mc", "uFBGzfndWxEDe5yD");
+        cosmetics = new CosmeticUtil(mysql);
 
         getCommand("forcestart").setExecutor(new CommandExecutor() {
             public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -191,9 +195,9 @@ public class SurvivalGames extends JavaPlugin implements Game {
         return instance;
     }
 
-    public LagUtil getLagUtil() {
-        return lagUtil;
-    }
+    //public LagUtil getLagUtil() {
+     //   return lagUtil;
+    //
 
     public MysqlUtil getMysql() {
         return mysql;
@@ -201,6 +205,14 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
     public void setMysql(MysqlUtil mysql) {
         this.mysql = mysql;
+    }
+
+    public CosmeticUtil getCosmetics() {
+        return cosmetics;
+    }
+
+    public void setCosmetics(CosmeticUtil cosmetics) {
+        this.cosmetics = cosmetics;
     }
 
     public ScoreboardHandler getScoreboardHandler() {
@@ -277,8 +289,27 @@ public class SurvivalGames extends JavaPlugin implements Game {
         return scoreboardValues;
     }
 
+    public Location getCorner1() {
+        return corner1;
+    }
+
+    public void setCorner1(Location corner1) {
+        this.corner1 = corner1;
+    }
+
+    public Location getCorner2() {
+        return corner2;
+    }
+
+    public void setCorner2(Location corner2) {
+        this.corner2 = corner2;
+    }
+
     public void initiateGameMap() {
         gameMap = new Map(gameMapVoter.getWinner(), new String[]{"Mineswine Build Team"}, null);
+        corner1 = LocationUtil.getLocation(gameMap.getName(), getConfig().getString("corner1"));
+        corner2 = LocationUtil.getLocation(gameMap.getName(), getConfig().getString("corner2"));
+        this.crateGenerator = new CrateGenerator(this);
     }
 
     public Map getMap() {
@@ -290,7 +321,8 @@ public class SurvivalGames extends JavaPlugin implements Game {
     }
 
     public void setupLocations() {
-        for (Location location : LocationUtil.getCircle(LocationUtil.getLocation(getGameMap().getWorld().getName(), getConfig().getString("center")), 21, 24)) {
+        List<Location> locs = LocationUtil.getCircle(LocationUtil.getLocation(getGameMap().getWorld().getName(), getConfig().getString("center")), 10, 24);
+        for (Location location : locs) {
             try {
                 getStartingLocations().add(location);
             } catch (Exception e) {
@@ -324,7 +356,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
     }
 
     public String getPrefix() {
-        return ChatColor.GRAY + "[" + ChatColor.LIGHT_PURPLE + "MINESWINE" + ChatColor.GRAY + "] [" + ChatColor.GREEN + "Survival" + ChatColor.DARK_GREEN + "Games" + ChatColor.GRAY + "] ";
+        return ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Mine" + ChatColor.YELLOW + "" + ChatColor.BOLD + "swine " + ChatColor.RESET + ChatColor.GRAY  + "";
     }
 
     public String ERROR_GAME_IN_PROGRESS() {

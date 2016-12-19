@@ -67,17 +67,13 @@ public class VoteHandler implements Runnable {
 
     public void run() {
         if(!SurvivalGames.getInstance().enabled()) return;
-        System.out.println("Server is enabled");
         if(!SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
             return;
         }
-        System.out.println("Server is waiting state");
 
         refresh();
         for(Player player : Bukkit.getOnlinePlayers()) {
-            System.out.println(player.getName());
             for (ItemStack item : getMapItems()) {
-                System.out.println(item.getItemMeta().getDisplayName());
                 player.getInventory().setItem(getMapItems().indexOf(item), item);
             }
         }

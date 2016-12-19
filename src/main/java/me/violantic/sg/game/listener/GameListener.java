@@ -45,7 +45,8 @@ public class GameListener implements Listener {
                 player.sendMessage("");
                 ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
                 ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Here's an extra bonus for winning");
-                ChatUtil.sendCenteredMessage(player, ChatColor.GREEN + "+25 Rating!");
+                ChatUtil.sendCenteredMessage(player, ChatColor.GREEN + "[Stats] +25 Rating!");
+                ChatUtil.sendCenteredMessage(player, ChatColor.GOLD + "+25 Tokens!");
                 player.sendMessage("");
                 player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                 instance.getMysql().setStat(player.getUniqueId().toString(), "points", 25);
@@ -54,6 +55,8 @@ public class GameListener implements Listener {
                 instance.getMysql().setStat(player.getUniqueId().toString(), "points", 5);
                 instance.getMysql().setStat(player.getUniqueId().toString(), "games", 1);
             }
+
+            instance.getCosmetics().invokeGameFinishRatingUpdate(player.getUniqueId().toString());
             player.sendMessage(instance.getPrefix() + ChatColor.LIGHT_PURPLE + "Good game!");
         }
 
