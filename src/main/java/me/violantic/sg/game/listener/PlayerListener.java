@@ -2,6 +2,7 @@ package me.violantic.sg.game.listener;
 
 import me.violantic.sg.SurvivalGames;
 import me.violantic.sg.game.event.GameEndEvent;
+import me.violantic.sg.game.lang.Messages;
 import me.violantic.sg.game.util.LocationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -38,18 +39,18 @@ public class PlayerListener implements Listener {
             Player player = event.getEntity().getKiller();
             instance.getMysql().setStat(player.getUniqueId().toString(), "kills", 1);
             instance.getMysql().setStat(player.getUniqueId().toString(), "points", 2);
-            event.getEntity().sendMessage(instance.getPrefix() + ChatColor.GREEN + "[Stats] +1 Kills");
-            event.getEntity().sendMessage(instance.getPrefix() + ChatColor.GREEN + "[Stats] +2 Rating");
-            event.getEntity().playSound(event.getEntity().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+            player.sendMessage(instance.getPrefix() + Messages.EN_PLAYER_KILL.replace("{target}", event.getEntity().getName()));
+            player.sendMessage(instance.getPrefix() + Messages.EN_RATING_CHANGE.replace("{rating}", "2"));
+            player.playSound(event.getEntity().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
         }
 
         instance.getMysql().setStat(event.getEntity().getUniqueId().toString(), "deaths", 1);
-        event.getEntity().sendMessage(instance.getPrefix() + ChatColor.RED + "[Stats] +1 Deaths");
+        event.getEntity().sendMessage(instance.getPrefix() + Messages.EN_PLAYER_DIED);
         event.getEntity().playSound(event.getEntity().getLocation(), Sound.BLOCK_NOTE_BASEDRUM, 1, 1);
 
         event.setDeathMessage(null);
         event.getEntity().getWorld().strikeLightningEffect(event.getEntity().getLocation());
-        Bukkit.broadcastMessage(instance.getPrefix() + event.getEntity().getName() + "[Stats] is no longer alive");
+        Bukkit.broadcastMessage(instance.getPrefix() + Messages.EN_DEATH_BROADCAST);
         try {
             instance.getVerifiedPlayers().remove(event.getEntity().getUniqueId());
 
@@ -58,7 +59,7 @@ public class PlayerListener implements Listener {
                 return;
             }
 
-            Bukkit.broadcastMessage(instance.getPrefix() + "Players left: (" + instance.getVerifiedPlayers().size() + "/" + instance.maximumPlayers() + ")");
+            Bukkit.broadcastMessage(instance.getPrefix() + Messages.EN_PLAYERS_LEFT);
         } catch (Exception e) {
             System.out.println(event.getEntity().getName() + " was never a verified player in SurvivalGames!");
         }
@@ -67,7 +68,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onLogin(final PlayerLoginEvent event) {
         if(instance.getState().getName().equalsIgnoreCase("waiting")) {
-            event.getPlayer().sendMessage(instance.GAME_LOBBY_JOIN_SUCCESS());
+            event.getPlayer().sendMessage(instance.getPrefix() + Messages.EN_GAME_JOIN);
             if(!instance.getVerifiedPlayers().contains(event.getPlayer().getUniqueId())) {
                 instance.getVerifiedPlayers().add(event.getPlayer().getUniqueId());
                 new BukkitRunnable() {
@@ -78,7 +79,7 @@ public class PlayerListener implements Listener {
                 }.runTaskLater(instance, 20l);
             }
         } else {
-            event.getPlayer().kickPlayer(instance.ERROR_GAME_IN_PROGRESS());
+            event.getPlayer().kickPlayer(instance.getPrefix() + Messages.EN_GAME_STARTED);
         }
     }
 
@@ -145,11 +146,11 @@ public class PlayerListener implements Listener {
             if (instance.getCrateGenerator().tier1.contains(event.getClickedBlock())) {
                 instance.getCrateGenerator().tier1.remove(event.getClickedBlock());
                 instance.getMysql().setStat(event.getPlayer().getUniqueId().toString(), "chests_opened", 1);
-                event.getPlayer().sendMessage(instance.getPrefix() + ChatColor.GREEN + "[Stats] +1 Chests Opened");
+                event.getPlayer().sendMessage(instance.getPrefix() + Messages.EN_TIER_I_OPEN);
             } else if (instance.getCrateGenerator().tier2.contains(event.getClickedBlock())) {
                 instance.getCrateGenerator().tier2.remove(event.getClickedBlock());
                 instance.getMysql().setStat(event.getPlayer().getUniqueId().toString(), "chests_opened", 1);
-                event.getPlayer().sendMessage(instance.getPrefix() + ChatColor.GREEN + "[Stats] +1 Chests Opened");
+                event.getPlayer().sendMessage(instance.getPrefix() + Messages.EN_TIER_II_OPEN);
             }
         }
 
@@ -163,7 +164,7 @@ public class PlayerListener implements Listener {
             instance.getGameMapVoter().addVote(event.getPlayer().getUniqueId(), name);
 
             event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
-            event.getPlayer().sendMessage(instance.getPrefix() + "You have voted for: " + ChatColor.YELLOW + name);
+            event.getPlayer().sendMessage(instance.getPrefix() + Messages.EN_MAP_VOTE.replace("{map}", name));
         }
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || !event.getAction().equals(Action.RIGHT_CLICK_AIR))
             return;

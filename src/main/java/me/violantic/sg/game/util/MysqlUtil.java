@@ -33,6 +33,7 @@ public class MysqlUtil {
         this.password = password;
 
         openConnection();
+        createTables();
     }
 
     private void openConnection() {
@@ -66,7 +67,10 @@ public class MysqlUtil {
     }
 
     public void createTables() {
-        String query = "CREATE TABLE IF NOT EXISTS sg_cos VALUES (ID INT(11) NOT NULL AUTO_INCREMENT, uuid VARCHAR(60), cos_id INT(11), PRIMARY KEY (ID))";
+        String query =
+                "CREATE TABLE IF NOT EXISTS sg_cos (" +
+                "id INT(11) AUTO INCREMENT, PRIMARY KEY(id), uuid VARCHAR(60), cos_id INT(11)" +
+                ");";
         try {
             PreparedStatement statement = getConnection().prepareStatement(query);
             statement.executeUpdate();

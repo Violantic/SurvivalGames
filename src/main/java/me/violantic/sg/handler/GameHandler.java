@@ -4,6 +4,7 @@ import me.violantic.sg.SurvivalGames;
 import me.violantic.sg.game.GameState;
 import me.violantic.sg.game.event.GameEndEvent;
 import me.violantic.sg.game.event.GameStartEvent;
+import me.violantic.sg.game.lang.Messages;
 import me.violantic.sg.game.util.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -68,7 +69,7 @@ public class GameHandler implements Runnable {
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
-                        ChatUtil.sendCenteredMessage(player, "The map voted was " + ChatColor.YELLOW + "" + ChatColor.BOLD + "" + SurvivalGames.getInstance().getGameMapVoter().getWinner());
+                        ChatUtil.sendCenteredMessage(player, Messages.EN_MAP_VOTE_SUCCESS);
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
@@ -141,7 +142,7 @@ public class GameHandler implements Runnable {
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
-                        ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The Death Match has come early? huh...");
+                        ChatUtil.sendCenteredMessage(player, Messages.EN_DM_NATURAL);
                         Bukkit.broadcastMessage("");
                     }
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
@@ -232,7 +233,7 @@ public class GameHandler implements Runnable {
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
-                        ChatUtil.sendCenteredMessage(player, ChatColor.DARK_RED + "" + ChatColor.BOLD + "FIGHT TO THE DEATH!");
+                        ChatUtil.sendCenteredMessage(player, Messages.EN_DM_POST_RELEASE);
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
@@ -268,7 +269,7 @@ public class GameHandler implements Runnable {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
                         ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "The death match ends in");
                         ChatUtil.sendCenteredMessage(player, ChatColor.LIGHT_PURPLE + "0:20 " + ChatColor.YELLOW + "Seconds!");
-                        ChatUtil.sendCenteredMessage(player, ChatColor.GREEN + "" + ChatColor.BOLD + "Disease is spreading...");
+                        ChatUtil.sendCenteredMessage(player, Messages.EN_DM_DISEASE_START);
 
                         player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20*20, 1));
                     }

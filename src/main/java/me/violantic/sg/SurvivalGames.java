@@ -4,13 +4,21 @@ import me.violantic.sg.game.Game;
 import me.violantic.sg.game.GameState;
 import me.violantic.sg.game.Map;
 import me.violantic.sg.game.MapVoter;
+import me.violantic.sg.game.command.CommandManager;
+import me.violantic.sg.game.command.SGCommand;
+import me.violantic.sg.game.command.custom.ForceEndCommand;
+import me.violantic.sg.game.command.custom.ForceStartCommand;
+import me.violantic.sg.game.command.custom.StatsCommand;
+import me.violantic.sg.game.lang.Messages;
 import me.violantic.sg.game.listener.GameListener;
 import me.violantic.sg.game.listener.PlayerListener;
-import me.violantic.sg.game.util.*;
+import me.violantic.sg.game.util.CosmeticUtil;
+import me.violantic.sg.game.util.CrateGenerator;
+import me.violantic.sg.game.util.LocationUtil;
+import me.violantic.sg.game.util.MysqlUtil;
 import me.violantic.sg.handler.GameHandler;
 import me.violantic.sg.handler.ScoreboardHandler;
 import me.violantic.sg.handler.VoteHandler;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -32,12 +40,11 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
     private static SurvivalGames instance;
 
-    //private LagUtil lagUtil;
+    private CommandManager commands;
 
     private GameState state;
     private GameHandler handler;
 
-    private Map lobby;
     private Map gameMap;
     private List<Location> startingLocations;
     private List<UUID> verifiedPlayers;
@@ -51,13 +58,10 @@ public class SurvivalGames extends JavaPlugin implements Game {
     private java.util.Map<String, String> scoreboardValues;
 
     private CrateGenerator crateGenerator;
-    private LocationGenerator locationGenerator;
     private boolean locationGenerationInvoked = false;
 
     private Location corner1;
     private Location corner2;
-
-    //private WaitingGlassAnimationHandler waitingGlassAnimationHandler;
 
     private MysqlUtil mysql;
     private CosmeticUtil cosmetics;
@@ -70,12 +74,8 @@ public class SurvivalGames extends JavaPlugin implements Game {
     public void onEnable() {
         instance = this;
 
-        //lagUtil = new LagUtil();
-
         getConfig().options().copyDefaults(getConfig().contains("lobby"));
         saveConfig();
-
-        //lobby = new Map("lobby", new String[]{"Mineswine Build Team"}, null);
 
         setState(new GameState("waiting"));
         getState().setCanOpen(true);
@@ -122,68 +122,33 @@ public class SurvivalGames extends JavaPlugin implements Game {
         mysql = new MysqlUtil("149.56.96.176", 3306, "survivalgames", "mc", "uFBGzfndWxEDe5yD");
         cosmetics = new CosmeticUtil(mysql);
 
-        getCommand("forcestart").setExecutor(new CommandExecutor() {
-            public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-                if (command.getName().equalsIgnoreCase("forcestart")) {
-                    if (getState().getName().equalsIgnoreCase("progress")) {
-                        if (handler.getSecond() < 585) {
-                            commandSender.sendMessage(getPrefix() + ChatColor.RED + "Game is already started!");
-                        } else {
-                            handler.setSecond(590);
-                            commandSender.sendMessage(getPrefix() + "Starting game!");
+        commands = new CommandManager(this);
+        commands.register(new StatsCommand(this));
+        commands.register(new ForceStartCommand(this));
+        commands.register(new ForceEndCommand(this));
+
+        for(SGCommand commandz : commands.getCommandCache()) {
+            String name = commandz.getName();
+            getCommand(name).setExecutor(new CommandExecutor() {
+                @Override
+                public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+                    if(!(commandSender instanceof Player)) {
+                        return false;
+                    }
+
+                    if(command.getName().equalsIgnoreCase(name)) {
+                        if(!commandSender.hasPermission(commandz.getNode())) {
+                            commandSender.sendMessage(getPrefix() + Messages.EN_NO_PERMS);
+                            return false;
                         }
-                        return false;
-                    } else if (getState().getName().equalsIgnoreCase("waiting")) {
-                        commandSender.sendMessage(getPrefix() + "Game is now choosing map, and will start!");
-                        handler.setSecond(16);
-                    } else if (getState().getName().equalsIgnoreCase("started")) {
-                        commandSender.sendMessage(getPrefix() + ChatColor.RED + "Game is already processing!");
-                        return false;
+                        command.execute(commandSender, command.getName(), strings);
+                        return true;
                     }
-                    return true;
+
+                    return false;
                 }
-                return false;
-            }
-        });
-
-        getCommand("forceend").setExecutor(new CommandExecutor() {
-            public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-                if (command.getName().equalsIgnoreCase("forceend")) {
-                    if (getState().getName().equalsIgnoreCase("progress")) {
-                        handler.setSecond(3);
-                        commandSender.sendMessage(getPrefix() + "Ending game!");
-                    } else if (getState().getName().equalsIgnoreCase("waiting")) {
-                        commandSender.sendMessage(getPrefix() + ChatColor.RED + "Game hasn't started yet!");
-                    } else if (getState().getName().equalsIgnoreCase("started")) {
-                        commandSender.sendMessage(getPrefix() + ChatColor.RED + "Game is still processing!");
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        getCommand("stats").setExecutor(new CommandExecutor() {
-            public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-                if (command.getName().equalsIgnoreCase("stats")) {
-                    System.out.println("STATS!");
-                    if (!(commandSender instanceof Player)) {
-                        return false;
-                    }
-
-                    if(strings.length > 1) {
-                        commandSender.sendMessage(ChatColor.RED + "Player stats searching coming SoonTM");
-                        return false;
-                    }
-
-                    Player player = (Player) commandSender;
-                    getMysql().sendStats(player);
-                    return true;
-                }
-                return false;
-            }
-        });
-
+            });
+        }
     }
 
     @Override
@@ -195,9 +160,13 @@ public class SurvivalGames extends JavaPlugin implements Game {
         return instance;
     }
 
-    //public LagUtil getLagUtil() {
-     //   return lagUtil;
-    //
+    public CommandManager getCommands() {
+        return commands;
+    }
+
+    public void setCommands(CommandManager commands) {
+        this.commands = commands;
+    }
 
     public MysqlUtil getMysql() {
         return mysql;
@@ -223,17 +192,12 @@ public class SurvivalGames extends JavaPlugin implements Game {
         return crateGenerator;
     }
 
-    public LocationGenerator getLocationGenerator() {
-        return locationGenerator;
-    }
-
     public boolean isLocationGenerationInvoked() {
         return locationGenerationInvoked;
     }
 
     public void startLocationGenerator() {
         this.locationGenerationInvoked = true;
-        this.locationGenerator = new LocationGenerator(getGameMap().getWorld());
     }
 
     public boolean enabled() {
@@ -357,14 +321,6 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
     public String getPrefix() {
         return ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Mine" + ChatColor.YELLOW + "" + ChatColor.BOLD + "swine " + ChatColor.RESET + ChatColor.GRAY  + "";
-    }
-
-    public String ERROR_GAME_IN_PROGRESS() {
-        return getPrefix() + ChatColor.RED + "You could not join the current game, it is already in play!";
-    }
-
-    public String GAME_LOBBY_JOIN_SUCCESS() {
-        return getPrefix() + "You have joined the lobby! Currently waiting for " + (minimumPlayers() - Bukkit.getOnlinePlayers().size()) + " players...";
     }
 
 }
