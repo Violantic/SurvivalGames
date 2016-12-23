@@ -69,7 +69,7 @@ public class GameHandler implements Runnable {
                     Bukkit.broadcastMessage("");
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
-                        ChatUtil.sendCenteredMessage(player, Messages.EN_MAP_VOTE_SUCCESS);
+                        ChatUtil.sendCenteredMessage(player, Messages.EN_MAP_VOTE_SUCCESS.replace("{map}", SurvivalGames.getInstance().getGameMapVoter().getWinner()));
                     }
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
@@ -147,6 +147,9 @@ public class GameHandler implements Runnable {
                     }
                     Bukkit.broadcastMessage(ChatColor.DARK_GRAY + "-----------------------------------------------------");
                     return;
+                } else if(SurvivalGames.getInstance().getVerifiedPlayers().size() == 0) {
+                    SurvivalGames.getInstance().setEnable(false);
+                    Bukkit.getPluginManager().callEvent(new GameEndEvent(SurvivalGames.getInstance(), "{none}"));
                 } else if (second >= 601) {
                     playTick();
                 } else if (second == 600) {
@@ -303,7 +306,6 @@ public class GameHandler implements Runnable {
                 second--;
             }
         }
-
 
     }
 

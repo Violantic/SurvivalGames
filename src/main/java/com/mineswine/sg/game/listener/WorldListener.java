@@ -1,4 +1,4 @@
-package com.mineswine.sg.game.event;
+package com.mineswine.sg.game.listener;
 
 import com.mineswine.sg.SurvivalGames;
 import org.bukkit.event.EventHandler;
@@ -18,8 +18,6 @@ public class WorldListener implements Listener {
 
     @EventHandler
     public void onChunkLoad(ChunkLoadEvent event) {
-        if(!instance.isLocationGenerationInvoked()) return;
-        instance.getLocationGenerator().invokeWorldListener(event);
     }
 
 }

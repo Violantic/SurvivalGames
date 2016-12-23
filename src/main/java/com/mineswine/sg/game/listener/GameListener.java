@@ -33,6 +33,7 @@ public class GameListener implements Listener {
             Player player = Bukkit.getPlayer(uuid);
             int index = SurvivalGames.getInstance().getVerifiedPlayers().indexOf(uuid);
             player.teleport(SurvivalGames.getInstance().getStartingLocations().get(index));
+            player.getInventory().clear();
         }
     }
 
@@ -56,7 +57,7 @@ public class GameListener implements Listener {
                 instance.getMysql().setStat(player.getUniqueId().toString(), "games", 1);
             }
 
-            instance.getCosmetics().invokeGameFinishRatingUpdate(player.getUniqueId().toString());
+            //instance.getCosmetics().invokeGameFinishRatingUpdate(player.getUniqueId().toString());
             player.sendMessage(instance.getPrefix() + ChatColor.LIGHT_PURPLE + "Good game!");
         }
 

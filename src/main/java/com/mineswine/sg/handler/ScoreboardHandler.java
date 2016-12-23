@@ -85,12 +85,12 @@ public class ScoreboardHandler implements Runnable {
         team8.setPrefix(ChatColor.LIGHT_PURPLE + "Death Match In");
         if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("progress")) {
             if(SurvivalGames.getInstance().second > 600) {
-                team8.setPrefix(ChatColor.YELLOW + "Releasing In");
+                team8.setPrefix(ChatColor.LIGHT_PURPLE + "Releasing In");
             } else {
-                team8.setPrefix(ChatColor.YELLOW + "Death Match In");
+                team8.setPrefix(ChatColor.LIGHT_PURPLE + "Death Match In");
             }
         } else if(SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("deathmatch")) {
-            team8.setPrefix(ChatColor.YELLOW + "" + ChatColor.BOLD + "Disease In");
+            team8.setPrefix(ChatColor.YELLOW + "" + ChatColor.BOLD + "Ends In");
         }
 
         String seconds = ((numberOfSeconds < 10) ? ("0"+numberOfSeconds) : numberOfSeconds + "");

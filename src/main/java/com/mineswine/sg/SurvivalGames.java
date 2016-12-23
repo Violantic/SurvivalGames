@@ -5,22 +5,23 @@ import com.mineswine.sg.game.GameState;
 import com.mineswine.sg.game.command.CommandManager;
 import com.mineswine.sg.game.command.SGCommand;
 import com.mineswine.sg.game.command.custom.ForceEndCommand;
-import com.mineswine.sg.game.listener.GameListener;
-import com.mineswine.sg.game.loot.CrateGenerator;
-import com.mineswine.sg.game.map.MapVoter;
-import com.mineswine.sg.game.util.CosmeticUtil;
-import com.mineswine.sg.handler.GameHandler;
-import com.mineswine.sg.handler.ScoreboardHandler;
-import com.mineswine.sg.game.map.Map;
 import com.mineswine.sg.game.command.custom.ForceStartCommand;
 import com.mineswine.sg.game.command.custom.StatsCommand;
 import com.mineswine.sg.game.lang.Messages;
+import com.mineswine.sg.game.listener.GameListener;
 import com.mineswine.sg.game.listener.PlayerListener;
+import com.mineswine.sg.game.loot.CrateGenerator;
+import com.mineswine.sg.game.map.Map;
+import com.mineswine.sg.game.map.MapVoter;
+import com.mineswine.sg.game.util.CosmeticUtil;
 import com.mineswine.sg.game.util.LocationUtil;
 import com.mineswine.sg.game.util.MysqlUtil;
+import com.mineswine.sg.handler.GameHandler;
+import com.mineswine.sg.handler.ScoreboardHandler;
 import com.mineswine.sg.handler.VoteHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -115,6 +116,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
         getServer().getScheduler().runTaskTimer(this, getHandler(), 0l, 20l);
         getServer().getScheduler().runTaskTimer(this, scoreboardHandler, 0l, 20l);
         getServer().getScheduler().runTaskTimer(this, voteHandler, 0l, 20 * 3l);
+        //getServer().getScheduler().runTaskTimerAsynchronously(this, new CosmeticHandler(this), 0l, 1);
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new GameListener(this), this);
@@ -141,7 +143,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
                             commandSender.sendMessage(getPrefix() + Messages.EN_NO_PERMS);
                             return false;
                         }
-                        command.execute(commandSender, command.getName(), strings);
+                        commandz.execute(commandSender, strings);
                         return true;
                     }
 
@@ -285,10 +287,11 @@ public class SurvivalGames extends JavaPlugin implements Game {
     }
 
     public void setupLocations() {
-        List<Location> locs = LocationUtil.getCircle(LocationUtil.getLocation(getGameMap().getWorld().getName(), getConfig().getString("center")), 10, 24);
+        List<Location> locs = LocationUtil.getCircle(LocationUtil.getLocation(getGameMap().getWorld().getName(), getConfig().getString("center")), 15, 30);
         for (Location location : locs) {
             try {
                 getStartingLocations().add(location);
+                location.subtract(0, 1, 0).getBlock().setType(Material.COAL_BLOCK);
             } catch (Exception e) {
                 getLogger().log(Level.CONFIG, location.toString() + " could not be parsed to a location!");
             }

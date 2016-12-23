@@ -3,7 +3,6 @@ package com.mineswine.sg.game.listener;
 import com.mineswine.sg.SurvivalGames;
 import com.mineswine.sg.game.event.GameEndEvent;
 import com.mineswine.sg.game.lang.Messages;
-import com.mineswine.sg.game.util.LocationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -45,21 +44,23 @@ public class PlayerListener implements Listener {
         }
 
         instance.getMysql().setStat(event.getEntity().getUniqueId().toString(), "deaths", 1);
-        event.getEntity().sendMessage(instance.getPrefix() + Messages.EN_PLAYER_DIED);
+        event.getEntity().sendMessage(instance.getPrefix() + Messages.EN_PLAYER_DIED.replace("{reason}", event.getDeathMessage()));
         event.getEntity().playSound(event.getEntity().getLocation(), Sound.BLOCK_NOTE_BASEDRUM, 1, 1);
 
         event.setDeathMessage(null);
         event.getEntity().getWorld().strikeLightningEffect(event.getEntity().getLocation());
-        Bukkit.broadcastMessage(instance.getPrefix() + Messages.EN_DEATH_BROADCAST);
+        Bukkit.broadcastMessage(instance.getPrefix() + Messages.EN_DEATH_BROADCAST.replace("{player}", event.getEntity().getName()));
         try {
             instance.getVerifiedPlayers().remove(event.getEntity().getUniqueId());
 
             if(instance.getVerifiedPlayers().size() == 1) {
                 Bukkit.getServer().getPluginManager().callEvent(new GameEndEvent(instance, Bukkit.getPlayer(instance.getWinner()).getName()));
                 return;
+            } else if(instance.getVerifiedPlayers().size() == 0) {
+                Bukkit.getServer().getPluginManager().callEvent(new GameEndEvent(instance, null));
             }
 
-            Bukkit.broadcastMessage(instance.getPrefix() + Messages.EN_PLAYERS_LEFT);
+            Bukkit.broadcastMessage(instance.getPrefix() + Messages.EN_PLAYERS_LEFT.replace("{remaining}", SurvivalGames.getInstance().getVerifiedPlayers().size() + "").replace("{maximum}", SurvivalGames.getInstance().maximumPlayers() + ""));
         } catch (Exception e) {
             System.out.println(event.getEntity().getName() + " was never a verified player in SurvivalGames!");
         }
@@ -74,7 +75,7 @@ public class PlayerListener implements Listener {
                 new BukkitRunnable() {
                     public void run() {
                         event.getPlayer().getInventory().clear();
-                        event.getPlayer().teleport(LocationUtil.getLocation(event.getPlayer().getWorld().getName(), instance.getConfig().getString("center")));
+                        //event.getPlayer().teleport(LocationUtil.getLocation("world", instance.getConfig().getString("center")));
                     }
                 }.runTaskLater(instance, 20l);
             }
@@ -92,7 +93,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
-        event.setCancelled(!instance.getState().isCanMove());
+        if(instance.getState().isCanMove()) return;
+        event.setCancelled(((event.getFrom().getBlockX() != event.getTo().getBlockX()) || (event.getFrom().getBlockZ() != event.getTo().getBlockZ())));
     }
 
     @EventHandler

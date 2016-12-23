@@ -1,6 +1,6 @@
 name: SurvivalGames
 version: 1.0
-main: me.violantic.sg.SurvivalGames
+main: com.mineswine.sg.SurvivalGames
 description: Custom survival games!!!
 
 commands:
