@@ -35,11 +35,11 @@ public class Messages {
 
     public final static String EN_NO_PERMS         = ChatColor.RED + "You do not have permission for that!";
 
-    public final static String EN_RATING_CHANGE    = ChatColor.GREEN + "[Stats] +{rating}!";
+    public final static String EN_RATING_CHANGE    = ChatColor.GREEN + "[STATS] +{rating}!";
 
-    public final static String EN_TIER_I_OPEN      = ChatColor.GREEN + "[Stats] +1 Tier I Chest Opened";
+    public final static String EN_TIER_I_OPEN      = ChatColor.GREEN + "[STATS] +1 Tier I Chest Opened";
 
-    public final static String EN_TIER_II_OPEN     = ChatColor.GREEN + "[Stats] +1 Tier II Chest Opened";
+    public final static String EN_TIER_II_OPEN     = ChatColor.GREEN + "[STATS] +1 Tier II Chest Opened";
 
     public final static String EN_MAP_VOTE         = ChatColor.YELLOW + "You have voted for " + ChatColor.LIGHT_PURPLE + "{map}" + ChatColor.YELLOW + "!";
 
@@ -52,6 +52,10 @@ public class Messages {
     public final static String EN_DM_POST_RELEASE  = ChatColor.DARK_RED + "" + ChatColor.BOLD + "FIGHT TO THE DEATH!";
 
     public final static String EN_DM_DISEASE_START = ChatColor.GREEN + "" + ChatColor.BOLD + "Disease is spreading...";
+
+    public final static String EN_CHEST_REFILLING  = ChatColor.LIGHT_PURPLE + "{tierI} " + ChatColor.YELLOW + " Tier I chests have been filled, and " + ChatColor.LIGHT_PURPLE + "{tierII} " + ChatColor.YELLOW + "Tier II chests have been filled.";
+
+    public final static String LINE = ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "-----------------------------------------------------";
 
     public final static String EN_ERROR            = ChatColor.RED + "There was an error in the code, go yell at Ethan @ https://forum.mineswine.com/members/violantic.4888/";
 

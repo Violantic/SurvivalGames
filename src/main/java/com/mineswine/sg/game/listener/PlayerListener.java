@@ -3,6 +3,7 @@ package com.mineswine.sg.game.listener;
 import com.mineswine.sg.SurvivalGames;
 import com.mineswine.sg.game.event.GameEndEvent;
 import com.mineswine.sg.game.lang.Messages;
+import com.mineswine.sg.game.util.LocationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -41,11 +42,15 @@ public class PlayerListener implements Listener {
             player.sendMessage(instance.getPrefix() + Messages.EN_PLAYER_KILL.replace("{target}", event.getEntity().getName()));
             player.sendMessage(instance.getPrefix() + Messages.EN_RATING_CHANGE.replace("{rating}", "2"));
             player.playSound(event.getEntity().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+
+            instance.getHistory().log(player.getUniqueId(), "Killed enemy player " + ChatColor.LIGHT_PURPLE + event.getEntity().getName() + ChatColor.GRAY + " with " + player.getItemInHand().getType().toString());
         }
 
         instance.getMysql().setStat(event.getEntity().getUniqueId().toString(), "deaths", 1);
         event.getEntity().sendMessage(instance.getPrefix() + Messages.EN_PLAYER_DIED.replace("{reason}", event.getDeathMessage()));
         event.getEntity().playSound(event.getEntity().getLocation(), Sound.BLOCK_NOTE_BASEDRUM, 1, 1);
+
+        instance.getHistory().log(event.getEntity().getUniqueId(), "You died");
 
         event.setDeathMessage(null);
         event.getEntity().getWorld().strikeLightningEffect(event.getEntity().getLocation());
@@ -75,7 +80,8 @@ public class PlayerListener implements Listener {
                 new BukkitRunnable() {
                     public void run() {
                         event.getPlayer().getInventory().clear();
-                        //event.getPlayer().teleport(LocationUtil.getLocation("world", instance.getConfig().getString("center")));
+                        instance.getHistory().register(event.getPlayer().getUniqueId());
+                        event.getPlayer().teleport(LocationUtil.getLocation("Lobby", instance.getConfig().getString("lobby")));
                     }
                 }.runTaskLater(instance, 20l);
             }
@@ -102,6 +108,8 @@ public class PlayerListener implements Listener {
         if(event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
             if(instance.getState().isCanPVP()) {
                 event.setCancelled(false);
+                instance.getHistory().log(event.getEntity().getUniqueId(), "You were damaged by " + ChatColor.LIGHT_PURPLE + event.getDamager().getName() + ChatColor.GRAY + " for " + ChatColor.LIGHT_PURPLE + (Math.round(event.getFinalDamage())) + ChatColor.GRAY + " health");
+                instance.getHistory().log(event.getEntity().getUniqueId(), "You damaged " + ChatColor.LIGHT_PURPLE + event.getEntity().getName() + ChatColor.GRAY + " for " + ChatColor.LIGHT_PURPLE + (Math.round(event.getFinalDamage())) + ChatColor.GRAY + " health");
             } else {
                 event.setCancelled(true);
             }
@@ -125,6 +133,8 @@ public class PlayerListener implements Listener {
         if(!instance.getState().isCanBreak()) {
             event.setCancelled(true);
         }
+
+        instance.getHistory().log(event.getPlayer().getUniqueId(), "You broke a " + ChatColor.LIGHT_PURPLE + event.getBlock().getType() + ChatColor.GRAY + " block");
     }
 
     @EventHandler
@@ -132,6 +142,8 @@ public class PlayerListener implements Listener {
         if(!instance.getState().isCanPlace()) {
             event.setCancelled(true);
         }
+
+        instance.getHistory().log(event.getPlayer().getUniqueId(), "You placed a " + ChatColor.LIGHT_PURPLE + event.getBlock().getType() + ChatColor.GRAY + " block");
     }
 
     @EventHandler
@@ -143,36 +155,43 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onOpen(PlayerInteractEvent event) {
+        if (!instance.getState().isCanOpen()) {
+            event.setCancelled(true);
+        }
+
         // Opening loot //
-        if(event.getAction() == Action.RIGHT_CLICK_BLOCK && (event.getClickedBlock().getType() == Material.SPONGE || event.getClickedBlock().getType() == Material.ENDER_CHEST)) {
+        if(event.getAction() == Action.RIGHT_CLICK_BLOCK && (event.getClickedBlock().getType() == Material.CHEST)) {
             if (instance.getCrateGenerator().tier1.contains(event.getClickedBlock())) {
                 instance.getCrateGenerator().tier1.remove(event.getClickedBlock());
                 instance.getMysql().setStat(event.getPlayer().getUniqueId().toString(), "chests_opened", 1);
                 event.getPlayer().sendMessage(instance.getPrefix() + Messages.EN_TIER_I_OPEN);
+                event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+                instance.getHistory().log(event.getPlayer().getUniqueId(), "You opened a " + ChatColor.LIGHT_PURPLE + "Tier I" + ChatColor.GRAY + " chest");
             } else if (instance.getCrateGenerator().tier2.contains(event.getClickedBlock())) {
                 instance.getCrateGenerator().tier2.remove(event.getClickedBlock());
                 instance.getMysql().setStat(event.getPlayer().getUniqueId().toString(), "chests_opened", 1);
                 event.getPlayer().sendMessage(instance.getPrefix() + Messages.EN_TIER_II_OPEN);
+                event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+                instance.getHistory().log(event.getPlayer().getUniqueId(), "You opened a " + ChatColor.LIGHT_PURPLE + "Tier II" + ChatColor.GRAY + " chest");
             }
         }
 
         // Voting //
         if (event.getPlayer().getItemInHand().getType() == Material.PAPER) {
             if(!instance.getState().getName().equalsIgnoreCase("waiting")) return;
+            if(instance.getGameMapVoter().hasVoted(event.getPlayer().getUniqueId())) return;
 
             ItemMeta meta = event.getItem().getItemMeta();
             String namePlus = ChatColor.stripColor(meta.getDisplayName());
             String name = namePlus.replace("VOTE: ", "");
             instance.getGameMapVoter().addVote(event.getPlayer().getUniqueId(), name);
 
+            event.getPlayer().getInventory().clear();
+
             event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
             event.getPlayer().sendMessage(instance.getPrefix() + Messages.EN_MAP_VOTE.replace("{map}", name));
-        }
-        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || !event.getAction().equals(Action.RIGHT_CLICK_AIR))
-            return;
 
-        if (!instance.getState().isCanOpen()) {
-            event.setCancelled(true);
+            instance.getHistory().log(event.getPlayer().getUniqueId(), "You voted for " + ChatColor.LIGHT_PURPLE + name + ChatColor.GRAY + " as the map");
         }
     }
 

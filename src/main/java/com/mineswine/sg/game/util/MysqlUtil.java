@@ -2,6 +2,7 @@ package com.mineswine.sg.game.util;
 
 import com.mineswine.sg.SurvivalGames;
 import com.mineswine.sg.game.cosmetic.Cosmetic;
+import com.mineswine.sg.game.lang.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -203,7 +204,7 @@ public class MysqlUtil {
 
                 System.out.println("Retrieving");
 
-                player.sendMessage(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
+                player.sendMessage(Messages.LINE);
                 player.sendMessage("");
                 ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
                 player.sendMessage("");
@@ -215,7 +216,7 @@ public class MysqlUtil {
                 ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Games Won: " + ChatColor.LIGHT_PURPLE + set.getInt("wins"));
 
                 player.sendMessage("");
-                player.sendMessage(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
+                player.sendMessage(Messages.LINE);
             }
         } catch (SQLException e) {
             e.printStackTrace();

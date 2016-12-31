@@ -6,7 +6,9 @@ import com.mineswine.sg.game.command.CommandManager;
 import com.mineswine.sg.game.command.SGCommand;
 import com.mineswine.sg.game.command.custom.ForceEndCommand;
 import com.mineswine.sg.game.command.custom.ForceStartCommand;
+import com.mineswine.sg.game.command.custom.HistoryCommand;
 import com.mineswine.sg.game.command.custom.StatsCommand;
+import com.mineswine.sg.game.history.HistoryLogger;
 import com.mineswine.sg.game.lang.Messages;
 import com.mineswine.sg.game.listener.GameListener;
 import com.mineswine.sg.game.listener.PlayerListener;
@@ -67,6 +69,8 @@ public class SurvivalGames extends JavaPlugin implements Game {
     private MysqlUtil mysql;
     private CosmeticUtil cosmetics;
 
+    private HistoryLogger history;
+
     private boolean enabled = true;
 
     public int second;
@@ -81,6 +85,10 @@ public class SurvivalGames extends JavaPlugin implements Game {
         setState(new GameState("waiting"));
         getState().setCanOpen(true);
         handler = new GameHandler();
+
+        history = new HistoryLogger();
+
+        new Map("Lobby", new String[]{"Ethan"}, null);
 
         gameMapVoter = new MapVoter("Game Map", new HashMap<String, Integer>() {
             {
@@ -115,7 +123,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
         //getServer().getScheduler().runTaskTimer(this, lagUtil, 100l, 1l);
         getServer().getScheduler().runTaskTimer(this, getHandler(), 0l, 20l);
         getServer().getScheduler().runTaskTimer(this, scoreboardHandler, 0l, 20l);
-        getServer().getScheduler().runTaskTimer(this, voteHandler, 0l, 20 * 3l);
+        getServer().getScheduler().runTaskTimer(this, voteHandler, 0l, 20 * 10l);
         //getServer().getScheduler().runTaskTimerAsynchronously(this, new CosmeticHandler(this), 0l, 1);
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
@@ -128,6 +136,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
         commands.register(new StatsCommand(this));
         commands.register(new ForceStartCommand(this));
         commands.register(new ForceEndCommand(this));
+        commands.register(new HistoryCommand(this));
 
         for(SGCommand commandz : commands.getCommandCache()) {
             String name = commandz.getName();
@@ -160,6 +169,14 @@ public class SurvivalGames extends JavaPlugin implements Game {
 
     public static SurvivalGames getInstance() {
         return instance;
+    }
+
+    public HistoryLogger getHistory() {
+        return history;
+    }
+
+    public void setHistory(HistoryLogger history) {
+        this.history = history;
     }
 
     public CommandManager getCommands() {
@@ -287,7 +304,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
     }
 
     public void setupLocations() {
-        List<Location> locs = LocationUtil.getCircle(LocationUtil.getLocation(getGameMap().getWorld().getName(), getConfig().getString("center")), 15, 30);
+        List<Location> locs = LocationUtil.getCircle(LocationUtil.getLocation(getGameMap().getName(), getConfig().getString("center")), 15, 30);
         for (Location location : locs) {
             try {
                 getStartingLocations().add(location);

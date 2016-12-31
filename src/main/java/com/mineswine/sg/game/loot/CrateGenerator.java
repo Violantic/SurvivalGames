@@ -2,7 +2,8 @@ package com.mineswine.sg.game.loot;
 
 import com.mineswine.sg.SurvivalGames;
 import com.mineswine.sg.game.util.LootUtil;
-import org.bukkit.*;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -66,16 +67,15 @@ public class CrateGenerator {
                 }
                 search("");
             }
-        }.runTaskTimer(SurvivalGames.getInstance(), 0l, 20 * 10l);
+        }.runTaskTimer(SurvivalGames.getInstance(), 0l, 20 * 180l);
     }
 
     public void search(String map) {
-        System.out.println("Testing crate gen: " + all.size() + " blocks found");
+        //Bukkit.broadcastMessage(instance.getPrefix() + Messages.EN_CHEST_REFILLING);
         for (Block block : all) {
             if (block.getType().equals(Material.SPONGE)) {
                 int p = ThreadLocalRandom.current().nextInt(100) + 1;
                 if (p <= 75.0) {
-                    tier1.add(block);
                     block.setType(Material.CHEST);
 
                     Chest chest = (Chest) block.getState();
@@ -93,7 +93,6 @@ public class CrateGenerator {
                     block.setType(Material.AIR);
                 }
             } else if (block.getType() == Material.ENDER_CHEST) {
-                tier2.add(block);
                 block.setType(Material.CHEST);
 
                 Chest chest = (Chest) block.getState();

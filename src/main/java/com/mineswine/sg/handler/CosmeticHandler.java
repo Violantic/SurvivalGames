@@ -25,6 +25,7 @@ public class CosmeticHandler implements Runnable {
     public void run() {
         for(Player player : Bukkit.getOnlinePlayers()) {
             CloakUtil.displayCloak(player, Cosmetic.LEGENDARY_CAPE);
+            CloakUtil.displayHead(player);
         }
     }
 }

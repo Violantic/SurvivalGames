@@ -1,6 +1,7 @@
 package com.mineswine.sg.game.event;
 
 import com.mineswine.sg.game.Game;
+import com.mineswine.sg.game.lang.Messages;
 import com.mineswine.sg.game.util.ChatUtil;
 import com.mineswine.sg.SurvivalGames;
 import org.bukkit.ChatColor;
@@ -28,15 +29,14 @@ public class GameStartEvent extends Event {
         for (Player online : SurvivalGames.getInstance().getServer().getOnlinePlayers()) {
             online.playSound(online.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
             //TitleUtil.sendTitle(online, 10, 20 * 5, 10, ChatColor.YELLOW + SurvivalGames.getInstance().getPrefix(), ChatColor.RESET + Arrays.asList(SurvivalGames.getInstance().getMap().getCreators()).toString());
-            online.sendMessage(ChatColor.DARK_GRAY + "----------------------------------------------------");
+            online.sendMessage(Messages.LINE);
             online.sendMessage("");
             ChatUtil.sendCenteredMessage(online, SurvivalGames.getInstance().getPrefix());
-            online.sendMessage("");
             for (String string : game.getDescriptions()) {
                 ChatUtil.sendCenteredMessage(online, ChatColor.YELLOW + string);
             }
             online.sendMessage("");
-            online.sendMessage(ChatColor.DARK_GRAY + "----------------------------------------------------");
+            online.sendMessage(Messages.LINE);
         }
     }
 

@@ -56,8 +56,10 @@ public class VoteHandler implements Runnable {
     }
 
     public void updateItems(Collection<? extends Player> players) {
-        for(Player player : players)
-            for (ItemStack item : getMapItems()) player.getInventory().setItem(getMapItems().indexOf(item)+1, item);
+        for(Player player : players) {
+            if (voter.hasVoted(player.getUniqueId())) break;
+            for (ItemStack item : getMapItems()) player.getInventory().setItem(getMapItems().indexOf(item) + 1, item);
+        }
     }
 
     public void end(Collection<? extends Player> players) {
@@ -67,15 +69,17 @@ public class VoteHandler implements Runnable {
 
     public void run() {
         if(!SurvivalGames.getInstance().enabled()) return;
-        if(!SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) {
-            return;
+        if(!SurvivalGames.getInstance().getState().getName().equalsIgnoreCase("waiting")) return;
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            player.sendMessage(ChatColor.DARK_GRAY + "--------------------------------------------");
+            for(String team : voter.getValues().keySet()) {
+                String format = SurvivalGames.getInstance().getPrefix() + team + " has " + ChatColor.LIGHT_PURPLE + voter.getValues().get(team) + ChatColor.YELLOW + " votes";
+                player.sendMessage(format);
+            }
+            player.sendMessage(ChatColor.DARK_GRAY + "--------------------------------------------");
         }
 
         refresh();
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            for (ItemStack item : getMapItems()) {
-                player.getInventory().setItem(getMapItems().indexOf(item), item);
-            }
-        }
+        updateItems(Bukkit.getOnlinePlayers());
     }
 }
