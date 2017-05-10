@@ -81,7 +81,7 @@ public class PlayerListener implements Listener {
                     public void run() {
                         event.getPlayer().getInventory().clear();
                         instance.getHistory().register(event.getPlayer().getUniqueId());
-                        event.getPlayer().teleport(LocationUtil.getLocation("Lobby", instance.getConfig().getString("lobby")));
+                        event.getPlayer().teleport(LocationUtil.getLocation("world", instance.getConfig().getString("lobby")));
                     }
                 }.runTaskLater(instance, 20l);
             }
@@ -134,7 +134,7 @@ public class PlayerListener implements Listener {
             event.setCancelled(true);
         }
 
-        instance.getHistory().log(event.getPlayer().getUniqueId(), "You broke a " + ChatColor.LIGHT_PURPLE + event.getBlock().getType() + ChatColor.GRAY + " block");
+        instance.getHistory().log(event.getPlayer().getUniqueId(), "You broke a " + ChatColor.RED + event.getBlock().getType() + ChatColor.GRAY + " block");
     }
 
     @EventHandler
@@ -143,7 +143,7 @@ public class PlayerListener implements Listener {
             event.setCancelled(true);
         }
 
-        instance.getHistory().log(event.getPlayer().getUniqueId(), "You placed a " + ChatColor.LIGHT_PURPLE + event.getBlock().getType() + ChatColor.GRAY + " block");
+        instance.getHistory().log(event.getPlayer().getUniqueId(), "You placed a " + ChatColor.RED + event.getBlock().getType() + ChatColor.GRAY + " block");
     }
 
     @EventHandler

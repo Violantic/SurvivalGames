@@ -40,7 +40,7 @@ public class HistoryLogger {
         SimpleDateFormat f = new SimpleDateFormat("dd MMM yyyy HH:mm");
         String formatted = f.format(date);
 
-        getLog().get(player).add(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Mineswine " + ChatColor.RESET + "" + ChatColor.GRAY + entry + ChatColor.LIGHT_PURPLE + " @ " + formatted);
+        getLog().get(player).add(ChatColor.RED + "" + ChatColor.BOLD + "Borawski's SG" + ChatColor.RESET + "" + ChatColor.GRAY + entry + ChatColor.RED + " @ " + formatted);
     }
 
     public ItemStack getBook(UUID player) {

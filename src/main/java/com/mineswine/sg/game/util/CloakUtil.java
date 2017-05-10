@@ -37,35 +37,7 @@ public class CloakUtil {
         }
     }
 
-    public static void displayHead(Player player) {
-        Location baseLoc = player.getLocation();
-        baseLoc.setPitch(0);
-        double angle = angleFunc(baseLoc.getDirection());
-        double right = angle + (Math.PI / 2);
-        right = right > Math.PI ? right - 2 * Math.PI : right;
-        Vector vright = new Vector(Math.cos(right), 0, Math.sin(right));
-        Location topLoc = baseLoc.add(0, 2.4D, 0).add(vright.clone().multiply(0.3));
-        int[][] design = getLegendaryHead();
-        Integer t = 0;
-        for (int j = 0; j < design.length; j++) {
-            for (int i = 0; i < design[0].length; i++) {
-                Location ploc = topLoc.clone().add(baseLoc.getDirection().multiply(-0.06 * t));
-                ploc = ploc.subtract(vright.clone().multiply(0.125 * i));
-                ploc = ploc.subtract(0, 0.18 * j, 0);
-                int b = (design[j][(design[0].length - 1) - i]);
-                if(b == 0) break;
-                int[] rgb = getRGB(b);
-                int red = rgb[0];
-                int green = rgb[1];
-                int blue = rgb[2];
-                player.getWorld().spigot().playEffect(ploc, Effect.COLOURED_DUST, 0, 0, red, green, blue, 1, 0, 16);
-            }
-            t++;
-        }
-    }
-
     /**
-     *
      * RED     - 1
      * ORANGE  - 2
      * YELLOW  - 3

@@ -44,12 +44,10 @@ public class GameHandler implements Runnable {
 
     /**
      * Second will increment every 20 ticks (If healthy server state, every 1 second).
-     * TODO - Instead of booleans for stages, make use of already existing game state's (I'm an idiot)
      */
     public void run() {
         if (!SurvivalGames.getInstance().enabled()) return;
 
-        // Waits for the
         if (lobby) {
             handleXP();
         }
@@ -85,13 +83,18 @@ public class GameHandler implements Runnable {
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
                         ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Loading map...");
+                        player.sendMessage("");
+                        player.sendMessage(Messages.LINE);
                     }
                     Bukkit.broadcastMessage("");
                     playTick();
 
                     // Start loading new crates so players don't get antsy. //
                     SurvivalGames.getInstance().initiateGameMap();
+                    Bukkit.broadcastMessage(Messages.LINE);
+                    Bukkit.broadcastMessage("");
                     for(Player player : Bukkit.getOnlinePlayers()) {
+                        ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
                         ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Game starting in " + second + " seconds");
                     }
                     Bukkit.broadcastMessage("");

@@ -68,6 +68,9 @@ public class MysqlUtil {
     }
 
     public void createTables() {
+        String main = "CREATE TABLE IF NOT EXISTS s_games (id INT(11) AUTO INCREMENT, PRIMARY KEY(id), name VARCHAR(60), uuid VARCHAR(60), "
+                + "points INT(11), kills INT(11), deaths INT(11), chests_opened INT(11), games INT(11), wins INT(11)";
+
         String query =
                 "CREATE TABLE IF NOT EXISTS sg_cos (" +
                 "id INT(11) AUTO INCREMENT, PRIMARY KEY(id), uuid VARCHAR(60), cos_id INT(11)" +
@@ -75,6 +78,9 @@ public class MysqlUtil {
         try {
             PreparedStatement statement = getConnection().prepareStatement(query);
             statement.executeUpdate();
+
+            PreparedStatement table = getConnection().prepareStatement(main);
+            table.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -208,12 +214,12 @@ public class MysqlUtil {
                 player.sendMessage("");
                 ChatUtil.sendCenteredMessage(player, SurvivalGames.getInstance().getPrefix());
                 player.sendMessage("");
-                ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Rating: " + ChatColor.LIGHT_PURPLE + set.getInt("points"));
-                ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Kills: " + ChatColor.LIGHT_PURPLE + set.getInt("kills"));
-                ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Deaths: " + ChatColor.LIGHT_PURPLE + set.getInt("deaths"));
-                ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Chests Opened: " + ChatColor.LIGHT_PURPLE + set.getInt("chests_opened"));
-                ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Games Played: " + ChatColor.LIGHT_PURPLE + set.getInt("games"));
-                ChatUtil.sendCenteredMessage(player, ChatColor.YELLOW + "Games Won: " + ChatColor.LIGHT_PURPLE + set.getInt("wins"));
+                ChatUtil.sendCenteredMessage(player, ChatColor.GRAY + "Rating: " + ChatColor.RED + set.getInt("points"));
+                ChatUtil.sendCenteredMessage(player, ChatColor.GRAY + "Kills: " + ChatColor.RED + set.getInt("kills"));
+                ChatUtil.sendCenteredMessage(player, ChatColor.GRAY + "Deaths: " + ChatColor.RED + set.getInt("deaths"));
+                ChatUtil.sendCenteredMessage(player, ChatColor.GRAY + "Chests Opened: " + ChatColor.RED + set.getInt("chests_opened"));
+                ChatUtil.sendCenteredMessage(player, ChatColor.GRAY + "Games Played: " + ChatColor.RED + set.getInt("games"));
+                ChatUtil.sendCenteredMessage(player, ChatColor.GRAY + "Games Won: " + ChatColor.RED + set.getInt("wins"));
 
                 player.sendMessage("");
                 player.sendMessage(Messages.LINE);

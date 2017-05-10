@@ -15,11 +15,11 @@ public class Messages {
 
     public final static String EN_GAME_NOT_STARTED = ChatColor.RED + "The game has not been started yet!";
 
-    public final static String EN_FORCE_STARTING   = ChatColor.YELLOW + "Force starting the game!";
+    public final static String EN_FORCE_STARTING   = ChatColor.GRAY + "Force starting the game!";
 
-    public final static String EN_FORCE_MAP        = ChatColor.YELLOW + "Game has been force started, choosing the map winner...";
+    public final static String EN_FORCE_MAP        = ChatColor.GRAY + "Game has been force started, choosing the map winner...";
 
-    public final static String EN_FORCE_ENDING     = ChatColor.YELLOW + "Force ending the game!";
+    public final static String EN_FORCE_ENDING     = ChatColor.GRAY + "Force ending the game!";
 
     public final static String EN_PLAYER_KILL      = ChatColor.GREEN + "You killed {target}!";
 
@@ -27,7 +27,7 @@ public class Messages {
 
     public final static String EN_PLAYER_DIED      = ChatColor.RED + "You died from {reason}";
 
-    public final static String EN_DEATH_BROADCAST  = ChatColor.YELLOW + "Player " + ChatColor.LIGHT_PURPLE + "{player} " + ChatColor.YELLOW + " has been eliminated!";
+    public final static String EN_DEATH_BROADCAST  = ChatColor.GRAY + "Player " + ChatColor.RED + "{player} " + ChatColor.GRAY + " has been eliminated!";
 
     public final static String EN_GAME_WIN         = ChatColor.GOLD + "You won the game!";
 
@@ -41,22 +41,22 @@ public class Messages {
 
     public final static String EN_TIER_II_OPEN     = ChatColor.GREEN + "[STATS] +1 Tier II Chest Opened";
 
-    public final static String EN_MAP_VOTE         = ChatColor.YELLOW + "You have voted for " + ChatColor.LIGHT_PURPLE + "{map}" + ChatColor.YELLOW + "!";
+    public final static String EN_MAP_VOTE         = ChatColor.GRAY + "You have voted for " + ChatColor.RED + "{map}" + ChatColor.GRAY + "!";
 
-    public final static String EN_PLAYERS_LEFT     = ChatColor.YELLOW + "There are currently " + ChatColor.LIGHT_PURPLE + "{remaining} " + ChatColor.YELLOW + "out of " + ChatColor.LIGHT_PURPLE + "{maximum} " + ChatColor.YELLOW + "survivors remaining!";
+    public final static String EN_PLAYERS_LEFT     = ChatColor.GRAY + "There are currently " + ChatColor.RED + "{remaining} " + ChatColor.GRAY + "out of " + ChatColor.RED + "{maximum} " + ChatColor.GRAY + "survivors remaining!";
 
-    public final static String EN_MAP_VOTE_SUCCESS = ChatColor.YELLOW + "The map voted was " + ChatColor.LIGHT_PURPLE + "{map}" + ChatColor.YELLOW + "!";
+    public final static String EN_MAP_VOTE_SUCCESS = ChatColor.GRAY + "The map voted was " + ChatColor.RED + "{map}" + ChatColor.GRAY + "!";
 
-    public final static String EN_DM_NATURAL       = ChatColor.YELLOW + "The death match has come early? Huh...";
+    public final static String EN_DM_NATURAL       = ChatColor.GRAY + "The death match has come early? Huh...";
 
     public final static String EN_DM_POST_RELEASE  = ChatColor.DARK_RED + "" + ChatColor.BOLD + "FIGHT TO THE DEATH!";
 
     public final static String EN_DM_DISEASE_START = ChatColor.GREEN + "" + ChatColor.BOLD + "Disease is spreading...";
 
-    public final static String EN_CHEST_REFILLING  = ChatColor.LIGHT_PURPLE + "{tierI} " + ChatColor.YELLOW + " Tier I chests have been filled, and " + ChatColor.LIGHT_PURPLE + "{tierII} " + ChatColor.YELLOW + "Tier II chests have been filled.";
+    public final static String EN_CHEST_REFILLING  = ChatColor.RED + "{tierI} " + ChatColor.GRAY + " Tier I chests have been filled, and " + ChatColor.RED + "{tierII} " + ChatColor.GRAY + "Tier II chests have been filled.";
 
     public final static String LINE = ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "-----------------------------------------------------";
 
-    public final static String EN_ERROR            = ChatColor.RED + "There was an error in the code, go yell at Ethan @ https://forum.mineswine.com/members/violantic.4888/";
+    public final static String EN_ERROR            = ChatColor.RED + "There was an error in the code, go yell at Ethan @ github.com/Violantic";
 
 }

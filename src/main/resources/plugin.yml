@@ -10,3 +10,7 @@ commands:
           description: Force end the game!
      stats:
           description: Check your stats on SG!
+     history:
+          description: Check your game history!
+     settings:
+          description: Change your settings in game for things such as your active cosmetics, and game sounds!

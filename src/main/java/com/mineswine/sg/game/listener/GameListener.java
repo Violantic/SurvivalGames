@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 
@@ -60,7 +61,17 @@ public class GameListener implements Listener {
                 player.sendMessage(instance.getPrefix() + Messages.EN_GAME_LOSS);
             }
 
+            for(Player player1 : Bukkit.getOnlinePlayers()) {
+                player1.sendMessage(instance.getPrefix() + "Server shutting down in 15 seconds...");
+            }
+
             //instance.getCosmetics().invokeGameFinishRatingUpdate(player.getUniqueId().toString());
+            new BukkitRunnable() {
+                public void run() {
+
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "stop");
+                }
+            }.runTaskLater(instance, 20 * 15);
         }
 
         instance.setEnable(false);

@@ -16,7 +16,7 @@ public class ChatUtil {
         boolean previousCode = false;
         boolean isBold = false;
         for (char c : message.toCharArray()) {
-            if (c == 'ง') {
+            if (c == 'ยง') {
                 previousCode = true;
                 continue;
             } else if (previousCode) {

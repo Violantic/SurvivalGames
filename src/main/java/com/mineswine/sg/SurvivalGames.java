@@ -129,7 +129,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new GameListener(this), this);
 
-        mysql = new MysqlUtil("149.56.96.176", 3306, "survivalgames", "mc", "uFBGzfndWxEDe5yD");
+        mysql = new MysqlUtil("localhost", 3306, "mcc", "root", "HCFTESTSERVER1");
         cosmetics = new CosmeticUtil(mysql);
 
         commands = new CommandManager(this);
@@ -340,7 +340,7 @@ public class SurvivalGames extends JavaPlugin implements Game {
     }
 
     public String getPrefix() {
-        return ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Mine" + ChatColor.YELLOW + "" + ChatColor.BOLD + "swine " + ChatColor.RESET + ChatColor.GRAY  + "";
+        return ChatColor.RED + "" + ChatColor.BOLD + "Borawski's " + ChatColor.YELLOW + "" + ChatColor.BOLD + "SG " + ChatColor.RESET + ChatColor.GRAY  + "";
     }
 
 }
